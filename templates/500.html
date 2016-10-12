@@ -1,0 +1,18 @@
+{% extends "error/base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load gravatar %}
+
+{% block head_title %}{% trans '500 Internal server error' %}{% endblock %}
+
+{% block body_content %}
+    <div class="container">
+        <div class="error-block">
+            <div class="huge-text error-block__number">500</div>
+            <h1 class="h2 error-block__title">{% trans 'An error occurred on the server' %}</h1>
+            <div class="error-block__descr">{% trans 'Chances are we already working to fix the problem. Try to refresh the page after&nbsp;some time or' %} <a id="error-report-link" href="mailto:info@nextgis.com?subject={% trans 'Server error' %} nextgis.com&body={% trans 'Server error when accessing' %} ">{% trans 'let us know' %}</a>.</div>
+            <a class="error-block__btn btn btn-huge btn-raised btn-primary" href="#" onclick="history.back()">{% trans 'Go back' %}</a>
+        </div>    
+    </div>
+{% endblock %}

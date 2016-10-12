@@ -1,0 +1,18 @@
+{% extends "error/base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load gravatar %}
+
+{% block head_title %}{% trans '403 Forbidden' %}{% endblock %}
+
+{% block body_content %}
+    <div class="container">
+        <div class="error-block">
+            <div class="huge-text error-block__number">403</div>
+            <h1 class="h2 error-block__title">{% trans 'The access to this page is forbidden' %}</h1>
+            <div class="error-block__descr">{% trans "Think it's a mistake?" %} <a id="error-report-link" href="mailto:info@nextgis.com?subject={% trans 'Denial of access to' %} nextgis.com&body={% trans 'There is no access to the page' %} ">{% trans 'Let us know' %}</a>.</div>
+            <a class="error-block__btn btn btn-huge btn-raised btn-primary" href="{% url 'root' %}">{% trans 'Go to cabinet' %}</a>
+        </div>    
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 # NextGIS Commons
-Common parts from web services
+Django app with common parts from web services
 
 
 ## Add to new project
