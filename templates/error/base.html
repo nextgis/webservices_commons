@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block body %}
+    <section class="layout admin__panel layout--vcenter">
+        <!-- Error header -->
+        <header class="admin__panel__header navbar">
+            {% include "common_snippets/user_nav.html" %}
+            <div class="ap__header__logo">
+                {% include "common_snippets/logo.html" %}
+            </div>
+        </header>
+        <!-- Error content -->
+        <div class="admin__panel__content admin__panel__content--vcenter">
+            {% block body_content %}{% endblock %}
+        </div>
+    </section> <!--/.admin__panel .layout-->
+{% endblock %}

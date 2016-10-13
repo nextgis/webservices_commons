@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load external_url %}
+
+<footer class="footer">
+    <div class="container">
+        {% get_current_language as LANGUAGE_CODE %}
+        <ul class="footer-menu list-unstyled hide-on-sm">
+            <li class="footer-menu__item">
+                <a href="{% external_url 'terms' LANGUAGE_CODE %}" target="_blank">{% trans 'Terms of Service' %}</a>
+            </li>
+            <li class="footer-menu__item">
+                <a href="{% external_url 'privacy' LANGUAGE_CODE %}" target="_blank">{% trans 'Privacy Policy' %}</a>
+            </li>
+        </ul>
+        © 2016 <a href="{% external_url 'nextgis_com' LANGUAGE_CODE %}" target="_blank">NextGIS</a>
+    </div>
+</footer>
