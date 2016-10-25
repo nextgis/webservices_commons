@@ -10,11 +10,11 @@ class NextGisIdScopes:
     QMS_PRIVATE_READ = 'qms.private.read'
     QMS_PRIVATE_WRITE = 'qms.private.write'
 
-    @staticmethod
+    @classmethod
     def default_scope(cls):
         return cls.USER_INFO_READ
 
-    @staticmethod
+    @classmethod
     def as_dict(cls):
         return {
             cls.USER_INFO_READ: 'Read user info',
