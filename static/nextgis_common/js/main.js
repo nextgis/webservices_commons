@@ -570,7 +570,7 @@ var Format = (function(){
     var me = {
         init: function(){
             dataToFormat.each(function(){
-                value = parseFloat($(this).text());
+                value = parseFloat($(this).text().replace(" ", ""));
                 $(this).text(value.format(0,3));
             })  
         }

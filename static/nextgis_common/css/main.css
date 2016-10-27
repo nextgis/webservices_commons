@@ -11,7 +11,6 @@
 @import url(material-icons.css);
 @import url(nouislider.pips.css);
 @import url(ripples.css);
-
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -6061,6 +6060,9 @@ body {
   letter-spacing: .5px;
   font-weight: bold; }
 
+.smaller-text {
+  font-size: .6em; }
+
 *:focus,
 *:active,
 *:hover,
@@ -8318,18 +8320,9 @@ a:hover .user-photo__icon {
   font-size: 28px;
   font-weight: 400; }
 
-.plan-price__cur {
-  font-size: .6em; }
-
-.plan-price__cur--en {
-  position: relative;
-  top: -1px;
-  font-size: .75em;
-  margin-right: 3px; }
-
 .plan-price--small {
   font-size: 18px; }
-  .plan-price--small .plan-price__cur {
+  .plan-price--small .smaller-text {
     font-size: .9em; }
 
 .plan-price--old {
