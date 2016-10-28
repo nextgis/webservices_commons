@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import logging
 
-from django.utils.crypto import constant_time_compare
+from django.db import transaction
 from requests_oauthlib import OAuth2Session
 
 from django.conf import settings
@@ -65,6 +65,7 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
 class NgidOAuth2CallbackView(OAuthClientMixin, View):
     view_name = 'ngid_callback'
 
+    @transaction.atomic
     def get(self, request, *args, **kwargs):
         provider = NgidProvider
 
@@ -99,9 +100,10 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             'access_token': raw_token['access_token'],
             'refresh_token': raw_token['refresh_token'],
         }
-        access, created = AccessToken.objects.get_or_create(
-             user_id=identifier, defaults=defaults
-        )
+
+
+        #TODO: check user_guid
+        access, created = AccessToken.objects.get_or_create(defaults=defaults)
         if not created:
             access.access_token = raw_token['access_token']
             access.refresh_token = raw_token['refresh_token']
