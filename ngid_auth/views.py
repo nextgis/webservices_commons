@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from datetime import datetime
 import logging
 
 from django.db import transaction
@@ -97,26 +98,27 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
         # Get or create access record
         defaults = {
+            'user_id': identifier,
             'access_token': raw_token['access_token'],
             'refresh_token': raw_token['refresh_token'],
+            'expires_at': datetime.fromtimestamp(raw_token['expires_at']),
         }
 
 
-        #TODO: check user_guid
-        access, created = AccessToken.objects.get_or_create(defaults=defaults)
-        if not created:
-            access.access_token = raw_token['access_token']
-            access.refresh_token = raw_token['refresh_token']
-            #TODO: access.expires_in
-            access.save()
+        # Update or create user and token
+        self.create_or_update_user(info)
+        access, created = AccessToken.objects.update_or_create(
+            defaults=defaults,
+            user_id=identifier,
+            access_token=raw_token['access_token'],
+        )
 
-        # Handle user
-        user = authenticate(nguid=identifier, access_token=raw_token['access_token'])
+        # auth and login
+        user = authenticate(nguid=identifier, access_token=access.access_token)
+        login(self.request, user)
+        activate_user_locale(self.request, user.locale)
+        return redirect(self.get_login_redirect())
 
-        if user is None:
-            return self.handle_new_user(access, info)
-        else:
-            return self.handle_existing_user(user, info)
 
     def get_error_redirect(self, provider, reason):
         return settings.LOGIN_URL
@@ -124,11 +126,16 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
     def get_login_redirect(self):
         return settings.LOGIN_REDIRECT_URL
 
-    def create_user(self, info):
+    def create_or_update_user(self, info):
         user_model = get_user_model()
-        kwargs = info
-        kwargs['password'] = None
-        return user_model.objects.create_user(**kwargs)
+        try:
+            user = user_model.objects.get(nextgis_guid=info['nextgis_guid'])
+            self.update_user(user, info)
+        except user_model.DoesNotExist:
+            kwargs = info
+            kwargs['password'] = None
+            user = user_model.objects.create_user(**kwargs)
+        return user
 
     def update_user(self, user, info):
         try:
@@ -158,24 +165,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
         messages.error(self.request, 'Authenication Failed')
         return redirect(self.get_error_redirect(provider, reason))
 
-    def handle_existing_user(self, user, info):
-        """Login user, update and redirect"""
-        self.update_user(user, info)
-        login(self.request, user)
-        activate_user_locale(self.request, user.locale)
-        return redirect(self.get_login_redirect())
-
-    def handle_new_user(self, access, info):
-        """Create a shell auth.User and redirect"""
-        user = self.create_user(info)
-        # update token record
-        access.user = user
-        access.save()
-        # auth and login
-        user = authenticate(nguid=user.nextgis_guid, access_token=access.access_token)
-        login(self.request, user)
-        activate_user_locale(self.request, user.locale)
-        return redirect(self.get_login_redirect())
 
 
 class NgidLogoutView(View):

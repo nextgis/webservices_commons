@@ -42,8 +42,11 @@ Add to INSTALLED_APPS:
 ## Usage NGID OAuth authorization
 ### Create APP on my.nextgis.com
 **Client type**: confidential
+
 **Authorization Grant Type**: authorization-code
+
 **Redirect Uris**: http://your_site_url/login/callback/
+
 **Skip authorization**: True
 
 

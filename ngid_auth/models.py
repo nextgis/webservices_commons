@@ -12,7 +12,12 @@ class AccessToken(models.Model):
     modified = models.DateTimeField(auto_now=True)
     access_token = models.CharField(max_length=4096, blank=True, null=True, default=None)
     refresh_token = models.CharField(max_length=4096, blank=True, null=True, default=None)
-    expires_in = models.DateTimeField(blank=True, null=True)
+    expires_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return '{0} {1}'.format(self.user, self.access_token)
+
+    class Meta:
+        index_together = [
+            ("user", "access_token"),
+        ]
