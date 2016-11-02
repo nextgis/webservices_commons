@@ -582,6 +582,27 @@ var Format = (function(){
     return me;
 })();
 
+// Fix bootstrap padding-right for fixed navbar
+function fixBootstrap(){
+    $(window).load(function(){
+        var oldSSB = $.fn.modal.Constructor.prototype.setScrollbar;
+        $.fn.modal.Constructor.prototype.setScrollbar = function(){
+            oldSSB.apply(this);
+            if(this.bodyIsOverflowing && this.scrollbarWidth)
+            {
+                $('.header, .navbar-fixed-top, .navbar-fixed-bottom').css('right', this.scrollbarWidth);
+            }       
+        }
+
+        var oldRSB = $.fn.modal.Constructor.prototype.resetScrollbar;
+        $.fn.modal.Constructor.prototype.resetScrollbar = function(){
+            oldRSB.apply(this);
+            $('.header, .navbar-fixed-top, .navbar-fixed-bottom').css('right', '');
+        }
+    });
+}
+
+
 $(document).ready(function(){
     $.material.options = {
       "input": true,
@@ -608,6 +629,8 @@ $(document).ready(function(){
     }
     svg4everybody();
     $.material.init();
+
+    fixBootstrap();
 
     // Fixed nav
     if ($(".nav--fixed").length){
