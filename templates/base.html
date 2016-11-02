@@ -30,8 +30,12 @@
     {% block extra_head %}{% endblock %}
   </head>
 
-  <body {% if body_class %} class="{{ body_class }}" {% endif %}>
+  <body class="{% block body_class %}{% endblock %}">
     {% block body %}
+    {% endblock %}
+
+    <!-- Block for popups -->
+    {% block popups %}
     {% endblock %}
 
     <!-- Block for alerts -->
@@ -58,10 +62,10 @@
     {% endblock %}
 
     <!-- Footer -->
-    {% include "common_snippets/footer.html" %}
+    {% include "snippets/footer.html" %}
     <div class="overlay"></div>
     <!-- Scripts -->
-    {% include "common_snippets/scripts.html" %}
+    {% include "snippets/scripts.html" %}
     <!-- Extra stuff -->
     {% block extra_body %}{% endblock %}    
   </body>

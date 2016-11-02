@@ -98,7 +98,7 @@ msgstr "Ошибка на сервере при просмотре страни�
 
 #: nextgis_common/templates/500.html:15
 msgid "Go back"
-msgstr "Вернуться"
+msgstr "Вернуться назад"
 
 #: nextgis_common/templates/common_snippets/footer.html:9
 msgid "Terms of Service"

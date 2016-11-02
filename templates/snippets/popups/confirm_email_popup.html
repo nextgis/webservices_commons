@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% url 'profile' as profile_url %}
+
+{% if not email_verified %}
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal show" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content modal-content--center modal-content--big">
+	      <div class="modal-body">
+	      	<img class="middle-icon" src="{% static 'nextgis_common/img/mail-icon.svg' %}" alt="{% trans 'Please confirm your E-mail'%}">
+	      	<h3 class="modal-title">{% blocktrans %}Please confirm your E-mail{% endblocktrans %}</h3>
+	        <p>{% blocktrans %}We sent an email with a link to confirm your address to{% endblocktrans %} {{request.user.email}}. {% blocktrans %}Please follow the link in our email.{% endblocktrans %}</p>
+	        <p>{% blocktrans %}You will be able to start working with NextGIS services after that.{% endblocktrans %}</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<a id="id_link_resend_email" href="{% url 'resend_email' %}">{% trans 'Send the email again' %}</a>
+	      	<span class="spacer">|</span>
+	      	<a href="{% url 'profile' %}">{% trans 'Change your e-mail' %}</a>
+	      	<span class="spacer">|</span>
+	      	<a href="{% url 'silent_logout' %}">{% trans 'Log Out' %}</a>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+{% endif %}

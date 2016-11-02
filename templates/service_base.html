@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load get_userreport %}
+
+{% block body %}
+    <!-- Cabinet aside -->
+    {% include "snippets/left_menu.html" %}
+    <section class="layout admin__panel container">
+        <!-- Cabinet header -->
+        <header class="header navbar container">
+            <div class="header__right pull-right clearfix">
+                {% block header_action %}
+                {% endblock %}
+
+                {% if request.user.is_authenticated %}
+                    <div class="header__user user-dropdown dropdown">
+                        <a href="#" class="user-dropdown__link withoutripple dropdown-toggle"  id="user-menu" data-toggle="dropdown">
+                            {% include "snippets/utilities/user_photo_small.html" %}
+                            <span class="hide-on-sm">{{ request.user.username }}</span>
+                            <i class="material-icons icon-caret hidden-xs"></i>
+                        </a>
+                        <ul class="user-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
+                            <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                            <li><a href="{% url 'ngw_instance_edit' %}">{% trans 'Web GIS Settings' %}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{% url 'silent_logout' %}">
+                                    <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a class="btn btn-action btn-primary" href="{% url 'account_login' %}">{% trans 'Sign in' context 'menu_item' %}</a>
+                {% endif %}
+            </div>
+            <div class="header__logo">
+                <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
+                    {% include "snippets/logo.html" %}
+                </a>
+            </div>
+            <div class="header__title h1">{% block content_title %}{% endblock %}</div>
+            {% block header_plan %}
+            {% endblock %}
+        </header>
+        <!-- Cabinet content -->
+        <div class="admin__panel__content">          
+            <!-- Top messages  -->
+            <div class="admin__panel__content__messages">
+                {% block service_top_messages %}
+                {% endblock %}
+            </div>
+
+            <div class="admin__panel__content__inner">
+                {% block body_content %}{% endblock %}
+            </div>
+        </div>
+    </section> <!--/.admin__panel .layout-->
+{% endblock %}
+
+{% block popups %}
+{% endblock %}
+
+{% block extra_body %}
+    <!-- UserReport -->
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'ru' %}
+        {% get_userreport 'webgis_ru' as userreport_id %}      
+    {% else %}
+        {% get_userreport 'webgis_en' as userreport_id %}
+    {% endif %}
+    
+    {% include "snippets/contrib/userreport.html" %}
+{% endblock %}

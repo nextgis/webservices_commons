@@ -1,0 +1,14 @@
+{% extends "service_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block body_class %}body--vcenter body--wide{% endblock %}
+
+{% block body_content %}
+    <div class="error-block">
+        {% block error_content %}
+        {% endblock %}
+        <a class="error-block__btn btn btn-huge btn-raised btn-primary" href="#" onclick="history.back()">{% trans 'Go back' %}</a>
+    </div>
+{% endblock %}
