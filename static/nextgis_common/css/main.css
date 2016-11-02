@@ -7153,11 +7153,18 @@ form {
   padding: 0; }
 
 .input-group .input-group-btn {
-  padding-left: 10px;
+  padding-left: 12px;
   padding-right: 0; }
-  @media (min-width: 768px) {
-    .input-group .input-group-btn {
-      padding-left: 20px; } }
+
+.input-group .form-control:last-child,
+.input-group-addon:last-child,
+.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .dropdown-toggle,
+.input-group-btn:first-child > .btn:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px; }
 
 /* Radio */
 .radio--inline {
