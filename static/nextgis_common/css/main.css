@@ -5844,15 +5844,27 @@ body {
     .ie.v10, .ie.v11 .body--vcenter .layout {
       min-height: 600px; } }
 
-.body--wide .container {
+.body--wide,
+.body--wide-header {
+  background-color: #fff; }
+  .body--wide .layout,
+  .body--wide-header .layout {
+    background-color: transparent; }
+
+.body--wide .layout,
+.body--wide .header,
+.body--wide .footer > .container {
   width: 100%;
   max-width: none; }
 
-.body--grey .layout {
-  background-color: #fbfbfb; }
+.body--wide-header .header {
+  width: 100%;
+  max-width: none; }
 
-.body--grey .header {
-  border-bottom: 1px solid #d3e3f2; }
+.body--grey {
+  background-color: #fbfbfb; }
+  .body--grey .header {
+    border-bottom: 1px solid #d3e3f2; }
 
 /* Logo */
 .logo {
