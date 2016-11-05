@@ -11,8 +11,13 @@ external_links = {
     'terms_ru': 'http://nextgis.ru/terms/',
     'terms_en': 'http://nextgis.com/terms/',
 
-    'privacy_ru': ' http://nextgis.ru/privacy',
-    'privacy_en': ' http://nextgis.com/privacy',
+    'privacy_ru': 'http://nextgis.ru/privacy',
+    'privacy_en': 'http://nextgis.com/privacy',
+
+    # temporary?
+    'ngid_profile': 'https://my.nextgis.com/profile',
+    'webgis': 'https://my.nextgis.com/webgis',
+
 }
 
 
