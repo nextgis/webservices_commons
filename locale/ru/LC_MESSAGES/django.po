@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 13:28+0000\n"
+"POT-Creation-Date: 2016-11-05 16:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,67 +20,75 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: nextgis_common/templates/403.html:7
+#: nextgis_common/templates/403.html:5
 msgid "403 Forbidden"
 msgstr "403 Доступ запрещен"
 
-#: nextgis_common/templates/403.html:13
+#: nextgis_common/templates/403.html:6
+msgid "403"
+msgstr "403"
+
+#: nextgis_common/templates/403.html:10
 msgid "The access to this page is forbidden"
 msgstr "Доступ к этой странице запрещен"
 
-#: nextgis_common/templates/403.html:14
+#: nextgis_common/templates/403.html:11
 msgid "Think it's a mistake?"
 msgstr "Считаете, что это ошибка?"
 
-#: nextgis_common/templates/403.html:14
+#: nextgis_common/templates/403.html:11
 msgid "Denial of access to"
 msgstr "Ошибка запрета доступа к"
 
-#: nextgis_common/templates/403.html:14
+#: nextgis_common/templates/403.html:11
 msgid "There is no access to the page"
 msgstr "Нет доступа к странице"
 
-#: nextgis_common/templates/403.html:14
+#: nextgis_common/templates/403.html:11
 msgid "Let us know"
 msgstr "Дайте нам знать"
 
-#: nextgis_common/templates/403.html:15 nextgis_common/templates/404.html:15
-msgid "Go to cabinet"
-msgstr "Вернуться в кабинет"
-
-#: nextgis_common/templates/404.html:7
+#: nextgis_common/templates/404.html:5
 msgid "404 Page not found"
 msgstr "404 Страница не найдена"
 
-#: nextgis_common/templates/404.html:13
+#: nextgis_common/templates/404.html:6
+msgid "404"
+msgstr "404"
+
+#: nextgis_common/templates/404.html:10
 msgid "Page does not exist"
 msgstr "Страница не существует"
 
-#: nextgis_common/templates/404.html:14
+#: nextgis_common/templates/404.html:11
 msgid "Check your link or"
 msgstr "Проверьте ссылку или "
 
-#: nextgis_common/templates/404.html:14
+#: nextgis_common/templates/404.html:11
 msgid "Non-existent page on"
 msgstr "Несуществующая страница на"
 
-#: nextgis_common/templates/404.html:14
+#: nextgis_common/templates/404.html:11
 msgid "Action on the website led me to a 404 page"
 msgstr "Действие на сайте привело меня на несуществующую страницу"
 
-#: nextgis_common/templates/404.html:14 nextgis_common/templates/500.html:14
+#: nextgis_common/templates/404.html:11 nextgis_common/templates/500.html:11
 msgid "let us know"
 msgstr "дайте нам знать"
 
-#: nextgis_common/templates/500.html:7
+#: nextgis_common/templates/500.html:5
 msgid "500 Internal server error"
 msgstr "500 Ошибка на сервере"
 
-#: nextgis_common/templates/500.html:13
+#: nextgis_common/templates/500.html:6
+msgid "500"
+msgstr ""
+
+#: nextgis_common/templates/500.html:10
 msgid "An error occurred on the server"
 msgstr "Произошла ошибка на сервере"
 
-#: nextgis_common/templates/500.html:14
+#: nextgis_common/templates/500.html:11
 msgid ""
 "Chances are we already working to fix the problem. Try to refresh the page "
 "after&nbsp;some time or"
@@ -88,55 +96,101 @@ msgstr ""
 "Скорее всего мы уже работаем над устранением проблемы. Попробуйте обновить "
 "страницу через некоторое время или "
 
-#: nextgis_common/templates/500.html:14
+#: nextgis_common/templates/500.html:11
 msgid "Server error"
 msgstr "Ошибка на сервере"
 
-#: nextgis_common/templates/500.html:14
+#: nextgis_common/templates/500.html:11
 msgid "Server error when accessing"
 msgstr "Ошибка на сервере при просмотре страницы"
 
-#: nextgis_common/templates/500.html:15
+#: nextgis_common/templates/error/error_base.html:12
 msgid "Go back"
 msgstr "Вернуться назад"
 
-#: nextgis_common/templates/common_snippets/footer.html:9
+#: nextgis_common/templates/service_base.html:26
+msgid "Profile"
+msgstr "Профиль"
+
+#: nextgis_common/templates/service_base.html:27
+msgid "Web GIS Settings"
+msgstr "Настройки Веб ГИС"
+
+#: nextgis_common/templates/service_base.html:31
+msgid "Sign Out"
+msgstr "Выйти"
+
+#: nextgis_common/templates/service_base.html:37
+msgctxt "menu_item"
+msgid "Sign in"
+msgstr "Войти"
+
+#: nextgis_common/templates/snippets/footer.html:9
 msgid "Terms of Service"
 msgstr "Пользовательское соглашение"
 
-#: nextgis_common/templates/common_snippets/footer.html:12
+#: nextgis_common/templates/snippets/footer.html:12
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:5
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:12
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:13
+msgid "Please confirm your E-mail"
+msgstr "Пожалуйста, подтвердите ваш адрес электронной почты"
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:14
+msgid "We sent an email with a link to confirm your address to"
+msgstr "Мы выслали письмо со ссылкой для подтверждения e-mail на адрес"
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:14
+msgid "Please follow the link in our email."
+msgstr "Пожалуйста, перейдите по ссылке из письма."
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:15
+msgid "You will be able to start working with NextGIS services after that."
+msgstr "После этого вы сможете приступить к работе."
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:18
+msgid "Send the email again"
+msgstr "Выслать письмо еще раз"
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:20
+msgid "Change your e-mail"
+msgstr "Изменить e-mail"
+
+#: nextgis_common/templates/snippets/popups/confirm_email_popup.html:22
+msgid "Log Out"
+msgstr "Выйти"
+
+#: nextgis_common/templates/snippets/translate_js.html:5
 msgid "This field is required"
 msgstr "Заполните обязательное поле"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:6
+#: nextgis_common/templates/snippets/translate_js.html:6
 msgid "Please enter a valid email address"
 msgstr "Введите правильный e-mail"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:7
+#: nextgis_common/templates/snippets/translate_js.html:7
 msgid "Please enter a valid URL"
 msgstr "Введите правильный URL"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:8
+#: nextgis_common/templates/snippets/translate_js.html:8
 msgid "Please enter a valid date"
 msgstr "Введите верную дату"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:9
+#: nextgis_common/templates/snippets/translate_js.html:9
 msgid "This field must be a number"
 msgstr "Здесь должно быть число"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:10
+#: nextgis_common/templates/snippets/translate_js.html:10
 msgid "Please enter a valid card number"
 msgstr "Введите правильный номер карты"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:11
+#: nextgis_common/templates/snippets/translate_js.html:11
 msgid "The values are not the same"
 msgstr "Значения не совпадают"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:12
+#: nextgis_common/templates/snippets/translate_js.html:12
 msgid ""
 "Enter a valid username. This value may contain only letters, numbers and \\"
 "\"-\\\", \\\"_\\\", \\\".\\\" characters."
@@ -144,11 +198,11 @@ msgstr ""
 "Логин должен состоять из латинских букв, цифр и знаков \\\"-\\\", \\\"_\\\", "
 "\\\".\\\""
 
-#: nextgis_common/templates/common_snippets/translate_js.html:13
+#: nextgis_common/templates/snippets/translate_js.html:13
 msgid "This value may contain only letters and spaces"
 msgstr "Допустимы только буквы и пробелы"
 
-#: nextgis_common/templates/common_snippets/translate_js.html:14
+#: nextgis_common/templates/snippets/translate_js.html:14
 msgid ""
 "Only alphabetic, numeric characters and hyphen are allowed. At least 4 "
 "characters are needed"
@@ -156,10 +210,10 @@ msgstr ""
 "Введите не менее 4х символов. Допустимы только латинские буквы, цифры и знак "
 "\\\"-\\\"."
 
-#: nextgis_common/templates/common_snippets/translate_js.html:15
+#: nextgis_common/templates/snippets/translate_js.html:15
 msgid "Enter a valid phone. Only digits, plus and hyphen are allowed."
 msgstr "В номере телефона допустимы только цифры, \\\"+\\\" и \\\"-\\\""
 
-#: nextgis_common/templates/common_snippets/translate_js.html:16
+#: nextgis_common/templates/snippets/translate_js.html:16
 msgid "Please enter a valid value"
 msgstr "Введите верное значение"
