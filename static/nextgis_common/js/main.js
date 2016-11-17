@@ -602,6 +602,27 @@ function fixBootstrap(){
     });
 }
 
+// Extend bootstrap tabs
+var Tabs = (function(){
+    var tab = $("[data-nav-active] [data-toggle='tab']");
+    var me = {
+        init: function(){
+            tab.each(function(){
+                var item = $(this);
+                var parent = item.parents("[data-nav-active]");
+                item.on('show.bs.tab', function (e) {                    
+                    parent.addClass(parent.data("nav-active"));
+                })
+            })  
+        }
+    }
+
+    if (tab.length)
+        me.init();
+
+    return me;
+})();
+
 
 $(document).ready(function(){
     $.material.options = {

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <!-- Cabinet aside -->
+    <div class="modal modal--stretch modal--static show" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content--centric">
+                <div class="modal-body">
+                    {% block overlay_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <a href="{% block close_link %}{% endblock %}" data-dismiss="modal" class="material-icons icon-close close"></a>
+    </div>
+{% endblock %}
