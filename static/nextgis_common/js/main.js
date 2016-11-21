@@ -623,6 +623,97 @@ var Tabs = (function(){
     return me;
 })();
 
+// Show trigger
+var ShowTrigger = (function(){
+    var showTrigger = $("[data-show]"),
+        hideTrigger = $("[data-hide]");
+
+    var me = {
+        init: function(){
+            showTrigger.on("click", function(e){
+                var target = $($(this).data("show"));
+                e.preventDefault();
+                if (target.length){
+                    if ($(this).data("show-class"))
+                        target.addClass("show-class");
+                    target.show();
+                }
+            });
+
+            hideTrigger.on("click", function(e){
+                var target = $($(this).data("hide"));
+                e.preventDefault();
+                if (target.length){
+                    if ($(this).data("hide-class"))
+                        target.addClass("show-class");
+                    target.hide();
+                }
+            })
+        }
+    }
+
+    if (showTrigger.length || hideTrigger.length)
+        me.init();
+
+    return me;
+})();
+
+
+// Inner form
+var InnerForm = (function(){
+    var innerForm = $(".inner-form");
+
+    function updateControlsValue(el){
+        el.each(function(){
+           $(this).attr("data-inner-form-init", $(this).val());
+        });
+    }
+
+    function updateRelated(form, parentForm){
+        if (form.find("[data-inner-form-related]").length){
+            form.find("[data-inner-form-related]").each(function(){
+                var target = parentForm.find($(this).data("inner-form-related"));
+                target.html($(this).val());
+            });
+        }
+    }
+
+    var me = {
+        init: function(){
+            innerForm.each(function(){
+                var form = $(this),
+                    controls = form.find("input, textarea, select"),
+                    saveBtn = form.find(".inner-form__save-btn"),
+                    cancelBtn = form.find(".inner-form__cancel-btn");
+
+                updateControlsValue(controls);
+
+                saveBtn.on("click", function(e){
+                    if (controls.valid()) {
+                        updateControlsValue(controls);
+                        updateRelated(form, form.parents("form"));
+                        form.trigger("innerForm.save");
+                        form.hide();
+                    }
+                    e.preventDefault();
+                });
+
+                cancelBtn.on("click", function(e){
+                    controls.each(function(){
+                        $(this).val($(this).attr("data-inner-form-init"));
+                    });
+                    form.hide();
+                    e.preventDefault();
+                });
+            })
+        }
+    }
+
+    if (innerForm.length)
+        me.init();
+
+    return me;
+})();
 
 $(document).ready(function(){
     $.material.options = {
