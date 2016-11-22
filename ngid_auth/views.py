@@ -44,6 +44,18 @@ class OAuthClientMixin(object):
         self.request.session[self.session_key] = state
 
     @property
+    def next_key(self):
+        return 'request-next-ngid'
+
+    @property
+    def application_next_url(self):
+        return self.request.session.get(self.next_key, None)
+
+    @application_next_url.setter
+    def application_next_url(self, url):
+        self.request.session[self.next_key] = url
+
+    @property
     def get_callback_url(self):
         callback_path = str(reverse_lazy(NgidOAuth2CallbackView.view_name))
         callback_url = self.request.build_absolute_uri(callback_path)
@@ -59,7 +71,9 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         provider = NgidProvider
         oaut_session = self.get_oauth_session(provider)
         authorization_url, state = oaut_session.authorization_url(provider.authorization_url())
-        self.application_state = state # save state key for check
+        self.application_state = state  # save state key for check
+        if 'next' in self.request.GET:  # save 'next' url
+            self.application_next_url = self.request.GET['next']
         return authorization_url
 
 
@@ -124,7 +138,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
         return settings.LOGIN_URL
 
     def get_login_redirect(self):
-        return settings.LOGIN_REDIRECT_URL
+        return self.application_next_url or settings.LOGIN_REDIRECT_URL
 
     def create_or_update_user(self, info):
         user_model = get_user_model()
