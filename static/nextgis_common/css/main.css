@@ -6268,6 +6268,53 @@ body {
   .user-dropdown__link .icon-caret {
     margin-left: -4px; }
 
+/* Image dropdown */
+.image-select.dropdownjs li {
+  position: relative;
+  float: left;
+  width: 33.333%;
+  height: 64px; }
+
+.image-select.dropdownjs input.image-select {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+  height: 0;
+  max-width: 96px;
+  padding: 100% 0 0;
+  background-size: 32px auto;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.image-select.dropdownjs:after {
+  content: "\E3C9";
+  color: #999;
+  background-color: rgba(0, 0, 0, 0.06);
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  text-align: center; }
+
+.image-select__pic {
+  position: absolute;
+  max-width: 50%;
+  max-height: 50%;
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; }
+
+.image-select--warm,
+.image-select--warm[readonly] {
+  background-color: #f8f8ef; }
+
 /* Modals */
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.4); }
@@ -7160,6 +7207,8 @@ p {
 .form-control {
   font-weight: 400;
   letter-spacing: .2px; }
+  .form-control:focus, .form-control:active, .form-control:hover {
+    box-shadow: none; }
 
 .lte-ie9 .form-control {
   border-bottom: 1px solid #D2D2D2; }

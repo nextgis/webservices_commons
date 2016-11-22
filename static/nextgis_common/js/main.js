@@ -715,6 +715,72 @@ var InnerForm = (function(){
     return me;
 })();
 
+// Select
+var Select= (function(){
+    var select = $(".select");
+    var me = {
+        init: function(){
+            select.dropdown({
+                callback: function ($dropdown) {
+                    var dropdownCls = $dropdown.siblings("select").data("selectClass");
+                    $dropdown.addClass(dropdownCls);
+                }
+            });
+        }
+    }
+
+    if (select.length)
+        me.init();
+    return me;
+})();
+
+// Select
+var ImageSelect= (function(){
+    var imageSelect = $(".image-select");
+
+    function getSrc(val, template){
+        val = val || "default";
+        return template.replace("$val", val);
+    }
+
+    function setSelectedImg(input, src){
+        input.css({
+            backgroundImage: "url('" + src + "')"
+        });
+    }
+
+    var me = {
+        init: function(){
+            imageSelect.each(function(){
+                var control = $(this),
+                    srcTemplate = control.data("imageSelectSrc"),
+                    fakeInput;
+                control.dropdown({
+                    "dropdownClass":"image-select",
+                    "callback": function ($dropdown) {
+                        fakeInput = control.siblings(".dropdownjs").find("input");
+                        setSelectedImg(fakeInput, getSrc($dropdown.val(), srcTemplate));
+
+                        $dropdown.find("li").each(function () {
+                            $(this).html("<img class='image-select__pic' width='100' src='" +
+                                        getSrc($(this).attr("value"), srcTemplate) + "' " +
+                                        "title = '" + $(this).text() + "'>");
+                        });
+                    }
+                });
+
+                control.on("change", function(){
+                    setSelectedImg(fakeInput, getSrc($(this).val(), srcTemplate));
+                });
+            })
+        }
+    }
+
+    if (imageSelect.length)
+        me.init();
+    return me;
+})();
+
 $(document).ready(function(){
     $.material.options = {
       "input": true,
@@ -734,7 +800,7 @@ $(document).ready(function(){
         ".withripple",
         ".pagination li:not(.active):not(.disabled) a:not(.withoutripple)"
       ].join(","),
-      "inputElements": "input.form-control, textarea.form-control, select.form-control",
+      "inputElements": "input.form-control, textarea.form-control",
       "checkboxElements": ".checkbox > label > input[type=checkbox], label.checkbox-inline > input[type=checkbox]",
       "togglebuttonElements": ".togglebutton > label > input[type=checkbox]",
       "radioElements": ".radio > label > input[type=radio], label.radio-inline > input[type=radio]"
@@ -766,10 +832,6 @@ $(document).ready(function(){
     // Messages
     if ($(".alert").length)
         Messages.init();
-
-    // Customize select
-    if ($(".select").length)
-        $(".select").dropdown({ "autoinit" : "select" });
 
     //Dynamic fields
     if ($(".form-control--dynamic").length)
