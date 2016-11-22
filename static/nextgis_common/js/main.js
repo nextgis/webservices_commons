@@ -113,6 +113,10 @@ var Forms = (function(){
             return $.inArray(value.toLowerCase(), arr) !== -1;
         });
 
+        $.validator.methods.url = function(value, element, param) {
+            return this.optional( element ) || /^(http|https):\/\//i.test( value );
+        }
+
         $.validator.setDefaults({ ignore: 'input:not(.form-control--notignore):hidden' });
 
     }
