@@ -763,7 +763,7 @@ var ImageSelect= (function(){
                     "dropdownClass":"image-select",
                     "callback": function ($dropdown) {
                         fakeInput = control.siblings(".dropdownjs").find("input");
-                        setSelectedImg(fakeInput, getSrc($dropdown.val(), srcTemplate));
+                        setSelectedImg(fakeInput, getSrc(control.val(), srcTemplate));
 
                         $dropdown.find("li").each(function () {
                             $(this).html("<img class='image-select__pic' width='100' src='" +
