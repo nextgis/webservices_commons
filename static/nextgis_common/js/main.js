@@ -674,11 +674,16 @@ var InnerForm = (function(){
     }
 
     function updateRelated(form, parentForm){
-        if (form.find("[data-inner-form-related]").length){
-            form.find("[data-inner-form-related]").each(function(){
-                var target = parentForm.find($(this).data("inner-form-related"));
-                target.html($(this).val());
+        if (form.data("innerFormRelated")){
+            var target = parentForm.find(form.data("innerFormRelated")),
+                str = "";
+            form.find("input, select").each(function(index){
+                if ($(this).val()){
+                    if (str!="") str += ", ";
+                    str += $(this).val();
+                }
             });
+            target.html(str);
         }
     }
 
@@ -691,6 +696,7 @@ var InnerForm = (function(){
                     cancelBtn = form.find(".inner-form__cancel-btn");
 
                 updateControlsValue(controls);
+                updateRelated(form, form.parents("form"));
 
                 saveBtn.on("click", function(e){
                     if (controls.valid()) {
