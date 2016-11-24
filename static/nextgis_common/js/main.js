@@ -640,7 +640,7 @@ var ShowTrigger = (function(){
                 if (target.length){
                     if ($(this).data("show-class"))
                         target.addClass("show-class");
-                    target.show();
+                    target.addClass("show");
                 }
             });
 
@@ -649,8 +649,8 @@ var ShowTrigger = (function(){
                 e.preventDefault();
                 if (target.length){
                     if ($(this).data("hide-class"))
-                        target.addClass("show-class");
-                    target.hide();
+                        target.addClass("hide-class");
+                    target.removeClass("show");
                 }
             })
         }
@@ -703,7 +703,7 @@ var InnerForm = (function(){
                         updateControlsValue(controls);
                         updateRelated(form, form.parents("form"));
                         form.trigger("innerForm.save");
-                        form.hide();
+                        form.removeClass("show");
                     }
                     e.preventDefault();
                 });
@@ -712,7 +712,7 @@ var InnerForm = (function(){
                     controls.each(function(){
                         $(this).val($(this).attr("data-inner-form-init"));
                     });
-                    form.hide();
+                    form.removeClass("show");
                     e.preventDefault();
                 });
             })
