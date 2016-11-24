@@ -16,6 +16,7 @@ external_links = {
 
     # temporary?
     'ngid_profile': 'https://my.nextgis.com/profile',
+    'ngid_public_profile': 'https://my.nextgis.com/public_profile',
     'webgis': 'https://my.nextgis.com/webgis',
 
 }
