@@ -7125,6 +7125,9 @@ p {
 .material-icons.textsms:before {
   content: "\E0D8"; }
 
+.material-icons.feedback:before {
+  content: "\E87F"; }
+
 .circle-icon,
 .square-icon {
   display: inline-block;
@@ -7417,8 +7420,9 @@ p {
   padding: 0;
   line-height: 36px;
   color: #b3bec2; }
-  .btn.btn-tool--icon.textsms,
-  .btn.btn-tool--icon:not(.btn-raised).textsms {
+  .btn.btn-tool--icon.textsms, .btn.btn-tool--icon.feedback,
+  .btn.btn-tool--icon:not(.btn-raised).textsms,
+  .btn.btn-tool--icon:not(.btn-raised).feedback {
     font-size: 24px; }
 
 /* Forms */
