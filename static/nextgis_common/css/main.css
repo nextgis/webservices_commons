@@ -6441,35 +6441,36 @@ body {
     margin-left: -4px; }
 
 /* Image dropdown */
-.image-select.dropdownjs li {
-  position: relative;
-  float: left;
-  width: 33.333%;
-  height: 64px; }
-
-.image-select.dropdownjs input.image-select {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  font-size: 0;
-  height: 0;
+.image-select.dropdownjs {
   max-width: 96px;
-  padding: 100% 0 0;
-  background-size: 32px auto;
-  background-position: center center;
-  background-repeat: no-repeat; }
-
-.image-select.dropdownjs:after {
-  content: "\E3C9";
-  color: #999;
-  background-color: rgba(0, 0, 0, 0.06);
-  right: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 16px;
-  text-align: center; }
+  margin-bottom: 24px; }
+  .image-select.dropdownjs li {
+    position: relative;
+    float: left;
+    width: 33.333%;
+    height: 64px; }
+  .image-select.dropdownjs input.image-select {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    height: 0;
+    max-width: 96px;
+    padding: 100% 0 0;
+    background-size: 32px auto;
+    background-position: center center;
+    background-repeat: no-repeat; }
+  .image-select.dropdownjs:after {
+    content: "\E3C9";
+    color: #999;
+    background-color: rgba(0, 0, 0, 0.06);
+    right: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    text-align: center; }
 
 .image-select__pic {
   position: absolute;
@@ -6613,7 +6614,8 @@ body {
   height: 100vh;
   background-color: #deecf9;
   box-shadow: none;
-  overflow: auto; }
+  overflow-y: auto;
+  overflow-x: hidden; }
 
 .modal--stretch .modal-body {
   width: 100%;
@@ -6621,6 +6623,9 @@ body {
   @media (max-height: 600px) {
     .modal--stretch .modal-body {
       padding-bottom: 40px; } }
+  @media (max-width: 768px) {
+    .modal--stretch .modal-body {
+      padding: 0; } }
 
 .modal--stretch .close {
   position: fixed;
@@ -6634,6 +6639,11 @@ body {
   text-align: left;
   margin-left: auto;
   margin-right: auto; }
+  @media (max-width: 768px) {
+    .modal--stretch__inner .panel--big {
+      margin-bottom: 0;
+      width: 100%;
+      min-height: 100vh; } }
 
 .modal--static {
   position: relative; }
@@ -6685,12 +6695,12 @@ body {
 
 /* Inner form */
 .inner-form {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  left: -40px;
-  bottom: -30px;
-  max-height: 100%;
-  overflow: hidden;
+  height: 100vh;
+  overflow: auto;
   padding: 20px;
   background-color: #00b77e;
   color: #fff;
@@ -6698,7 +6708,14 @@ body {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); }
   @media (min-width: 768px) {
     .inner-form {
-      padding: 30px; } }
+      position: absolute;
+      top: auto;
+      height: auto;
+      left: -40px;
+      bottom: -30px;
+      max-height: 100%;
+      padding: 30px;
+      overflow: hidden; } }
 
 /* Success block */
 .success-block {
@@ -7128,6 +7145,9 @@ p {
 .material-icons.feedback:before {
   content: "\E87F"; }
 
+.material-icons.add:before {
+  content: "\E145"; }
+
 .circle-icon,
 .square-icon {
   display: inline-block;
@@ -7291,7 +7311,7 @@ p {
         box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
   .btn.btn-action, .input-group-btn .btn.btn-action {
     vertical-align: top; }
-  .btn:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool), .input-group-btn .btn:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool) {
+  .btn:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool):not(.btn-fab), .input-group-btn .btn:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool):not(.btn-fab) {
     background-color: #ececec; }
   .btn.btn-default, .input-group-btn .btn.btn-default {
     background-color: #ececec; }
@@ -7316,6 +7336,27 @@ p {
 .btn.btn-fab,
 .input-group-btn .btn.btn-fab {
   padding: 0; }
+  .btn.btn-fab.btn-succes:hover, .btn.btn-fab.btn-succes:focus, .btn.btn-fab.btn-succes:active, .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):hover, .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):focus, .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):active,
+  .input-group-btn .btn.btn-fab.btn-succes:hover,
+  .input-group-btn .btn.btn-fab.btn-succes:focus,
+  .input-group-btn .btn.btn-fab.btn-succes:active,
+  .input-group-btn .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):hover,
+  .input-group-btn .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):focus,
+  .input-group-btn .btn.btn-fab.btn-success:not(.btn-raised):not(.btn-link):active {
+    background-color: #00b77e;
+    color: #fff; }
+  .btn.btn-fab.btn-primary:hover, .btn.btn-fab.btn-primary:focus, .btn.btn-fab.btn-primary:active, .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):hover, .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):focus, .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):active,
+  .input-group-btn .btn.btn-fab.btn-primary:hover,
+  .input-group-btn .btn.btn-fab.btn-primary:focus,
+  .input-group-btn .btn.btn-fab.btn-primary:active,
+  .input-group-btn .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):hover,
+  .input-group-btn .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):focus,
+  .input-group-btn .btn.btn-fab.btn-primarys:not(.btn-raised):not(.btn-link):active {
+    background-color: #0070c5;
+    color: #fff; }
+  .btn.btn-fab:hover .material-icons,
+  .input-group-btn .btn.btn-fab:hover .material-icons {
+    color: inherit; }
   .btn.btn-fab .icon,
   .input-group-btn .btn.btn-fab .icon {
     position: absolute;
@@ -7380,6 +7421,15 @@ p {
       display: inline-block;
       margin-bottom: 0;
       margin-right: 20px; } }
+
+.btn.btn-mobile-action {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.07), 0 3px 14px 2px rgba(0, 0, 0, 0.1), 0 5px 5px -3px rgba(0, 0, 0, 0.06); }
+  @media (min-width: 768px) {
+    .btn.btn-mobile-action {
+      display: none; } }
 
 .toolbar {
   margin: 0; }
@@ -7985,7 +8035,7 @@ form {
   .auth-panel__form:first-child {
     margin-top: 0; }
   .auth-panel__form input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #f5f5f5 inset;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     border-bottom: 1px solid #D2D2D2; }
 
 .auth-panel__form__btn {
