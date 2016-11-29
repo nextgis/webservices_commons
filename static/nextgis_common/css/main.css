@@ -7504,6 +7504,8 @@ form {
   .form-group .form-control {
     color: #000;
     margin-bottom: 3px; }
+  .form-group:not(.label-floating) .control-label {
+    margin-top: 0; }
   .form-group span.has-error {
     font-size: 13px;
     color: #F96A67; }
@@ -7517,6 +7519,8 @@ form {
     background-size: 100% 2px, 100% 1px; }
   .form-group.has-error .input-group-addon {
     color: inherit; }
+  .form-group.has-error .help-block {
+    display: none; }
 
 .lte-ie9 .form-group.has-error .form-control {
   border-bottom: 1px solid #F96A67; }
