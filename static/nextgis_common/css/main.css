@@ -6098,8 +6098,6 @@ body {
 
 .body--grey {
   background-color: #fbfbfb; }
-  .body--grey .header {
-    border-bottom: 1px solid #d3e3f2; }
 
 /* Logo */
 .logo {
@@ -6266,7 +6264,8 @@ body {
   padding-left: 0;
   padding-right: 0;
   font-size: 14px;
-  width: 100%; }
+  width: 100%;
+  border-bottom: 1px solid #d3e3f2; }
   @media (min-width: 768px) {
     .header {
       height: 52px;
@@ -7854,33 +7853,6 @@ form {
   @media (min-width: 992px) {
     .content {
       padding-top: 95px; } }
-
-@media (min-width: 1400px) {
-  .text-content {
-    font-size: 16px; } }
-
-.text-content .container {
-  max-width: 1000px; }
-
-@media (min-width: 768px) {
-  .text-content h2, .text-content .h2 {
-    border-left: 3px solid #0070c5;
-    padding-left: 15px;
-    margin-left: -18px; } }
-
-.text-content p {
-  margin-bottom: 15px; }
-
-.text-content a {
-  text-decoration: underline; }
-  .text-content a:hover {
-    text-decoration: none; }
-
-.text-content ul, .text-content ol {
-  padding-left: 1em;
-  margin-top: 15px; }
-  .text-content ul li, .text-content ol li {
-    margin-bottom: 10px; }
 
 /* Main */
 .main__title {
