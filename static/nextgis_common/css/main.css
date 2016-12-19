@@ -6099,6 +6099,15 @@ body {
 .body--grey {
   background-color: #fbfbfb; }
 
+.body--minwidth_xs {
+  min-width: 480px; }
+
+.body--minwidth_sm {
+  min-width: 768px; }
+
+.body--minwidth_md {
+  min-width: 992px; }
+
 /* Logo */
 .logo {
   left: 20px;

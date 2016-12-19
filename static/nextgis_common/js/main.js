@@ -769,6 +769,7 @@ var ImageSelect= (function(){
                     "dropdownClass":"image-select",
                     "callback": function ($dropdown) {
                         fakeInput = control.siblings(".dropdownjs").find("input");
+                        if (imageSelect.attr("tabindex")) fakeInput.attr("tabindex", imageSelect.attr("tabindex"));
                         setSelectedImg(fakeInput, getSrc(control.val(), srcTemplate));
 
                         $dropdown.find("li").each(function () {
