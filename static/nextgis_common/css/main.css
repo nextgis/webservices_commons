@@ -8061,7 +8061,7 @@ form {
     padding-top: 0;
     padding-bottom: 0; }
   .auth-panel--static .auth-panel__form input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #f5f5f5 inset; }
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset; }
   .auth-panel--static .auth-panel__close {
     display: none; }
 
@@ -8551,11 +8551,15 @@ a:hover .user-photo__icon {
 @media (max-width: 768px) {
   .sidebar-info {
     margin-left: -20px;
-    margin-right: -20px; } }
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px; } }
 
 @media (max-width: 768px) {
   .sidebar-info {
-    box-shadow: none; } }
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0; } }
 
 .sidebar-info__title {
   margin-bottom: 8px; }
