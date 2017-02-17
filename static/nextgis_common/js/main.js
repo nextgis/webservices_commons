@@ -89,7 +89,7 @@ var Forms = (function(){
         $.validator.addMethod("email", function(value, element) {
             return this.optional(element) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(value);
         });
-         
+
         $.validator.addMethod("userName", function(value, element) {
             return this.optional(element) || /^[a-zA-Z0-9-_/.]+$/.test(value);
         });
@@ -130,14 +130,14 @@ var Forms = (function(){
 
     function clearErrors(form, el){
         var id = form.attr("id");
-        
+
         $(".alert:visible[data-form="+ id + "]").fadeOut(function(){
             $(this).remove();
         });
 
         if (el){
             el.parents(".form-group.has-error").removeClass("has-error");
-            el.siblings("span.has-error").remove();   
+            el.siblings("span.has-error").remove();
         }
     }
 
@@ -163,8 +163,8 @@ var Forms = (function(){
                 var form = $(this);
                 var id=$(this).attr("id");
 
-                //validate  
-                              
+                //validate
+
                 form.validate({
                     errorClass: "has-error",
                     errorElement:"span",
@@ -178,7 +178,7 @@ var Forms = (function(){
                             elementParent.addClass(errorClass);
                         }
 
-                        // Highlight parent block instead error placement                        
+                        // Highlight parent block instead error placement
                         if (element.is("[data-highlight]")){
                             var highlightedBlock = $($(element).data("highlight"));
                             highlightedBlock.addClass("error-highlight");
@@ -188,8 +188,7 @@ var Forms = (function(){
                         if (!element.is("[data-noerror]")){
                             var elementParent =  element.parents(".form-group").length ? element.parents(".form-group") : element.parent();
                             elementParent.append(error);
-                        }                     
-                            
+                        }
                     },
                     unhighlight: function( element, errorClass, validClass ) {
                         element = $(element);
@@ -200,7 +199,7 @@ var Forms = (function(){
                             element.parents("." + errorClass).removeClass(errorClass);
                         }
 
-                        // Unhighlight parent block instead error placement                        
+                        // Unhighlight parent block instead error placement
                         if (element.is("[data-highlight]")){
                             var highlightedBlock = $(element.data("highlight"));
                             highlightedBlock.removeClass("error-highlight");
@@ -300,8 +299,8 @@ var Nav = (function(){
                 overlay.on("click", function(){
                     result.hideMenu();
                 })
-            } 
-        },       
+            }
+        },
         showMenu: function(){
             menu.slideDown(150, function(){
                 result.borderedNav();
@@ -328,7 +327,7 @@ var Nav = (function(){
 })();
 
 // Plans
-var Plans =(function(){    
+var Plans =(function(){
 
     function showResult(plan, container){
         plan.addClass("active");
@@ -336,7 +335,7 @@ var Plans =(function(){
     }
 
     function hideResult(container){
-        if (container.parents(".plans-modal").length) 
+        if (container.parents(".plans-modal").length)
             $(".plans-modal").removeClass("choosen");
         container.removeClass("choosen");
         setTimeout(function(){
@@ -350,8 +349,8 @@ var Plans =(function(){
 
             if (isInPopup)  {
                 $(".plans-modal").modal();
-                
-                if (window.location.hash === "#plans" || get_query_value("show_plans")!= null){      
+
+                if (window.location.hash === "#plans" || get_query_value("show_plans")!= null){
                     $('.plans-modal').modal("show");
                 }
                 $('.plans-modal').on('shown.bs.modal', function (e) {
@@ -393,11 +392,11 @@ var Plans =(function(){
 // Radiotab module
 var Radiotab = (function(){
     return {
-        init: function(){            
+        init: function(){
             $("[data-toggle=radiotab]").on("click", function(){
                 $(this).tab("show");
             })
-            
+
             $("[data-toggle=radiotab]").find(":checked").parents("[data-toggle=radiotab]").click();
         }
     }
@@ -428,7 +427,7 @@ var Autocomplete = (function(){
                     delay: 0
                 });
 
-                
+
                 if ($(el).data("array-select")){
                     var select = $($(el).data("array-select"));
                     if (select.find("[selected]").length) elements.val(select.find("[selected]").text().toLowerCase());
@@ -462,7 +461,7 @@ var Slider = (function(){
 
     function calcPriceValue(value, discount, slider){
         var discount = discount ? discount : 0,
-            priceValue = parseFloat(slider.data("price")), 
+            priceValue = parseFloat(slider.data("price")),
             totalPriceTarget = $(slider.data("totalprice-target")),
             totalPriceWithotDiscountTarget = $(slider.data("totalprice-withoutdiscount-target")),
             total = value*priceValue + value*priceValue*discount,
@@ -557,7 +556,7 @@ var Slider = (function(){
 
                     if (slider.data("price") && slider.data("totalprice-target"))
                         calcPriceValue(value, pipDiscountValue[value], slider);
-                });              
+                });
             })
         }
     }
@@ -576,7 +575,7 @@ var Format = (function(){
             dataToFormat.each(function(){
                 value = parseFloat($(this).text().replace(" ", ""));
                 $(this).text(value.format(0,3));
-            })  
+            })
         }
     }
 
@@ -595,7 +594,7 @@ function fixBootstrap(){
             if(this.bodyIsOverflowing && this.scrollbarWidth)
             {
                 $('.header, .navbar-fixed-top, .navbar-fixed-bottom').css('right', this.scrollbarWidth);
-            }       
+            }
         }
 
         var oldRSB = $.fn.modal.Constructor.prototype.resetScrollbar;
@@ -614,10 +613,10 @@ var Tabs = (function(){
             tab.each(function(){
                 var item = $(this);
                 var parent = item.parents("[data-nav-active]");
-                item.on('show.bs.tab', function (e) {                    
+                item.on('show.bs.tab', function (e) {
                     parent.addClass(parent.data("nav-active"));
                 })
-            })  
+            })
         }
     }
 
@@ -629,8 +628,8 @@ var Tabs = (function(){
 
 // Show trigger
 var ShowTrigger = (function(){
-    var showTrigger = $("[data-show]"),
-        hideTrigger = $("[data-hide]");
+    var showTrigger = $("a[data-show]"),
+        hideTrigger = $("a[data-hide]");
 
     var me = {
         init: function(){
@@ -739,8 +738,9 @@ var Select= (function(){
         }
     }
 
-    if (select.length)
+    if (select.length){
         me.init();
+    }
     return me;
 })();
 
@@ -827,7 +827,7 @@ $(document).ready(function(){
     }
 
     // Athorization and registration panel
-    if ($(".auth-panel").length){        
+    if ($(".auth-panel").length){
         AuthPanel.init();
         $(".js-authPanel").on("click", function(e){
             var target=$(this).attr("href");
@@ -866,4 +866,6 @@ $(document).ready(function(){
     if ($(".autocomplete").length){
         Autocomplete.init();
     }
+
+    $(".select").change();
 });

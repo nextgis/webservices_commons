@@ -4249,13 +4249,13 @@ fieldset[disabled][disabled] .btn, .btn.disabled, .btn:disabled, .btn[disabled][
 .checkbox label {
   cursor: pointer;
   padding-left: 0;
-  color: #757575; }
+  color: rgba(0, 0, 0, 0.58); }
   .form-group.is-focused .checkbox label {
-    color: #757575; }
+    color: rgba(0, 0, 0, 0.58); }
     .form-group.is-focused .checkbox label:hover, .form-group.is-focused .checkbox label:focus {
       color: rgba(0,0,0, .54); }
     fieldset[disabled] .form-group.is-focused .checkbox label {
-      color: #757575; }
+      color: rgba(0, 0, 0, 0.58); }
 
 .checkbox input[type=checkbox] {
   opacity: 0;
@@ -4461,13 +4461,13 @@ fieldset[disabled] .checkbox input[type=checkbox],
   cursor: pointer;
   padding-left: 45px;
   position: relative;
-  color: #757575; }
+  color: rgba(0, 0, 0, 0.58); }
   .form-group.is-focused .radio label {
-    color: #757575; }
+    color: rgba(0, 0, 0, 0.58); }
     .form-group.is-focused .radio label:hover, .form-group.is-focused .radio label:focus {
       color: rgba(0,0,0, .54); }
     fieldset[disabled] .form-group.is-focused .radio label {
-      color: #757575; }
+      color: rgba(0, 0, 0, 0.58); }
   .radio label span {
     display: block;
     position: absolute;
@@ -6538,6 +6538,23 @@ body {
   .modal .modal-footer--colored {
     border-top: 0;
     background-color: #f3f3f3; }
+  .modal .modal-title {
+    font-size: 24px;
+    margin-bottom: 40px;
+    line-height: 1.25;
+    font-family: "Lato", "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: bold; }
+  .modal .modal-subtitle {
+    font-size: 18px; }
+    .modal .modal-subtitle a {
+      color: rgba(0, 183, 126, 0.85);
+      border: 0;
+      text-decoration: none; }
+      .modal .modal-subtitle a:hover, .modal .modal-subtitle a:focus, .modal .modal-subtitle a:active {
+        color: #0070c5; }
+  .modal .modal-title + .modal-subtitle {
+    margin-bottom: 40px;
+    margin-top: -32px; }
 
 .admin__panel__content .modal .close {
   color: #000;
@@ -7512,12 +7529,12 @@ form {
     color: #000;
     margin-bottom: 3px; }
     .form-group .form-control::-moz-placeholder {
-      color: rgba(153, 153, 153, 0.6);
+      color: rgba(117, 117, 117, 0.5);
       opacity: 1; }
     .form-group .form-control:-ms-input-placeholder {
-      color: rgba(153, 153, 153, 0.6); }
+      color: rgba(117, 117, 117, 0.5); }
     .form-group .form-control::-webkit-input-placeholder {
-      color: rgba(153, 153, 153, 0.6); }
+      color: rgba(117, 117, 117, 0.5); }
   .form-group:not(.label-floating) .control-label {
     margin-top: 0; }
   .form-group span.has-error {
@@ -7535,6 +7552,11 @@ form {
     color: inherit; }
   .form-group.has-error .help-block {
     display: none; }
+  .form-group label.control-label {
+    color: rgba(0, 0, 0, 0.67); }
+  .form-group .help-block {
+    display: block;
+    color: rgba(117, 117, 117, 0.5); }
 
 .lte-ie9 .form-group.has-error .form-control {
   border-bottom: 1px solid #F96A67; }
@@ -7584,11 +7606,32 @@ form {
   color: #F96A67;
   margin-left: 8px; }
 
+/* Big margins form */
+.form--margin_big .form-group {
+  padding-bottom: 36px; }
+  .form--margin_big .form-group.label-floating {
+    margin-top: 18px; }
+  .form--margin_big .form-group .control-label {
+    margin-bottom: 4px; }
+
+.form--margin_big .form-group.label-static label.control-label,
+.form--margin_big .form-group.label-floating.is-focused label.control-label,
+.form--margin_big .form-group.label-floating:not(.is-empty) label.control-label {
+  top: -34px; }
+
+.form--margin_big .btn {
+  margin-top: 0; }
+
 /* Select */
-.select select {
+.select select,
+.select-wrapper select {
   -webkit-appearance: none;
   -moz-appearance: none;
+  -ms-appearance: none;
   appearance: none; }
+  .select select::-ms-expand,
+  .select-wrapper select::-ms-expand {
+    display: none; }
 
 .dropdownjs {
   font-weight: 400; }
@@ -7606,8 +7649,20 @@ form {
       background-color: transparent; }
     .dropdownjs > ul > li:hover {
       background-color: #e3f2fd; }
+    .dropdownjs > ul > li[value=""] {
+      display: none; }
   .dropdownjs > input.select.focus {
     font-size: 0; }
+
+.select-wrapper {
+  position: relative; }
+  .select-wrapper .select__icon {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    color: #999; }
+  .select-wrapper select {
+    padding-right: 40px; }
 
 /* Dropdown */
 .dropdown-toggle:hover, .dropdown-toggle:focus {
