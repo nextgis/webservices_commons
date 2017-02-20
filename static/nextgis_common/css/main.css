@@ -6954,7 +6954,9 @@ body {
   .btn.btn-tool--icon:not(.btn-raised).feedback {
     font-size: 24px; }
 
-.btn-xlg {
+.btn-xlg,
+.btn-xlg.btn-raised,
+.btn-xlg.btn.btn-action {
   font-size: 19px;
   padding: 10px 40px 12px;
   font-weight: bold; }
