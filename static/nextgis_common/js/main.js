@@ -871,5 +871,5 @@ $(document).ready(function(){
         Autocomplete.init();
     }
 
-    $(".select").change();
+    $("select").change();
 });

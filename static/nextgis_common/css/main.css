@@ -7687,6 +7687,9 @@ form {
   .select-wrapper select {
     padding-right: 40px; }
 
+.select--no-empty-option option[value=""] {
+  display: none; }
+
 /* Dropdown */
 .dropdown-toggle:hover, .dropdown-toggle:focus {
   text-decoration: none; }
