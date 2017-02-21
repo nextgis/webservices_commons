@@ -7656,6 +7656,9 @@ form {
   .select-wrapper select::-ms-expand {
     display: none; }
 
+.select-wrapper select {
+  position: relative; }
+
 .dropdownjs {
   font-weight: 400; }
   .dropdownjs > ul {
