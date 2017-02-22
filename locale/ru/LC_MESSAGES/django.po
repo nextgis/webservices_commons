@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 16:36+0000\n"
+"POT-Creation-Date: 2017-02-22 12:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: nextgis_common/templates/400.html:5
+msgid "400 Bad Request"
+msgstr ""
+
+#: nextgis_common/templates/400.html:6
+msgid "400"
+msgstr "400"
+
+#: nextgis_common/templates/400.html:10
+msgid "Bad request"
+msgstr "Неверный запрос"
+
+#: nextgis_common/templates/400.html:11 nextgis_common/templates/403.html:11
+msgid "Think it's a mistake?"
+msgstr "Считаете, что это ошибка?"
+
+#: nextgis_common/templates/400.html:11 nextgis_common/templates/403.html:11
+msgid "Denial of access to"
+msgstr "Ошибка запрета доступа к"
+
+#: nextgis_common/templates/400.html:11 nextgis_common/templates/403.html:11
+msgid "There is no access to the page"
+msgstr "Нет доступа к странице"
+
+#: nextgis_common/templates/400.html:11 nextgis_common/templates/403.html:11
+msgid "Let us know"
+msgstr "Дайте нам знать"
 
 #: nextgis_common/templates/403.html:5
 msgid "403 Forbidden"
@@ -31,22 +59,6 @@ msgstr "403"
 #: nextgis_common/templates/403.html:10
 msgid "The access to this page is forbidden"
 msgstr "Доступ к этой странице запрещен"
-
-#: nextgis_common/templates/403.html:11
-msgid "Think it's a mistake?"
-msgstr "Считаете, что это ошибка?"
-
-#: nextgis_common/templates/403.html:11
-msgid "Denial of access to"
-msgstr "Ошибка запрета доступа к"
-
-#: nextgis_common/templates/403.html:11
-msgid "There is no access to the page"
-msgstr "Нет доступа к странице"
-
-#: nextgis_common/templates/403.html:11
-msgid "Let us know"
-msgstr "Дайте нам знать"
 
 #: nextgis_common/templates/404.html:5
 msgid "404 Page not found"
@@ -104,7 +116,7 @@ msgstr "Ошибка на сервере"
 msgid "Server error when accessing"
 msgstr "Ошибка на сервере при просмотре страницы"
 
-#: nextgis_common/templates/error/error_base.html:12
+#: nextgis_common/templates/error/error_base.html:14
 msgid "Go back"
 msgstr "Вернуться назад"
 
@@ -171,8 +183,8 @@ msgid "Please enter a valid email address"
 msgstr "Введите правильный e-mail"
 
 #: nextgis_common/templates/snippets/translate_js.html:7
-msgid "Please enter a valid URL"
-msgstr "Введите правильный URL"
+msgid "This value must start with \\\"http://\\\" or \\\"https://\\\""
+msgstr "Это значение должно начинаться с \\\"http://\\\" or \\\"https://\\\""
 
 #: nextgis_common/templates/snippets/translate_js.html:8
 msgid "Please enter a valid date"
