@@ -7580,6 +7580,8 @@ form {
   .form-group .help-block {
     display: block;
     color: rgba(117, 117, 117, 0.5); }
+  .form-group--nopadding {
+    padding-bottom: 0 !important; }
 
 .lte-ie9 .form-group.has-error .form-control {
   border-bottom: 1px solid #F96A67; }
