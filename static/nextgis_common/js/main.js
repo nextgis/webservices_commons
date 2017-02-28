@@ -796,6 +796,31 @@ var ImageSelect= (function(){
     return me;
 })();
 
+var Scrollto = (function(){
+    var me = {
+        init: function(){
+             $('.scrollto-link').on('click', function(e){
+                var target=$(this).attr('href');
+                me.scrollTo(target);
+                e.preventDefault();
+            })
+        },
+        scrollTo: function(target){
+            if ($(target).length){
+                $('html, body').animate({'scrollTop':$(target).offset().top - $(".header").outerHeight()},500);
+            }
+        }
+    }
+    if ($(".scrollto-link").length) me.init();
+
+    if (window.location.hash){
+        setTimeout(function(){
+            me.scrollTo($(window.location.hash));
+        }, 1);
+    }
+    return me;
+})();
+
 $(document).ready(function(){
     $.material.options = {
       "input": true,
