@@ -332,36 +332,44 @@ var Nav = (function(){
 
 // Plans
 var Plans =(function(){
+    var paymentForm = $(".choosen-plan__payment"),
+        plansModal = $(".plans-modal");
 
-    function showResult(plan, container){
-        plan.addClass("active");
+    function showResult(plan, paid, container){
+        var slider = $(".choosen-plan__header." + plan).find(".slider")[0];
+        $(".choosen-plan__header." + plan).addClass("active");
+        if (paid) paymentForm.addClass("active");
+        if (slider) slider.noUiSlider.set([slider.noUiSlider.get()]);
+        $(".choosen-plan__btn-name").text(plan);
         container.addClass("choosen");
     }
 
     function hideResult(container){
         if (container.parents(".plans-modal").length)
-            $(".plans-modal").removeClass("choosen");
+            plansModal.removeClass("choosen");
         container.removeClass("choosen");
+        $("#ngw_plans_period").val("1");
         setTimeout(function(){
-            container.find(".plan-choice__choosen__item.active").removeClass("active")
+            container.find(".choosen-plan__header.active").removeClass("active");
+            paymentForm.removeClass("active");
         }, 600);
     }
 
     return {
         init: function(){
-            var isInPopup = $(".plans-modal").length ? true : false;
+            var isInPopup = plansModal.length ? true : false;
 
             if (isInPopup)  {
-                $(".plans-modal").modal();
+                plansModal.modal();
 
                 if (window.location.hash === "#plans" || get_query_value("show_plans")!= null){
-                    $('.plans-modal').modal("show");
+                    plansModal.modal("show");
                 }
-                $('.plans-modal').on('shown.bs.modal', function (e) {
+                plansModal.on('shown.bs.modal', function (e) {
                     window.location.hash = "#plans"
                 });
 
-                $('.plans-modal').on('hidden.bs.modal', function (e) {
+                plansModal.on('hidden.bs.modal', function (e) {
                     window.location.hash = ""
                     $(this).find(".js-plan-back").click();
                 });
@@ -376,16 +384,15 @@ var Plans =(function(){
 
                 btn.on("click", function(e){
                     e.preventDefault();
-                    var target=$(".plan-choice__choosen__item." + $(this).data("plan"));
-                    showResult(target, cont);
-                    if (isInPopup) $(".plans-modal").addClass("choosen");
+                    showResult($(this).data("plan"), $(this).data("paid-plan"), cont);
+                    if (isInPopup) plansModal.addClass("choosen");
                     planInput.val($(this).data("plan")).valid();
                 })
 
                 backLink.on("click", function(e){
                     e.preventDefault();
                     hideResult(cont);
-                    if (isInPopup) $(".plans-modal").removeClass("choosen");
+                    if (isInPopup) plansModal.removeClass("choosen");
                     planInput.val("");
                 })
             })
@@ -548,15 +555,13 @@ var Slider = (function(){
 
                 slider[0].noUiSlider.on('update', function(values){
                     var value = values[0];
+                    if (slider.data("input") && !firstUpdate)
+                        $(slider.data("input")).val(value);
 
                     if (firstUpdate){
                         firstUpdate = false;
-
                         slider.find(".noUi-base").append(slider.find(".noUi-pips").detach());
                     }
-
-                    if (slider.data("input"))
-                        $(slider.data("input")).val(value);
 
                     if (slider.data("price") && slider.data("totalprice-target"))
                         calcPriceValue(value, pipDiscountValue[value], slider);
