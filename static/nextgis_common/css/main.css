@@ -6216,7 +6216,7 @@ p {
       border-right: 3px solid;
       bottom: -9px;
       right: 0px; }
-    .bordered-title--link:hover {
+    .bordered-title--link:hover, .bordered-title--link:active, .bordered-title--link:focus {
       color: #00b77e;
       border-color: #00b77e;
       opacity: .8; }
@@ -8857,13 +8857,22 @@ a:hover .user-photo__icon {
   transition: box-shadow 0.3s;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
-  @media (min-width: 768px) and (max-width: 992px) {
-    .plans__item {
-      border-radius: 0;
-      box-shadow: none; } }
   .plans__item:hover {
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
     z-index: 10; }
+  @media (max-width: 768px) {
+    .plans__item {
+      -webkit-box-flex: none;
+      box-flex: none;
+      -moz-flex: none;
+      -ms-flex: none;
+      flex: none; } }
+  @media (min-width: 768px) and (max-width: 992px) {
+    .plans__item {
+      border-radius: 0;
+      box-shadow: none; }
+      .plans__item:hover, .plans__item:active, .plans__item:focus {
+        box-shadow: none; } }
   .plans__item.premium {
     background-color: #0070c5;
     color: rgba(255, 255, 255, 0.67); }
@@ -8959,7 +8968,8 @@ a:hover .user-photo__icon {
   text-align: left;
   padding-left: 15px;
   padding-right: 15px;
-  font-size: 15px; }
+  font-size: 15px;
+  margin-bottom: 24px; }
 
 .plans__feature__item {
   position: relative;
