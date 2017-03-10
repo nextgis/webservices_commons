@@ -8988,7 +8988,8 @@ a:hover .user-photo__icon {
   .choosen-plan .choosen-plan__btn {
     margin-right: 10px;
     display: none;
-    margin-top: 30px; }
+    margin-top: 30px;
+    min-width: 130px; }
   .choosen-plan .panel {
     border-radius: 10px;
     overflow: hidden; }
@@ -9068,8 +9069,9 @@ a:hover .user-photo__icon {
   .choosen-plan__payment.active {
     display: block; }
 
-.choosen-plan__payment__text {
-  margin-bottom: 30px; }
+.choosen-plan__payment-text {
+  margin-top: 16px;
+  margin-bottom: 12px; }
 
 /* Plans modal */
 .plans-modal .modal-content {
