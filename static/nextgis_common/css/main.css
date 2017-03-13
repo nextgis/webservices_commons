@@ -8770,7 +8770,7 @@ a:hover .user-photo__icon {
   margin-bottom: 24px;
   color: rgba(0, 0, 0, 0.87);
   border-bottom: 0; }
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     .plan-choice__back,
     .admin__panel__content .plan-choice__back {
       margin-bottom: 0;
