@@ -7118,6 +7118,10 @@ p {
 .noshadow {
   box-shadow: none !important; }
 
+.fake-hidden {
+  position: absolute;
+  visibility: hidden; }
+
 .rouble {
   font-family: "Rouble";
   line-height: 1; }
