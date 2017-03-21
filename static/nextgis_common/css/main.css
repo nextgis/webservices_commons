@@ -7118,6 +7118,10 @@ p {
 .noshadow {
   box-shadow: none !important; }
 
+.fake-hidden {
+  position: absolute;
+  visibility: hidden; }
+
 .rouble {
   font-family: "Rouble";
   line-height: 1; }
@@ -7150,6 +7154,9 @@ a:hover .material-icons {
 
 .vcenter {
   vertical-align: middle; }
+
+.break-word {
+  word-wrap: break-word; }
 
 .fake-link,
 .admin__panel__content .fake-link {
@@ -8770,7 +8777,7 @@ a:hover .user-photo__icon {
   margin-bottom: 24px;
   color: rgba(0, 0, 0, 0.87);
   border-bottom: 0; }
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     .plan-choice__back,
     .admin__panel__content .plan-choice__back {
       margin-bottom: 0;
@@ -8844,6 +8851,7 @@ a:hover .user-photo__icon {
   position: relative;
   padding: 25px 20px 76px;
   text-align: center;
+  width: 100%;
   max-width: 400px;
   background-color: #d9e6f9;
   top: 0;
@@ -8987,7 +8995,8 @@ a:hover .user-photo__icon {
   .choosen-plan .choosen-plan__btn {
     margin-right: 10px;
     display: none;
-    margin-top: 30px; }
+    margin-top: 30px;
+    min-width: 130px; }
   .choosen-plan .panel {
     border-radius: 10px;
     overflow: hidden; }
@@ -9063,12 +9072,13 @@ a:hover .user-photo__icon {
 .choosen-plan__payment {
   display: none;
   background-color: #fff;
-  padding: 20px 25px 16px; }
+  padding: 30px 25px 30px; }
   .choosen-plan__payment.active {
     display: block; }
 
-.choosen-plan__payment__text {
-  margin-bottom: 30px; }
+.choosen-plan__payment-text {
+  margin-top: 16px;
+  margin-bottom: 12px; }
 
 /* Plans modal */
 .plans-modal .modal-content {
