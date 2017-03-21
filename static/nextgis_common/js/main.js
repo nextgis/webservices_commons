@@ -340,7 +340,6 @@ var Plans =(function(){
         $(".choosen-plan__header." + plan).addClass("active");
         if (paid) paymentForm.addClass("active");
         if (slider) slider.noUiSlider.set([slider.noUiSlider.get()]);
-        $(".choosen-plan__btn-name").text(plan);
         container.addClass("choosen");
     }
 
@@ -372,6 +371,16 @@ var Plans =(function(){
                 plansModal.on('hidden.bs.modal', function (e) {
                     window.location.hash = ""
                     $(this).find(".js-plan-back").click();
+                });
+
+                $('.js-switch-customer-type').on('shown.bs.tab', function (e) {
+                    if ($(e.target).data("target")=="#yridical") {
+                        $(".choosen-plan__btn-text--pay").addClass("hidden");
+                        $(".choosen-plan__btn-text--order").removeClass("hidden");
+                    } else {
+                        $(".choosen-plan__btn-text--pay").removeClass("hidden");
+                        $(".choosen-plan__btn-text--order").addClass("hidden");
+                    }
                 });
             }
 
