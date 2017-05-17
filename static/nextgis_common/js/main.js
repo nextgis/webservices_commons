@@ -411,9 +411,41 @@ var Plans =(function(){
 
 // Radiotab module
 var Radiotab = (function(){
+    var detachedPanels = {},
+        container = $(".tab-content"); // TODO - rewrite for multiple container on one page
+
+    function addPanel(key){
+        container.append(detachedPanels[key]);
+        delete detachedPanels[key];
+    }
+
+    function removeSiblingsPanel(el){
+        var siblingTabs = el.parent(".radio").siblings().find("[data-toggle=radiotab]");
+
+        siblingTabs.each(function(){
+            if ($($(this).data("target")).length)
+                detachedPanels[$(this).data("target")] = $($(this).data("target")).detach();
+        });
+    }
+
     return {
         init: function(){
+
             $("[data-toggle=radiotab]").on("click", function(){
+                var targetId = $(this).data("target");
+
+                if ($(this).data("removeOther")!=undefined){
+                    if (targetId in detachedPanels){
+                        addPanel(targetId)
+                    }
+                    removeSiblingsPanel($(this));
+                } else {
+                    if (detachedPanels.length){
+                        for(var key in detachedPanel){
+                            container.append(detachedPanels[key]);
+                        }
+                    }
+                }
                 $(this).tab("show");
             })
 
