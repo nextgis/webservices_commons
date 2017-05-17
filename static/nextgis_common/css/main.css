@@ -7155,6 +7155,9 @@ a:hover .material-icons {
 .vcenter {
   vertical-align: middle; }
 
+.break-word {
+  word-wrap: break-word; }
+
 .fake-link,
 .admin__panel__content .fake-link {
   border-bottom: 1px dashed;
