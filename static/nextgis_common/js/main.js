@@ -334,6 +334,7 @@ var Nav = (function(){
 var Plans =(function(){
     var paymentForm = $(".choosen-plan__payment"),
         plansModal = $(".plans-modal");
+        plansAlertModal = $(".plans-alert-modal");
 
     function showResult(plan, paid, container){
         var slider = $(".choosen-plan__header." + plan).find(".slider")[0];
@@ -364,6 +365,7 @@ var Plans =(function(){
                 if (window.location.hash === "#plans" || get_query_value("show_plans")!= null){
                     plansModal.modal("show");
                 }
+
                 plansModal.on('shown.bs.modal', function (e) {
                     window.location.hash = "#plans"
                 });
@@ -405,6 +407,10 @@ var Plans =(function(){
                     planInput.val("");
                 })
             })
+
+            if (get_query_value("payment-success")!= null){
+                if (plansAlertModal) plansAlertModal.modal("show");
+            }
         }
     }
 })();
