@@ -464,7 +464,7 @@ var Autocomplete = (function(){
                 el = $(this)[0];
                 new autoComplete({
                     selector: el,
-                    minChars: 1,
+                    minChars: 0,
                     source: function(term, suggest){
                         term = term.toLowerCase();
                         var choices = [];
