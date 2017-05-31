@@ -408,8 +408,31 @@ var Plans =(function(){
                 })
             })
 
+            // Show success message after payment
             if (get_query_value("payment-success")!= null){
-                if (plansAlertModal) plansAlertModal.modal("show");
+                if (plansAlertModal){
+                    $(".plans-alert-modal__message").hide();
+
+                    if (get_query_value("renew")!= null){
+
+                        if (get_query_value("invoice")!= null){
+                            $( "#renew-invoice" ).show();
+                        } else {
+                            $( "#renew-epayment" ).show();
+                        }
+
+                    } else {
+
+                        if (get_query_value("invoice")!= null){
+                            $( "#changeplan-invoice" ).show();
+                        } else {
+                            $( "#changeplan-epayment" ).show();
+                        }
+
+                    }
+
+                    plansAlertModal.modal("show");
+                }
             }
         }
     }

@@ -9111,3 +9111,15 @@ a:hover .user-photo__icon {
     .plans-enterprise__btn {
       float: none;
       margin-left: 0; } }
+
+.plans-alert-modal__title {
+  margin-bottom: 20px;
+  margin-top: 0; }
+
+.plans-alert-modal__message {
+  display: none;
+  margin-bottom: 20px; }
+  .plans-alert-modal__message:last-child {
+    margin-bottom: 0; }
+  .plans-alert-modal__message#changeplan-epayment {
+    display: block; }
