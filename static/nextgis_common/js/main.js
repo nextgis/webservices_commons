@@ -334,6 +334,7 @@ var Nav = (function(){
 var Plans =(function(){
     var paymentForm = $(".choosen-plan__payment"),
         plansModal = $(".plans-modal");
+        plansAlertModal = $(".plans-alert-modal");
 
     function showResult(plan, paid, container){
         var slider = $(".choosen-plan__header." + plan).find(".slider")[0];
@@ -364,6 +365,7 @@ var Plans =(function(){
                 if (window.location.hash === "#plans" || get_query_value("show_plans")!= null){
                     plansModal.modal("show");
                 }
+
                 plansModal.on('shown.bs.modal', function (e) {
                     window.location.hash = "#plans"
                 });
@@ -405,15 +407,74 @@ var Plans =(function(){
                     planInput.val("");
                 })
             })
+
+            // Show success message after payment
+            if (get_query_value("payment-success")!= null){
+                if (plansAlertModal){
+                    $(".plans-alert-modal__message").hide();
+
+                    if (get_query_value("renew")!= null){
+
+                        if (get_query_value("invoice")!= null){
+                            $( "#renew-invoice" ).show();
+                        } else {
+                            $( "#renew-epayment" ).show();
+                        }
+
+                    } else {
+
+                        if (get_query_value("invoice")!= null){
+                            $( "#changeplan-invoice" ).show();
+                        } else {
+                            $( "#changeplan-epayment" ).show();
+                        }
+
+                    }
+
+                    plansAlertModal.modal("show");
+                }
+            }
         }
     }
 })();
 
 // Radiotab module
 var Radiotab = (function(){
+    var detachedPanels = {},
+        container = $(".tab-content"); // TODO - rewrite for multiple container on one page
+
+    function addPanel(key){
+        container.append(detachedPanels[key]);
+        delete detachedPanels[key];
+    }
+
+    function removeSiblingsPanel(el){
+        var siblingTabs = el.parent(".radio").siblings().find("[data-toggle=radiotab]");
+
+        siblingTabs.each(function(){
+            if ($($(this).data("target")).length)
+                detachedPanels[$(this).data("target")] = $($(this).data("target")).detach();
+        });
+    }
+
     return {
         init: function(){
+
             $("[data-toggle=radiotab]").on("click", function(){
+                var targetId = $(this).data("target");
+
+                if ($(this).data("removeOther")!=undefined){
+                    if (targetId in detachedPanels){
+                        addPanel(targetId)
+                    }
+                    removeSiblingsPanel($(this));
+                } else {
+                    if (detachedPanels.length){
+                        for(var key in detachedPanel){
+                            container.append(detachedPanels[key]);
+                        }
+                    }
+                }
                 $(this).tab("show");
             })
 
@@ -432,7 +493,7 @@ var Autocomplete = (function(){
                 el = $(this)[0];
                 new autoComplete({
                     selector: el,
-                    minChars: 1,
+                    minChars: 0,
                     source: function(term, suggest){
                         term = term.toLowerCase();
                         var choices = [];
