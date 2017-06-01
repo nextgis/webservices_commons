@@ -44,6 +44,12 @@ function get_query_value( name, url ) {
     }
 }
 
+// Remove get parameters
+function removeURLParameters(url){
+    urlparts= url.split('?'); 
+    return urlparts[0];
+}   
+
 // Authorization and registration panel module
 var AuthPanel = (function() {
     var authPanel = $(".auth-panel");
@@ -434,6 +440,14 @@ var Plans =(function(){
                     plansAlertModal.modal("show");
                 }
             }
+            plansAlertModal.on('hide.bs.modal', function (e) {
+                var newUrl = removeURLParameters(document.location.href);
+                if (window.history && history.pushState) {
+                    window.history.pushState(null, null,  newUrl);
+                } else {
+                    window.location.href = newUrl;
+                }
+            });
         }
     }
 })();
