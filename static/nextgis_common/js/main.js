@@ -413,9 +413,9 @@ var Plans =(function(){
                 if (plansAlertModal){
                     $(".plans-alert-modal__message").hide();
 
-                    if (get_query_value("renew")!= null){
+                    if (get_query_value("invoice_unit") === "plan_renew"){
 
-                        if (get_query_value("invoice")!= null){
+                        if (get_query_value("pay_method") === "invoice"){
                             $( "#renew-invoice" ).show();
                         } else {
                             $( "#renew-epayment" ).show();
@@ -423,7 +423,7 @@ var Plans =(function(){
 
                     } else {
 
-                        if (get_query_value("invoice")!= null){
+                        if (get_query_value("pay_method") === "invoice"){
                             $( "#changeplan-invoice" ).show();
                         } else {
                             $( "#changeplan-epayment" ).show();
