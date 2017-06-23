@@ -1,0 +1,150 @@
+/* Header */
+
+.header{
+    position: fixed;
+    left: 0;
+    right:0;
+    top:0;
+    height:$header-height-sm;
+    line-height: $header-height-sm;
+    background-color: $light-blue;
+    z-index: 40;
+    white-space: nowrap;
+    backface-visibility: hidden;
+    font-weight: 400;
+    color: $off-black;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 14px;
+    width: 100%;
+    border-bottom: 1px solid #d3e3f2;
+
+    @media (min-width: $screen-sm-min){
+        height:$header-height;
+        line-height: $header-height;
+    }
+
+    h1, .h1{
+        display: inline-block;
+        font-size: $font-size-md;
+        line-height: $header-height-sm;
+        margin:0;
+        color: $brand-primary;
+
+        @media (min-width: $screen-sm-min){               
+            line-height: $header-height;
+        }
+    }
+
+    a{
+        border-bottom: 0;
+        text-decoration: none;
+    }
+
+    .btn{
+        padding-left: 14px;
+        padding-right: 14px;
+
+        &:not(.btn-raised):not(.btn-link):not(.btn-action):hover,
+        &:not(.btn-raised):not(.btn-link):not(.btn-action):focus,
+        &:not(.btn-raised):not(.btn-link):not(.btn-action):active{
+            background-color: $blue-50;
+        }
+
+        &.btn-action{
+            padding: 0 20px;
+            box-shadow: none;                
+            line-height: inherit;
+            border-radius: 0;
+            border:0;
+            font-size: 14px;
+
+            &:not(.btn-raised):not(.btn-link),
+            &:not(.btn-raised):not(.btn-link),
+            &:not(.btn-raised):not(.btn-link){
+                &:hover,
+                &:focus,
+                &:active,
+                &:focus:active{
+                    box-shadow: none;    
+                }                
+            }
+        }    
+
+    }
+
+
+    .circle-btn{
+        width:30px;
+        height: 30px;
+        border-radius: 50%;
+        line-height: 30px;
+        padding:0;
+    }
+
+    .material-icons{
+        vertical-align: middle;
+        font-size: 20px;
+    }
+}
+
+    .header__right{
+        .btn-action{
+            float: right;
+
+            & + .btn-action.btn-primary{
+                @include button-variant($brand-primary, $light-blue2, transparent);
+            }
+
+            &.hide-on-sm + .btn-action.btn-primary{
+                @media (max-width: $screen-sm-min){
+                    @include button-variant(#fff, $brand-primary, transparent);
+                }
+            }
+        }
+    }
+
+    .header__logo{
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 10px;
+        padding-right: 11px;
+        margin-right: 10px;
+
+        &:after{
+            content:"";
+            position: absolute;
+            right:0;
+            top: 0px;
+            bottom: 0px;
+            width: 1px;
+            background-color: #b4d0ea;
+        }
+
+        @media (min-width: $screen-sm-min){
+            padding-left: 18px;
+            padding-right: 19px;
+            margin-right: 12px;
+
+            &:after{
+                top: 8px;
+                bottom: 8px;
+                width: 2px;
+            }
+        }
+    }
+
+    .header__plan{
+        margin-left: 8px;
+
+        @media (min-width: $screen-sm-min){
+            margin-left: 12px;
+        }
+    }
+
+    .header__user{
+        float: right;
+        display: inline-block;
+        margin-right:12px;
+    }

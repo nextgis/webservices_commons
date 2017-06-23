@@ -1,0 +1,33 @@
+/* Logo */
+
+.logo{
+    left: 20px;
+    top: 18px;
+    width: 130px;
+    height: 17.69px;
+    vertical-align: middle;
+	
+	.logo__item--dark,
+	.logo__item--light{
+		fill: $dark-blue;
+		transition: fill .3s;
+	}
+
+    &:hover{
+    	.logo__item--dark{
+			fill: #231F20;
+		}
+		.logo__item--light{
+			fill: #176FC1;
+		}
+    }
+}
+
+.logo--mini{    
+    width: 20px;
+    height: 20px;
+    left: 10px;
+    top: 14px;
+    z-index: 10;
+}
+    

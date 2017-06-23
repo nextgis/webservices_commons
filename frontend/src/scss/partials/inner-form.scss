@@ -1,0 +1,25 @@
+/* Inner form */
+
+.inner-form{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    z-index: 2;
+    @include shadow-8dp();
+
+    @media (min-width: $screen-sm-min){
+        position: absolute;
+        top:auto;
+        height: auto;
+        left: -40px;
+        bottom: -30px;
+        max-height: 100%;
+        padding: 30px;
+        overflow: hidden;
+    }
+}

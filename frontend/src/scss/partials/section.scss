@@ -1,0 +1,36 @@
+/* Section */
+.section{
+	@include stretch-block();
+    @include stretch-block-sm();
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.section--blue{
+	background-color: #e5eef7;
+}
+
+.section--primary{
+	background-color: $brand-primary;
+	color:#fff;
+}
+
+.section--narrow{
+	padding-top: 22px;
+	padding-bottom: 22px;
+}
+
+.admin__panel__content__inner > .section:first-child{
+    margin-top: -40px;
+}
+
+.section--nopadding{
+	padding-top:0;
+	padding-bottom: 0;
+	margin-top: 60px;
+	margin-bottom: 60px;
+
+	&:last-child{
+		margin-bottom: 0;
+	}
+}

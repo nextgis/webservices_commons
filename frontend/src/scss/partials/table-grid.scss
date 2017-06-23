@@ -1,0 +1,15 @@
+/* Table grid */
+
+.table-block{
+	display: table;
+	width: 100%;
+}
+	.table-block__cell{
+		display: table-cell;
+	}
+	.table-block__cell--vm{
+		vertical-align: middle;
+	}
+	.table-block__cell--100{
+		width: 100%;
+	}

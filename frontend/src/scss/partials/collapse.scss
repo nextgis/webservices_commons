@@ -1,0 +1,11 @@
+/* Collapse */
+[data-toggle=collapse]{
+    &:hover,
+    &:not(.collapsed){
+        color: $brand-success;
+    }
+}
+
+.collapse{
+    @extend .clearfix;
+}

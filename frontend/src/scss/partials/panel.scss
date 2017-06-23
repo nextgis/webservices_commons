@@ -1,0 +1,34 @@
+/* Panel */
+
+.panel{
+    @include shadow-2dp();
+    border-radius: 0;
+}
+
+.panel--warm{
+    background-color: $brand-warm;
+}
+    .panel-body{
+        padding: 20px 20px 22px;
+    }
+
+.panel--big{
+   & > .panel-body{
+        @media (min-width: $screen-sm-min){
+            padding: 40px 40px 44px;
+        }
+    } 
+}
+
+.panel--noshadow{
+    box-shadow: none;
+}
+
+.panel--bordered{
+    box-shadow: none;
+    border: 1px solid #efefef;
+
+    &.panel--warm{
+        border-color: darken($brand-warm, 10%);
+    }
+}

@@ -1,0 +1,687 @@
+/* Plans */
+
+$free-bg-color: #d9e6f9;
+$premium-bg-color: #0070c5;
+$free-text-color: #0070c5;
+$premium-text-color: #fff;
+$mini-bg-color: #5ea3d8;
+$mini-text-color: #fff;
+
+.instance-form__plans{
+	margin-top: 30px;
+	margin-bottom: 40px;
+
+	&.error-highlight{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.plan-choice-wrapper{
+		@media (min-width: $screen-sm-min){
+			margin-top: -43px;
+			padding-top: 43px;
+		}
+	}
+
+		.plan-choice__choosen{
+			@media (min-width: $screen-sm-min){
+				margin-top: -43px;
+			}
+		}
+}
+
+.plan-choice-wrapper{
+	position: relative;
+    overflow: hidden;
+    @include transition(height .6s);
+    @include backface-visibility(hidden);
+    padding: 20px 20px 5px;
+	margin: -20px -20px -5px;
+}
+
+.plan-choice{
+	position: relative;	
+	-webkit-transition: left .6s;
+    -moz-transition: left .6s;
+    transition: left .6s;
+    @include backface-visibility(hidden);
+    width: 208%;
+    left:0;
+
+	&.choosen{
+		//@include transform(translateX(-52%));
+		left: -108%;
+		@include backface-visibility(hidden);
+
+		.plan-choice__plans{
+			max-height: 1px;
+		}
+		.plan-choice__choosen{
+			max-height: 1500px;
+		}
+	}
+
+	.panel{
+		margin-bottom: 0;
+	}
+
+	.btn{
+		margin-top:0;
+	}
+}
+
+	.plan-choice__back,
+	.admin__panel__content .plan-choice__back{
+    	margin-bottom: 24px;
+    	color: $text-color;
+    	border-bottom:0;
+
+    	@media (max-width: $screen-sm-min){
+    		margin-bottom: 0;
+    		margin-top:16px;
+    	}
+
+    	.secondary-link__icon{
+    		position: relative;
+    		top: -1px;
+    		color: #212121;
+    	}
+
+    	&:hover{
+    		color: $link-hover-color;
+
+    		.secondary-link__icon{
+	    		color: $link-hover-color;
+	    	}
+    	}
+    }
+	.plan-choice__plans,
+	.plan-choice__choosen{
+		width:50%;
+		float: left;
+		@include transition(max-height .6s);
+		@include backface-visibility(hidden);
+	}
+	.plan-choice__plans{
+		position: relative;
+		max-height: 1500px;
+		padding-right: 2%;
+	}
+
+	.plan-choice__plans__more--2{
+		display: none;
+	}
+
+	.plan-choice__choosen{
+		max-height: 1px;		
+		padding-left: 2%;
+	}
+
+.plans{
+	margin-top: 10px;
+	margin-bottom: 40px;
+
+	@media (max-width: $screen-sm-min){
+		margin-left:0;
+		margin-right:0;
+	}
+}
+
+	.plans__col{
+		@include display(flex);
+
+		@media (max-width: $screen-sm-min){
+			@include flex-basis(100%);
+			max-width: 100%;			
+			margin-bottom: 30px;
+
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+
+		@media (max-width: $screen-md-min){
+			padding-left: 0;
+			padding-right:0;
+		}
+	}
+
+	.lte-ie9 .plans__col{
+		@media (max-width: $screen-sm-min){
+			width: 100%;
+		}
+	}
+
+		.plans__item{
+			position: relative;
+			padding: 25px 20px 76px;
+			text-align: center;
+			width: 100%;
+			max-width: 400px;
+			background-color: $free-bg-color;
+			top:0;
+			color: rgba(0,0,0,.7);
+			border-radius: 10px;
+			overflow: hidden;
+			@include flex(1);
+			@include transition(box-shadow .3s);
+			@include backface-visibility(hidden);
+
+			&:hover{
+				@include shadow-16dp();
+				z-index: 10;
+			}
+
+			@media (max-width: $screen-sm-min){
+				@include flex(none);
+			}
+
+			@media (min-width: $screen-sm-min) and (max-width: $screen-md-min){
+				border-radius: 0;
+				box-shadow: none;
+
+				&:hover,
+				&:active,
+				&:focus{
+					box-shadow: none;
+				}
+			}
+
+			&.premium{
+				background-color: $premium-bg-color;
+				color: fade-out($premium-text-color, .33);
+				
+				.plans__item__header{
+					background-color: $premium-bg-color;
+					color: $premium-text-color;
+
+					.plans__item__title{
+						color: $premium-text-color;
+					}
+				}
+
+				.plans__feature__item--extra{
+					color: $premium-text-color;
+				}
+
+			}
+
+			&.mini{
+				background-color: $mini-bg-color;
+				color: fade-out($mini-text-color, .33);
+				
+				.plans__item__header{
+					background-color: $mini-bg-color;
+					color: $mini-text-color;
+
+					.plans__item__title{
+						color: $mini-text-color;
+					}
+				}
+
+				.plans__feature__item--extra{
+					color: $mini-text-color;
+				}
+			}
+		}
+			.plans__item__btn{
+				position: absolute;
+				bottom: 25px;
+				left:0;
+				right:0;
+				margin-left: auto;
+				margin-right: auto;
+
+				.btn{
+					margin-top: 10px;
+					padding-left: 25px;
+					padding-right: 25px;
+					font-weight: bold;
+
+					&.plans__item__btn__active{
+						position: relative;
+						background-color: transparent !important;
+						font-weight: bold;
+						color: $off-black;
+						letter-spacing: .5px;
+						cursor:default;
+
+						// fix the disappearance of the border during the transition
+						&::before{
+							content:"";
+							position: absolute;
+							width: 100%;
+							height: 100%;
+							left:0;
+							top:0;
+							border: 2px solid rgba(0,0,0,.12);
+							border-radius: $btn-border-radius-base;
+						}
+
+
+						.mini &,
+						.premium &{
+							color: #fff;
+							cursor:pointer;
+
+							&::before{
+								border-color: #fff;
+							}
+
+							&:hover{
+								background-color: $brand-success  !important;
+							}
+						}
+					}
+				}
+			}
+			
+			.plans__item__info{
+                font-size: 13px;
+                margin-top: 30px;
+                color: $light-textColor;
+                letter-spacing: .5px;
+           	}
+
+			.plans__item__header{
+				margin: -25px -20px 25px;
+				padding: 32px 20px 0px;
+				background-color: $free-bg-color;
+				color: $free-text-color;
+				font-family: $headings-font-family;
+			}
+
+			.plans__item__title{
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 2px;
+				color: $free-text-color;
+				font-size: 14px;
+				font-weight: 400;
+			}
+
+.plan-price{
+	font-size: 36px;
+	font-weight: 400;
+}
+
+.plan-price--small{
+	font-size: 18px;
+
+	.smaller-text{
+		font-size: .9em;
+	}
+}
+
+.plan-price--old{
+	color: $fade-white;
+	text-decoration: line-through;
+	display: none;
+}
+
+.plans__feature{
+	text-align: left;
+	padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+	.plans__feature__item {
+		position: relative;
+	    margin-bottom: 15px;
+	  	line-height: 1.2;
+	}
+	
+	.plans__feature__item--crossed{
+		text-decoration: line-through;
+		color: $light-textColor;
+	}
+
+.choosen-plan{
+	//display: none;
+	clear: both;
+
+	.choosen-plan__btn{
+		margin-right: 10px;
+		display: none;
+		margin-top: 30px;
+		min-width: 130px;
+	}
+
+	.panel{
+		border-radius: 10px;
+		overflow: hidden;
+	}
+}
+	.choosen-plan__title{
+		font-weight: 400;
+
+		.plan-price{
+			color:$fade-white;
+		}
+	}
+
+	.choosen-plan__header{
+		display: none;
+		width: 100.05%;
+		color: $premium-text-color;
+
+		&.active{
+			display: table;
+		}
+
+		&.free{
+			color: $free-text-color;
+			
+			.choosen-plan__descr{
+				background-color: #fff;
+			}
+			.choosen-plan__price{
+				background-color: $free-bg-color;
+				color: $free-text-color;
+			}
+
+			.choosen-plan__info{
+				color: $text-color
+			}
+		}
+
+		&.mini{
+			.choosen-plan__descr{
+				background-color: rgba( $mini-bg-color, .82);
+			}
+			.choosen-plan__price{
+				background-color: $mini-bg-color;
+			}
+		}
+	}
+		.choosen-plan__descr,
+		.choosen-plan__price{
+			display: table-cell;
+			padding: 17px 25px 22px;
+			vertical-align: middle;
+    		background: rgba( $premium-bg-color, .78 );
+    		min-width: 180px;
+
+    		@media (max-width: $screen-xs-min){
+    			display: block;
+    			text-align: center;
+    		}
+		}
+
+		.choosen-plan__price{
+			text-align: center;
+			background: $premium-bg-color;
+			white-space: nowrap;
+			font-weight: 400;
+			padding-top:0;
+			padding-bottom: 5px;
+			width: 220px;
+
+			@media (max-width: $screen-xs-min){
+    			padding-top:8px;    			
+    			width: auto;
+    		}
+
+			.plan-price{
+				font-family: $headings-font-family;
+			}
+		}
+			.choosen-plan__price__info{
+				color: $label-warning-color;
+				font-size: 14px;
+			}
+
+			.choosen-plan__name{
+			    margin-left: 5px;
+			    font-size: 18px;
+			    letter-spacing: 3px;
+			    text-transform: uppercase;
+			}
+
+			.choosen-plan__info{
+				color: rgba($premium-text-color, 0.9);
+				margin-top: 6px;
+				font-size: 14px;
+			}
+	.choosen-plan__payment{
+		display: none;
+	    background-color: #fff;
+	    padding: 30px 25px 30px;
+
+	    &.active{
+	    	display: block;
+	    }
+	}
+	
+	.choosen-plan__payment-text{
+		margin-top: 16px;
+		margin-bottom: 12px;
+	}
+
+
+
+
+/* Plans modal */
+.plans-modal{
+	.modal-content{
+		background-color: #f8f8f8;
+	}
+
+	.plan-choice__plans__text{
+		text-align: center;
+	}
+
+	.plan-choice__plans__more--2{
+		position: absolute;
+		display: block;
+		right: 40px;
+		bottom:0;
+	}
+
+	.plan-choice__back{
+		display: none;
+	}
+
+	.choosen-plan__btn{
+		display: inline-block;
+	}
+
+	.choosen-plan__btn-name{
+		text-transform: uppercase;
+	}
+
+	.plan-choice__choosen{
+		margin-top: 5px;
+	}
+
+	.panel{
+		//box-shadow: none;
+		//border: 1px solid #dedede;
+	}
+	
+	h1, .h1{
+		margin-top:0;
+	}
+
+	&.choosen{
+		.modal-dialog{
+			@include transition(width .6s);
+
+			@media (min-width: $screen-md-min){
+				width: 900px;
+			}
+		}
+	}
+
+	@media (max-height: 800px) and (min-width: $screen-sm-min){
+		.modal-dialog{	
+			margin-top: 40px;
+		}
+	}
+
+	@media (max-width: $screen-sm-min){
+		.plans__item,
+		.plans-enterprise,
+		.plans-morelink{
+			max-width: 400px;
+			margin-left: auto;
+			margin-right: auto;
+			float: none;
+		}
+	}
+}
+
+.plans-modal--change{
+	.modal-content{
+		background-color: #fff;
+	}
+
+	.modal-dialog{
+		max-width: 560px;
+	}
+}
+
+.plan-choice__period{
+	$slider-padding: 16px;
+	background-color: $amber-500;
+	padding: 0 $slider-padding;;
+	margin-top: 36px;
+	margin-bottom: 15px;
+
+	.noUi-handle:after,
+	.noUi-origin[style^="left: 0"] .noUi-handle:after{
+		background-color: $amber-500;
+		border-color: $amber-500;
+	}
+
+	.noUi-origin{
+		right: -$slider-padding;;
+	}
+
+	.noUi-pips{
+		color: #fff;
+	}
+}
+
+.plan-choice__period-wrapper{
+	&.table-block,
+	.table-block__cell{
+		@media (max-width: 580px){
+			display: block;
+		}
+	}
+}
+
+.plan-choice__period-text{
+	position: relative;
+	top: 8px;
+	font-weight: 400;
+	padding-right: 15px;
+	@include user-select(none);
+
+	@media (max-width: 580px){
+		padding-right: 0;
+		top:0;
+		margin-top: 6px;
+	}
+}
+
+/* Plan info */
+
+.plan-info{
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active{
+        text-decoration: none;
+        color: inherit;                
+    }
+
+    &:hover{
+        .plan-info__label{
+            background-color: $brand-success;
+            color: #fff;
+
+            .icon-caret{
+                color: #fff;
+            }
+        }
+    }
+}
+
+.plan-info__label{
+    color: $brand-success;
+    padding: 2px 5px;
+    border: 1px solid fade-out($brand-success, .6);
+    border-radius: 4px;
+    position: relative;
+    top: -1px;
+
+    .icon-caret{
+        margin-left: -3px;
+        margin-right: -6px;
+        opacity: .76;               
+    }    
+}
+
+.plan-info__details{
+    display: none;
+    color:  fade-out($brand-primary, .6);
+    font-size: 12px;
+    line-height: 1.2;
+    vertical-align: middle;
+    margin-left: 8px;
+    margin-top: -2px;
+
+    &:hover{
+        color:  $brand-primary;
+    }
+
+    @media (min-width: $screen-sm-min){
+        display: inline-block;
+    }
+}
+
+.plans-enterprise{
+	margin-bottom: 40px;
+}
+
+.plans-enterprise__text{
+	font-size: 14px;
+	@media (max-width: $screen-sm-min){
+		margin-bottom: 12px;
+	}
+}
+.plans-enterprise__btn{
+	float: right;
+	margin-left: 12px;
+
+	@media (max-width: $screen-sm-min){
+		float: none;
+		margin-left:0;
+	}
+}
+
+.plans-alert-modal{
+	&__title{
+		margin-bottom: 20px;
+		margin-top:0;
+	}
+
+	&__message{
+		display: none;
+		margin-bottom: 20px;
+
+		&:last-child{
+			margin-bottom: 0;
+		}
+
+		&#changeplan-epayment{
+			display: block;
+		}
+	}
+}
