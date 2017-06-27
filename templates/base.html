@@ -26,7 +26,6 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-TileImage" content="{% static 'nextgis_common/img/favicons/mstile-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
-    <!--<link href="{% static 'nextgis_common/css/main.css' %}" type="text/css" rel="stylesheet"/>-->
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
     {% block extra_head %}{% endblock %}
   </head>
@@ -65,8 +64,11 @@
     <!-- Footer -->
     {% include "snippets/footer.html" %}
     <div class="overlay"></div>
+
     <!-- Scripts -->
+    {% block script_variables %} {% endblock %}
     {% include "snippets/scripts.html" %}
+
     <!-- Extra stuff -->
     {% block extra_body %}{% endblock %}
     {% block counters %}{% endblock %}

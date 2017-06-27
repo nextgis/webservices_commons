@@ -5,6 +5,7 @@ import DropdownJS from 'dropdown.js'
 import noUiSlider from 'nouislider'
 import svg4everybody from 'svg4everybody'
 import autoComplete from 'javascript-autocomplete'
+import * as util from './utilities'
 
 export default function() {
   // Detect Ie
@@ -15,49 +16,10 @@ export default function() {
     if (ie !== 0) document.getElementsByTagName("html")[0].className += " ie v" + ie;
   })();
 
-  function htmlToArray (el) {
-    var arr = [];
-    var arrayList = el.children();
-    arrayList.each(function () {
-      arr.push($(this).text().toLowerCase())
-    });
-    return arr;
-  }
-
   Number.prototype.format = function (n, x) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$& ');
   };
-
-  function getURLParameter (name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-  }
-
-  //Get query string parameters
-
-  function get_query_value (name, url) {
-    if (!url) url = location.href;
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-
-    var regexS_attr = "[\\?&]" + name,
-      regexS_value = "[\\?&]" + name + "=([^&#]*)",
-      regex_attr = new RegExp(regexS_attr),
-      regex_value = new RegExp(regexS_value),
-      results_attr = regex_attr.exec(url),
-      results_value = regex_value.exec(url);
-
-    if (results_attr && !results_value) {
-      return "";
-    } else {
-      return results_value == null ? null : results_value[1];
-    }
-  }
-
-  // Remove get parameters
-  function removeURLParameters (url) {
-    urlparts = url.split('?');
-    return urlparts[0];
-  }
 
   // Authorization and registration panel module
   var AuthPanel = (function () {
