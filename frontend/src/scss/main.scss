@@ -2,6 +2,10 @@
 @import "_mdb_variables";
 @import "_variables";
 
+@function twbs-font-path($path) {
+  @return $path;
+}
+
 @import "bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "bootstrap-material-design/sass/bootstrap-material-design";
 @import "bootstrap-material-design/sass/ripples";
