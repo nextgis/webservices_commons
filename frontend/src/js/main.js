@@ -58,6 +58,22 @@ export default function() {
 
     function initValidator () {
       validator();
+
+      $.extend($.validator.messages, {
+          required: validator_messages.required,
+          email: validator_messages.email,
+          url: validator_messages.url,
+          date: validator_messages.date,
+          number: validator_messages.number,
+          creditcard: validator_messages.creditcard,
+          equal: validator_messages.equal,
+          userName : validator_messages.userName,
+          personName : validator_messages.personName,
+          domenName: validator_messages.domenName,
+          simplePhone: validator_messages.simplePhone,
+          inArray: validator_messages.inArray
+      });
+
       $.validator.addMethod("equal", function (value, element) {
         var equalTo = $($(element).data("equalto"));
         if (equalTo.not(".validate-equalTo-blur").length) {
