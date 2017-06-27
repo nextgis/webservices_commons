@@ -14,6 +14,9 @@ external_links = {
     'privacy_ru': 'http://nextgis.ru/privacy',
     'privacy_en': 'http://nextgis.com/privacy',
 
+    'docs_ru': 'http://docs.nextgis.ru',
+    'docs_en': 'http://docs.nextgis.com',
+
     # temporary?
     'ngid_profile': 'https://my.nextgis.com/profile',
     'ngid_public_profile': 'https://my.nextgis.com/public_profile',
