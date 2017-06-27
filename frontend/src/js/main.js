@@ -857,9 +857,10 @@ export default function() {
               if (imageSelect.attr("tabindex")) fakeInput.attr("tabindex", imageSelect.attr("tabindex"));
               setSelectedImg(fakeInput, getSrc(control.val(), srcTemplate));
 
-              $dropdown.find("li").each(function () {
+              $dropdown.find("li").each(function (index) {
+                var value = control.find("option:eq(" + index + ")").val();
                 $(this).html("<img class='image-select__pic' width='100' src='" +
-                  getSrc($(this).attr("value"), srcTemplate) + "' " +
+                  getSrc(value, srcTemplate) + "' " +
                   "title = '" + $(this).text() + "'>");
               });
             }
