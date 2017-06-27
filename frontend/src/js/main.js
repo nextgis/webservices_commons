@@ -5,7 +5,7 @@ import DropdownJS from 'dropdown.js'
 import noUiSlider from 'nouislider'
 import svg4everybody from 'svg4everybody'
 import autoComplete from 'javascript-autocomplete'
-import * as util from './utilities'
+import * as Util from './utilities'
 
 export default function() {
   // Detect Ie
@@ -91,7 +91,7 @@ export default function() {
       $.validator.addMethod("inArray", function (value, element) {
         var arr = [];
         if ($(element).data("array")) arr = $(element).data("array");
-        if ($(element).data("array-select")) arr = htmlToArray($($(element).data("array-select")));
+        if ($(element).data("array-select")) arr = Util.htmlToArray($($(element).data("array-select")));
         return $.inArray(value.toLowerCase(), arr) !== -1;
       });
 
@@ -361,7 +361,7 @@ export default function() {
         if (isInPopup) {
           plansModal.modal();
 
-          if (window.location.hash === "#plans" || get_query_value("show_plans") != null) {
+          if (window.location.hash === "#plans" || Util.get_query_value("show_plans") != null) {
             plansModal.modal("show");
           }
 
@@ -406,13 +406,13 @@ export default function() {
         })
 
         // Show success message after payment
-        if (get_query_value("payment-success") != null) {
+        if (Util.get_query_value("payment-success") != null) {
           if (plansAlertModal) {
             $(".plans-alert-modal__message").hide();
 
-            if (get_query_value("invoice_unit") === "plan_renew") {
+            if (Util.get_query_value("invoice_unit") === "plan_renew") {
 
-              if (get_query_value("pay_method") === "invoice") {
+              if (Util.get_query_value("pay_method") === "invoice") {
                 $("#renew-invoice").show();
               } else {
                 $("#renew-epayment").show();
@@ -420,7 +420,7 @@ export default function() {
 
             } else {
 
-              if (get_query_value("pay_method") === "invoice") {
+              if (Util.get_query_value("pay_method") === "invoice") {
                 $("#changeplan-invoice").show();
               } else {
                 $("#changeplan-epayment").show();
@@ -432,7 +432,7 @@ export default function() {
           }
         }
         plansAlertModal.on('hide.bs.modal', function (e) {
-          var newUrl = removeURLParameters(document.location.href);
+          var newUrl = Util.removeURLParameters(document.location.href);
           if (window.history && history.pushState) {
             window.history.pushState(null, null, newUrl);
           } else {
@@ -504,7 +504,7 @@ export default function() {
               var choices = [];
               var matches = [];
 
-              if ($(el).data("array-select")) choices = htmlToArray($($(el).data("array-select")));
+              if ($(el).data("array-select")) choices = Util.htmlToArray($($(el).data("array-select")));
 
               for (var i = 0; i < choices.length; i++)
                 if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);

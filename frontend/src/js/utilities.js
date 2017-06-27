@@ -34,6 +34,6 @@ export function get_query_value(name, url) {
 
 // Remove get parameters
 export function removeURLParameters(url) {
-    urlparts = url.split('?');
+    var urlparts = url.split('?');
     return urlparts[0];
 }
