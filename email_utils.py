@@ -60,5 +60,5 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
 
 
 def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
-    msg = render_mail(template_prefix, email, context, bcc, add_default_subj_pref)
+    msg = render_mail(template_prefix, email, context, bcc)
     msg.send()
