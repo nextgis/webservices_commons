@@ -65,15 +65,3 @@
 
 {% block popups %}
 {% endblock %}
-
-{% block extra_body %}
-    <!-- UserReport -->
-    {% get_current_language as LANGUAGE_CODE %}
-    {% if LANGUAGE_CODE == 'ru' %}
-        {% get_userreport 'webgis_ru' as userreport_id %}      
-    {% else %}
-        {% get_userreport 'webgis_en' as userreport_id %}
-    {% endif %}
-    
-    {% include "snippets/contrib/userreport.html" %}
-{% endblock %}
