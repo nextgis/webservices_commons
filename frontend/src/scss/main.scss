@@ -1,12 +1,8 @@
-@import "_bootstrap_variables";
-@import "_mdb_variables";
-@import "_variables";
+@import "variables/bootstrap_variables";
+@import "variables/mdb_variables";
+@import "variables/variables";
 
-@function twbs-font-path($path) {
-  @return $path;
-}
-
-@import "bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "_bootstrap";
 @import "bootstrap-material-design/sass/bootstrap-material-design";
 @import "bootstrap-material-design/sass/ripples";
 @import "bourbon/app/assets/stylesheets/_bourbon";

@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <!--[if lte IE 9]>     <html class="lte-ie9"> <![endif]-->
@@ -28,6 +29,12 @@
     <meta name="theme-color" content="#ffffff">
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
 
+    {% get_current_language as LANGUAGE_CODE %}
+    <script>
+        var locale = "{{ LANGUAGE_CODE }}";
+    </script>
+
+    {% block script_variables %} {% endblock %}
     {% block extra_head %}{% endblock %}
   </head>
 
@@ -67,7 +74,6 @@
     <div class="overlay"></div>
 
     <!-- Scripts -->
-    {% block script_variables %} {% endblock %}
     {% include "snippets/scripts.html" %}
 
     <!-- Extra stuff -->
