@@ -66,10 +66,26 @@
 
         vertical-align: top;
         font-weight: 400;
+        height: auto;
+        margin:0;
     }
 
     &:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool):not(.btn-fab){
-        background-color: #ececec;
+        &:not(.btn--icon){
+            background-color: #ececec;
+
+            &:hover,
+            &:focus {
+                background-color: darken(#ececec, 10%);
+            }
+        }
+
+        &.btn--icon{
+            &:hover,
+            &:focus {
+                background-color: transparent;
+            }
+        }
     }
 
     &.btn-default{
