@@ -18,7 +18,7 @@ def format_email_subject(subject, prefix=None):
     return prefix + force_text(subject)
 
 
-def render_mail(template_prefix, email, context):
+def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
     """
     Renders an e-mail to `email`.  `template_prefix` identifies the
     e-mail that is to be sent, e.g. "account/email/email_confirmation"
@@ -27,7 +27,7 @@ def render_mail(template_prefix, email, context):
                                context)
     # remove superfluous line breaks
     subject = " ".join(subject.splitlines()).strip()
-    subject = format_email_subject(subject, settings.EMAIL_SUBJECT_PREFIX)
+    subject = format_email_subject(subject, settings.EMAIL_SUBJECT_PREFIX if add_default_subj_pref else '')
 
     bodies = {}
     for ext in ['html', 'txt']:
@@ -43,18 +43,22 @@ def render_mail(template_prefix, email, context):
         msg = EmailMultiAlternatives(subject,
                                      bodies['txt'],
                                      settings.DEFAULT_FROM_EMAIL,
-                                     [email])
+                                     email if isinstance(email, list) else [email],
+                                     bcc=bcc if isinstance(bcc, list) else [bcc]
+                                     )
         if 'html' in bodies:
             msg.attach_alternative(bodies['html'], 'text/html')
     else:
         msg = EmailMessage(subject,
                            bodies['html'],
                            settings.DEFAULT_FROM_EMAIL,
-                           [email])
+                           email if isinstance(email, list) else [email],
+                           bcc=bcc if isinstance(bcc, list) else [bcc]
+                           )
         msg.content_subtype = 'html'  # Main content is now text/html
     return msg
 
 
-def send_templated_mail(template_prefix, email, context):
-    msg = render_mail(template_prefix, email, context)
+def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
+    msg = render_mail(template_prefix, email, context, bcc)
     msg.send()
