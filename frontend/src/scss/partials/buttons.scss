@@ -96,6 +96,12 @@
         margin-left:10px;
     }
 
+    &.btn-sm {
+        padding: 7px 18px 8px;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
     &.btn-lg{
         font-size: 17px;
         padding-left: 30px;
@@ -316,9 +322,10 @@
     text-align: center;
     padding: 0 12px;
     border-radius: 2px;
-    color: #aeaeae;
+    color: rgba(0,0,0,.48);
     font-weight: normal;
-
+    letter-spacing: normal;
+    
     &:hover,
     &:active,
     &:focus{
