@@ -192,6 +192,18 @@
 }
 
 .btn{
+    &.btn--social{
+        .icon{
+            display: inline-block;
+        }
+
+        &:hover{
+            .icon{
+                color: #fff;
+            }
+        }
+    }
+
     &.btn--facebook{
         background-color: facebook-color();
         color:#fff;

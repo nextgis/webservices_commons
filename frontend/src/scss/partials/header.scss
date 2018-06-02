@@ -7,6 +7,7 @@
     top:0;
     height:$header-height-sm;
     line-height: $header-height-sm;
+    min-height: $header-height-sm;
     background-color: $light-blue;
     z-index: 40;
     white-space: nowrap;

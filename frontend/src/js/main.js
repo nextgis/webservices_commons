@@ -120,10 +120,10 @@ export default function() {
     }
 
     function fixAutofill () {
-      setTimeout(function () {
-        if ($(":-webkit-autofill").length)
-          $(":-webkit-autofill").parents(".form-group.is-empty").removeClass("is-empty");
-      }, 100)
+      // setTimeout(function () {
+      //   if ($(":-webkit-autofill").length)
+      //     $(":-webkit-autofill").parents(".form-group.is-empty").removeClass("is-empty");
+      // }, 100)
     }
 
     function clearErrors (form, el) {

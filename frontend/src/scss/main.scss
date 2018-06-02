@@ -82,16 +82,6 @@
 
 /* Global */
 
-.overlay{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left:0;
-    display: none;
-    background-color: rgba(243, 243, 243, 0.8);
-}
-
 .circle{
     border-radius: 50%;
 }
@@ -1476,6 +1466,7 @@ $adminSidebarWidth: 250px;
     }
 
     .admin__panel__content{
+        width: 100%;
         font-size: $font-size-md;
         padding-top: $header-height-sm;
 
@@ -1881,6 +1872,7 @@ $adminSidebarWidth: 250px;
         box-shadow: none;        
         padding-left:0;
         padding-right: 0;
+        margin-top: 48px;
     }
 }
     .sidebar-info__title{
