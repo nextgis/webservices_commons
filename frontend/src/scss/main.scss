@@ -1374,6 +1374,7 @@ form{
     margin-top: -$footer-height;
     padding-top:15px;
     font-size: 13px;
+    z-index: 2;
 
     a{
         color: $light-textColor;
