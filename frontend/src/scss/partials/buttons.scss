@@ -65,18 +65,17 @@
         }
 
         vertical-align: top;
-        font-weight: 400;
         height: auto;
         margin:0;
     }
 
     &:not(.btn-raised):not(.btn-link):not(.btn-action):not(.btn-tool):not(.btn-fab){
         &:not(.btn--icon){
-            background-color: #ececec;
+            background-color: $light-secondary;
 
             &:hover,
             &:focus {
-                background-color: darken(#ececec, 10%);
+                background-color: darken($light-secondary, 10%);
             }
         }
 
@@ -89,7 +88,7 @@
     }
 
     &.btn-default{
-        background-color: #ececec;
+        background-color: $light-secondary;
     }
 
     & + .btn{
@@ -112,7 +111,7 @@
     &.btn-xlg.btn-raised{
         font-size: 19px;
         padding: 10px 40px 12px;
-        font-weight: bold;
+        font-weight: 500;
     }
 
     &.btn-light,
@@ -134,7 +133,7 @@
 
 .btn-huge,
 .btn-huge.btn-raised{
-    font-weight: bold;
+    font-weight: 500;
     color: #fff !important;
     padding: 14px 30px 15px;
     letter-spacing: .8px;
@@ -326,7 +325,7 @@
 .btn.btn-tool:not(.btn-raised){
     background-color: transparent;
     color: #b3bec2;
-    border: 1px solid #e7e7e7;
+    border: 1px solid rgba(0,0,0,.14);
     height: 36px;
     line-height: 34px;
     font-size: 14px;

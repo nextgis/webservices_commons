@@ -49,6 +49,7 @@
 
 
 @import "partials/mixins";
+@import "partials/colors";
 @import "partials/layout";
 @import "partials/typography";
 @import "partials/logo";
@@ -550,6 +551,12 @@ a:hover{
 
         a{
             color: $brand-primary;
+        }
+    }
+
+    &.alert-info{
+        a{
+            border-color: rgba(255,255,255,.4);
         }
     }
 }

@@ -2,5 +2,5 @@
 	$<span class="format-0-3" {% if amount_id %} id = "{{amount_id}}" {% endif %}>{{amount}}</span>{% if per_month %}<span class="smaller-text">/mo</span>{% endif %}
 {% elif currency == "RUB" %}
 	<span class="format-0-3" {% if amount_id %} id = "{{amount_id}}" {% endif %}>{{amount}}</span>
-	<span class="smaller-text"><span class="rouble">o</span>{% if per_month %}/мес.{% endif %}</span>
+	<span class="smaller-text"><span class="rouble">q</span>{% if per_month %}/мес.{% endif %}</span>
 {% endif %}

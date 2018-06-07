@@ -236,14 +236,11 @@ $mini-text-color: #fff;
 					margin-top: 10px;
 					padding-left: 25px;
 					padding-right: 25px;
-					font-weight: bold;
 
 					&.plans__item__btn__active{
 						position: relative;
 						background-color: transparent !important;
-						font-weight: bold;
 						color: $off-black;
-						letter-spacing: .5px;
 						cursor:default;
 
 						// fix the disappearance of the border during the transition
@@ -297,7 +294,7 @@ $mini-text-color: #fff;
 				margin-bottom: 2px;
 				color: $free-text-color;
 				font-size: 14px;
-				font-weight: 400;
+				font-weight: 500;
 			}
 
 .plan-price{
@@ -616,7 +613,7 @@ $mini-text-color: #fff;
 .plan-info__label{
     color: $brand-success;
     padding: 2px 5px;
-    border: 1px solid fade-out($brand-success, .6);
+    border: 1px solid transparent;
     border-radius: 4px;
     position: relative;
     top: -1px;

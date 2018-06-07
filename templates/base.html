@@ -27,6 +27,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-TileImage" content="{% static 'nextgis_common/img/favicons/mstile-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&amp;subset=cyrillic-ext" rel="stylesheet">
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
 
     {% get_current_language as LANGUAGE_CODE %}
@@ -56,12 +57,12 @@
                   {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
                   <div class="alert alert-warning fade in" data-form="auth-form">
                   {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                  <div class="alert alert-info alert--timeout fade in" data-form="auth-form">
+                  <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
                   {% else %}
-                  <div class="alert alert-info alert--timeout fade in" data-form="auth-form">
+                  <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}"" data-form="auth-form">
                   {% endif %}
                       <button type="button" class="close" data-dismiss="alert">×</button>
-                      {{message}}
+                      {{ message | safe }}
                   </div>
               {% endfor %}
           {% endif %}
