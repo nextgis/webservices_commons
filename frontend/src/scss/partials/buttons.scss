@@ -1,5 +1,5 @@
 /* Buttons */
-.btn, .input-group-btn .btn{
+.btn, .v-btn, .input-group-btn .btn{
     margin:0;
     padding: 9px 22px 10px;
     border-radius: $btn-border-radius-base;
@@ -8,6 +8,15 @@
     letter-spacing: .5px;
     font-family: $headings-font-family;
     border-bottom: 0;
+
+    &[type=reset],
+    &[type=submit],
+    &button,
+    html &[type=button]{
+        border: 0;
+        appearance: none;
+        -webkit-appearance: none;
+    }
 
     &:focus,
     &:active,
@@ -196,7 +205,8 @@
     }
 }
 
-.btn{
+.btn,
+.v-btn{
     &.btn--social{
         .icon{
             display: inline-block;
@@ -273,6 +283,44 @@
             background-color: fade-out(#fff, .2) !important;
         }
     }
+
+    &.btn-tool,
+    &.btn-tool:not(.btn-raised){
+        background-color: transparent;
+        color: #b3bec2;
+        border: 1px solid rgba(0,0,0,.14);
+        height: 36px;
+        line-height: 34px;
+        font-size: 14px;
+        text-align: center;
+        padding: 0 12px;
+        border-radius: 2px;
+        color: rgba(0,0,0,.62);
+        font-weight: normal;
+        letter-spacing: normal;
+        
+        &:hover,
+        &:active,
+        &:focus{
+            color: $brand-primary;
+            background-color: rgba(0,0,0,.02);
+        }
+    }
+
+    &.btn-tool--icon,
+    &.btn-tool--icon:not(.btn-raised){
+        font-size: 20px;
+        line-height: 36px;
+        width: 36px;
+        padding:0;    
+        line-height: 36px;
+        color: #b3bec2;
+
+        &.textsms,
+        &.feedback{
+            font-size: 24px;
+        }
+    }
 }
 
 .btn-offset{
@@ -318,43 +366,5 @@
     & + h3,
     & + .h3,{
         margin-top:0;
-    }
-}
-
-.btn.btn-tool,
-.btn.btn-tool:not(.btn-raised){
-    background-color: transparent;
-    color: #b3bec2;
-    border: 1px solid rgba(0,0,0,.14);
-    height: 36px;
-    line-height: 34px;
-    font-size: 14px;
-    text-align: center;
-    padding: 0 12px;
-    border-radius: 2px;
-    color: rgba(0,0,0,.62);
-    font-weight: normal;
-    letter-spacing: normal;
-    
-    &:hover,
-    &:active,
-    &:focus{
-        color: $brand-primary;
-        background-color: rgba(0,0,0,.02);
-    }
-}
-
-.btn.btn-tool--icon,
-.btn.btn-tool--icon:not(.btn-raised){
-    font-size: 20px;
-    line-height: 36px;
-    width: 36px;
-    padding:0;    
-    line-height: 36px;
-    color: #b3bec2;
-
-    &.textsms,
-    &.feedback{
-        font-size: 24px;
     }
 }
