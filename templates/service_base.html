@@ -15,6 +15,7 @@
                 {% block header_action %}
                 {% endblock %}
 
+                {% block header_action_login %}
                 {% if request.user.is_authenticated %}
                     <div class="header__user user-dropdown dropdown">
                         <a href="#" class="user-dropdown__link withoutripple dropdown-toggle"  id="user-menu" data-toggle="dropdown">
@@ -36,6 +37,7 @@
                 {% else %}
                     <a class="btn btn-action btn-primary" href="{% block login_link %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a> {# {% url 'account_login' %} #}
                 {% endif %}
+                {% endblock %}
             </div>
             <div class="header__logo">
                 <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
