@@ -1,5 +1,5 @@
 import Bootstrap from 'bootstrap'
-import BootstrapMD from 'bootstrap-material-design'
+import BootstrapMD from 'bootstrap-material-design/dist/js/material'
 import Ripples from 'bootstrap-material-design/dist/js/ripples'
 import DropdownJS from 'dropdown.js'
 import noUiSlider from 'nouislider'
