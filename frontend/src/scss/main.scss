@@ -47,7 +47,6 @@
 @include font-face("Lato", "~@nextgis_common/assets/fonts/lato-regular");
 @include font-face("Lato", "~@nextgis_common/assets/fonts/lato-bold", bold);
 
-
 @import "partials/mixins";
 @import "partials/colors";
 @import "partials/layout";
@@ -56,6 +55,7 @@
 @import "partials/slider";
 @import "partials/table-grid";
 @import "partials/header";
+@import "partials/header-menu";
 @import "partials/dropdown-menu";
 @import "partials/user-dropdown";
 @import "partials/image-select";
