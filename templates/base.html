@@ -41,13 +41,15 @@
   </head>
 
   <body class="{% block body_class %}{% endblock %}">
-    {% block body %}
-    {% endblock %}
+    <div id="app">
+      <v-app>
+      {% block body %}
+      {% endblock %}
 
-    <!-- Block for popups -->
-    {% block popups %}
-    {% endblock %}
-
+      <!-- Block for popups -->
+      {% block popups %}
+      {% endblock %}
+      
     <!-- Block for alerts -->
     {% block messages %}
       <div class="messages">
@@ -77,6 +79,8 @@
       {% include "snippets/footer.html" %}
     {% endblock %}
 
+      </v-app>
+    </div>
     <!-- Scripts -->
     {% include "snippets/scripts.html" %}
 
