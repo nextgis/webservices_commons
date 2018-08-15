@@ -72,7 +72,10 @@
     {% endblock %}
 
     <!-- Footer -->
-    {% include "snippets/footer.html" %}
+
+    {% block footer %}
+      {% include "snippets/footer.html" %}
+    {% endblock %}
 
     <!-- Scripts -->
     {% include "snippets/scripts.html" %}

@@ -99,8 +99,7 @@ body{
 
 .body--wide{
     .layout,
-    .header,
-    .footer > .container{
+    .header{
         width: 100%;
         max-width: none;
     }
