@@ -5,7 +5,7 @@
 {% block head_title %}{% trans '500 Internal server error' %}{% endblock %}
 {% block content_title %}{% trans '500' %}{% endblock %}
 
-{% block body_content %}
+{% block error_content %}
     <div class="huge-text error-block__number">500</div>
     <h1 class="h2 error-block__title">{% trans 'An error occurred on the server' %}</h1>
     <div class="error-block__descr">{% trans 'Chances are we already working to fix the problem. Try to refresh the page after&nbsp;some time or' %} <a id="error-report-link" href="mailto:info@nextgis.com?subject={% trans 'Server error' %} nextgis.com&body={% trans 'Server error when accessing' %} ">{% trans 'let us know' %}</a>.</div>
