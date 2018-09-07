@@ -63,7 +63,7 @@
                   {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
                   <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
                   {% else %}
-                  <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}"" data-form="auth-form">
+                  <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
                   {% endif %}
                       <button type="button" class="close" data-dismiss="alert">×</button>
                       {{ message | safe }}

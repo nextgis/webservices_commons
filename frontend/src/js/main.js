@@ -378,16 +378,19 @@ export default function() {
           plansModal.modal();
 
           if (window.location.hash === "#plans" || Util.get_query_value("show_plans") != null) {
+            $("html").addClass("modal-open");
             plansModal.modal("show");
           }
 
-          plansModal.on('shown.bs.modal', function (e) {
-            window.location.hash = "#plans"
+          plansModal.on('show.bs.modal', function (e) {
+            window.location.hash = "#plans";
+            $("html").addClass("modal-open");
           });
 
           plansModal.on('hidden.bs.modal', function (e) {
             window.location.hash = ""
             $(this).find(".js-plan-back").click();
+            $("html").removeClass("modal-open");
           });
 
           $('.js-switch-customer-type').on('shown.bs.tab', function (e) {
