@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from views import NgidOAuth2CallbackView, NgidOAuth2LoginView, NgidLogoutView
+from nextgis_common.ngid_auth.views import NgidOAuth2CallbackView, NgidOAuth2LoginView, NgidLogoutView
 
 urlpatterns = [
     url('^login/$', NgidOAuth2LoginView.as_view(), name=NgidOAuth2LoginView.view_name),
