@@ -37,3 +37,24 @@ export function removeURLParameters(url) {
     var urlparts = url.split('?');
     return urlparts[0];
 }
+
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+export function debounce(f, ms) {
+    let timer = null;
+
+    return function (...args) {
+        const onComplete = () => {
+              f.apply(this, args);
+              timer = null;
+        }
+
+        if (timer) {
+            clearTimeout(timer);
+        }
+
+        timer = setTimeout(onComplete, ms);
+    };
+}
