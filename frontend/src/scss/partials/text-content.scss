@@ -1,6 +1,8 @@
 /* Text content */
 
 .text-content{
+    font-size: $font-size-md;
+
     h1, .h1{
         font-size: 34px;
 
@@ -37,7 +39,7 @@
       @media (min-width: $screen-md-min){
             margin-left: -30px;
             margin-right: -30px;
-        }  
+        }
     }
 
     .col-xs, .col-sm, .col-md, .col-lg{

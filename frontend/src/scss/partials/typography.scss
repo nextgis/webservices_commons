@@ -60,7 +60,7 @@ small, .small{
 .num-title{
     counter-increment: num-title;
 
-    &:before{    
+    &:before{
         content: counter(num-title)".";
         display: inline-block;
         margin-right: 6px;
@@ -68,7 +68,7 @@ small, .small{
 }
 
 p{
-    margin-bottom: 20px;
+    margin-bottom: 1.25em;
     &:last-child{
         margin-bottom: 0;
     }
@@ -99,7 +99,7 @@ p{
         line-height: 1;
     }
 
-    @media (min-width: $screen-sm-min){        
+    @media (min-width: $screen-sm-min){
         padding-left: 30px;
         margin-left: -30px;
 
