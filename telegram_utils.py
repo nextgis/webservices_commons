@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import socket
 import logging
 import requests
@@ -61,7 +63,7 @@ def construct_message(html_msg, add_header=True):
 def send_message(html_msg):
     if settings.TELEGRAM_TOKEN is None:
         return
-    if settings.TELEGRAM_CHAT_ID_EXTRACTS is None:
+    if settings.TELEGRAM_CHAT_ID is None:
         return
 
     bot = SimpleTelegramBot(settings.TELEGRAM_TOKEN)
@@ -71,6 +73,6 @@ def send_message(html_msg):
         return
 
     bot.send_message(
-        settings.TELEGRAM_CHAT_ID_EXTRACTS,
+        settings.TELEGRAM_CHAT_ID,
         construct_message(html_msg)
     )
