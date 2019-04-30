@@ -8,9 +8,7 @@
 @import "bourbon/app/assets/stylesheets/_bourbon";
 @import "material-design-icons-iconfont/dist/material-design-icons.scss";
 @import "icons/fontello";
-@import "~javascript-autocomplete/auto-complete.css";
 @import "~dropdown.js/jquery.dropdown.css";
-@import "~nouislider/distribute/nouislider.css";
 
 /* Custom Stylesheet */
 @font-face {
@@ -52,7 +50,6 @@
 @import "partials/layout";
 @import "partials/typography";
 @import "partials/logo";
-@import "partials/slider";
 @import "partials/table-grid";
 @import "partials/header";
 @import "partials/header-menu";
@@ -70,16 +67,16 @@
 @import "partials/text-content";
 
 .facebook-color{
-    color: facebook-color();    
+    color: facebook-color();
 }
 .vk-color{
-    color: vk-color();    
+    color: vk-color();
 }
 .twitter-color{
-    color: twitter-color();    
+    color: twitter-color();
 }
 .google-color{
-    color: google-color();    
+    color: google-color();
 }
 
 
@@ -418,7 +415,7 @@ a:hover{
 
     &.col-xs-12{
         margin-bottom: 30px;
-        
+
         @media (min-width: $screen-sm-min){
             margin-bottom: 0;
         }
@@ -426,22 +423,22 @@ a:hover{
 }
 
 .col-xs-mb {
-    margin-top: 20px; 
+    margin-top: 20px;
     &:first-child {
-        margin-top: 0; 
+        margin-top: 0;
     }
     @media (min-width: $screen-sm-min) {
-        margin-top: 0; 
+        margin-top: 0;
     }
 }
 
 .col-sm-mb {
-    margin-top: 20px; 
+    margin-top: 20px;
     &:first-child {
-        margin-top: 0; 
+        margin-top: 0;
     }
     @media (min-width: $screen-md-min) {
-        margin-top: 0; 
+        margin-top: 0;
     }
 }
 
@@ -632,7 +629,7 @@ a:hover{
 
 .label-ribbon{
     position: absolute;
-    right: -8px;    
+    right: -8px;
     top: 10px;
     background-color: $label-warning-color;
     color: $text-color;
@@ -696,13 +693,13 @@ form{
 
 .form-group{
     margin-top:0;
-    padding-bottom: 23px;    
+    padding-bottom: 23px;
     line-height: 1;
 
     &.label-floating{
         margin-top: $mdb-label-top-margin-base + $mdb-input-font-size-base;
     }
-    
+
     .form-control{
         color: #000;
         margin-bottom: $mdb-input-padding-small-vertical;
@@ -817,8 +814,8 @@ form{
         }
     }
 
-    .form-group.label-static label.control-label, 
-    .form-group.label-floating.is-focused label.control-label, 
+    .form-group.label-static label.control-label,
+    .form-group.label-floating.is-focused label.control-label,
     .form-group.label-floating:not(.is-empty) label.control-label{
         top: -34px;
     }
@@ -915,7 +912,7 @@ form{
 
     &:focus{
         color: $textColor;
-    } 
+    }
 
     &:hover{
         color: $brand-primary;
@@ -1107,7 +1104,7 @@ form{
     position: fixed;
     width: 100%;
     z-index: 10;
-    background-color: $bg-color;            
+    background-color: $bg-color;
     background-image: linear-gradient(#e6e6e6, #e6e6e6);
     background-size: 0 1px;
     background-repeat: no-repeat;
@@ -1141,8 +1138,8 @@ form{
     top:100%;
     left:0;
     right: 0;
-    background-color: $bg-color;    
-    text-align: left;    
+    background-color: $bg-color;
+    text-align: left;
     line-height: 1.42857;
 
     @media (min-width: $screen-xs-min){
@@ -1335,7 +1332,7 @@ form{
         width: 1em;
 
         @media (min-width: $screen-sm-min){
-            width:auto;            
+            width:auto;
             margin-top: 8px;
         }
 
@@ -1489,7 +1486,7 @@ $adminSidebarWidth: 250px;
     }
 
         .admin__panel__content__title{
-            background-color: $brand-primary;            
+            background-color: $brand-primary;
             color: #fff;
             padding-top: 10px;
             padding-bottom: 10px;
@@ -1518,7 +1515,7 @@ $adminSidebarWidth: 250px;
             }
         }
 
-        .admin__panel__content__inner{            
+        .admin__panel__content__inner{
             padding-top: 30px;
             @media (min-width: $screen-sm-min){
                 padding-top: 40px;
@@ -1556,7 +1553,7 @@ $adminSidebarWidth: 250px;
             left: $adminSidebarWidth;
         }
 
-        .container{        
+        .container{
             max-width: none;
         }
     }
@@ -1663,7 +1660,7 @@ $adminSidebarWidth: 250px;
         .pic-upload__inner{
             position: relative;
 
-            &:hover{    
+            &:hover{
                 .pic-upload__delete{
                     opacity: 1;
                 }
@@ -1711,12 +1708,12 @@ $adminSidebarWidth: 250px;
                 text-align: center;
                 opacity: 0;
                 transition: opacity .4s, transform .4s;
-                border-radius: 50%;                
+                border-radius: 50%;
                 z-index: 3;
                 backface-visibility: hidden;
 
                 &:hover{
-                    transform: scale(1.1);                    
+                    transform: scale(1.1);
                     background-color: #24749b;
                 }
 
@@ -1751,14 +1748,14 @@ $adminSidebarWidth: 250px;
                 };
             }
 
-    .profile__personal__photo{            
+    .profile__personal__photo{
         margin-bottom: 20px;
         @media (min-width: $screen-sm-min){
             float: left;
             margin-left: -170px;
         }
     }
-    .profile__photo__inner{        
+    .profile__photo__inner{
         width: 129px;
         height:129px;
     }
@@ -1807,7 +1804,7 @@ $adminSidebarWidth: 250px;
         text-transform: none;
         font-weight: normal;
         letter-spacing: normal;
-        
+
         @media (min-width: $screen-sm-min){
             font-size: $font-size-h2-md;
             margin: 0 0 5px;
@@ -1840,7 +1837,7 @@ $adminSidebarWidth: 250px;
         margin-left: auto;
         margin-right: auto;
     }
-    
+
     .error-block__btn{
         margin-top: 50px;
     }
@@ -1882,7 +1879,7 @@ $adminSidebarWidth: 250px;
     @include stretch-block-sm();
 
     @media(max-width: $screen-sm-min){
-        box-shadow: none;        
+        box-shadow: none;
         padding-left:0;
         padding-right: 0;
         margin-top: 48px;
@@ -1919,5 +1916,3 @@ $adminSidebarWidth: 250px;
     transform: translate3d(0, 0, 0);
   }
 }
-
-@import "partials/plans";
