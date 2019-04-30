@@ -2,9 +2,7 @@ import Bootstrap from 'bootstrap'
 import BootstrapMD from 'bootstrap-material-design/dist/js/material'
 import Ripples from 'bootstrap-material-design/dist/js/ripples'
 import DropdownJS from 'dropdown.js'
-import noUiSlider from 'nouislider'
 import svg4everybody from 'svg4everybody'
-import autoComplete from 'javascript-autocomplete'
 import * as Util from './utilities'
 
 export default function() {
@@ -20,36 +18,6 @@ export default function() {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$& ');
   };
-
-  // Authorization and registration panel module
-  var AuthPanel = (function () {
-    var authPanel = $(".auth-panel");
-
-    var result = {
-      init: function () {
-        var close = authPanel.find(".js-close");
-        if (close.length)
-          close.on("click", function (e) {
-            result.close();
-          });
-      },
-      show: function (target) {
-        var content = authPanel.find(target);
-        if (content.length) {
-          content.siblings(".active").hide().removeClass("active");
-          content.addClass("active").fadeIn().css("display", "inline-block");
-        }
-
-        if (authPanel.is(":hidden"))
-          authPanel.fadeIn();
-      },
-      close: function () {
-        if (authPanel.is(":visible"))
-          authPanel.fadeOut();
-      }
-    };
-    return result;
-  })();
 
   // Forms module
   var Forms = (function () {
@@ -121,8 +89,10 @@ export default function() {
 
     function fixAutofill () {
       setTimeout(function () {
-        if ($(":-webkit-autofill").length)
-          $(":-webkit-autofill").parents(".form-group.is-empty").removeClass("is-empty");
+        try {
+          if ($(":-webkit-autofill").length)
+            $(":-webkit-autofill").parents(".form-group.is-empty").removeClass("is-empty");
+        } catch {};
       }, 100)
     }
 
@@ -260,208 +230,6 @@ export default function() {
     }
   })();
 
-  // Service menu
-  var Nav = (function () {
-    var menuLink = $(".js-service-menu"),
-      menu = $(".nav__service-menu"),
-      nav = $(".nav"),
-      overlay = $(".overlay");
-
-    function checkBordered () {
-      if ($(window).scrollTop() < 100) {
-        if (!menu.is(":visible")) result.unborderedNav();
-      } else
-        result.borderedNav();
-    }
-
-    function scrollWatcher () {
-      checkBordered();
-      $(window).on("scroll", function () {
-        checkBordered()
-      });
-    }
-
-    var result = {
-      init: function () {
-        scrollWatcher();
-
-        if (menu.length) {
-          menuLink.on("click", function () {
-            if (menu.is(":visible"))
-              result.hideMenu()
-            else
-              result.showMenu();
-            return false;
-          })
-
-          overlay.on("click", function () {
-            result.hideMenu();
-          })
-        }
-      },
-      showMenu: function () {
-        menu.slideDown(150, function () {
-          result.borderedNav();
-        });
-        menuLink.addClass("shown");
-        overlay.fadeIn(150);
-      },
-      hideMenu: function () {
-        menu.slideUp(150, function () {
-          checkBordered();
-        });
-        menuLink.removeClass("shown");
-        overlay.fadeOut(150);
-      },
-      borderedNav: function () {
-        nav.addClass("bordered");
-      },
-      unborderedNav: function () {
-        nav.removeClass("bordered");
-      }
-    }
-
-    return result;
-  })();
-
-  // Plans
-  var Plans = (function () {
-    var paymentForm = $(".choosen-plan__payment"),
-      plansModal = $(".plans-modal"),
-      plansAlertModal = $(".plans-alert-modal");
-
-    function showResult (plan, paid, container) {
-      var slider = $(".choosen-plan__header." + plan).find(".slider")[0];
-
-      $(".choosen-plan__header." + plan).addClass("active");
-      if (paid) {
-        paymentForm.addClass("active");
-        if ($("[name=customer-type]:checked").val() == "individual")
-          showButton($(".choosen-plan__btn-text--pay"))
-        else
-          showButton($(".choosen-plan__btn-text--order"));
-      } else {
-        showButton($(".choosen-plan__btn-text--free"));
-      }
-      if (slider) slider.noUiSlider.set([slider.noUiSlider.get()]);
-      container.addClass("choosen");
-    }
-
-    function hideResult (container) {
-      if (container.parents(".plans-modal").length)
-        plansModal.removeClass("choosen");
-      container.removeClass("choosen");
-      $("#ngw_plans_period").val("1");
-      setTimeout(function () {
-        container.find(".choosen-plan__header.active").removeClass("active");
-        paymentForm.removeClass("active");
-      }, 600);
-    }
-
-    function showButton (btn) {
-      var buttons = $(".choosen-plan__btn-text");
-
-      buttons.each(function () {
-        if ($(this)[0] == btn[0]) {
-          $(this).removeClass("hidden");
-        } else {
-          $(this).addClass("hidden");
-        }
-      });
-    }
-
-    return {
-      init: function () {
-        var isInPopup = plansModal.length ? true : false;
-
-        if (isInPopup) {
-          plansModal.modal();
-
-          if (window.location.hash === "#plans" || Util.get_query_value("show_plans") != null) {
-            $("html").addClass("modal-open");
-            plansModal.modal("show");
-          }
-
-          plansModal.on('show.bs.modal', function (e) {
-            window.location.hash = "#plans";
-            $("html").addClass("modal-open");
-          });
-
-          plansModal.on('hidden.bs.modal', function (e) {
-            window.location.hash = ""
-            $(this).find(".js-plan-back").click();
-            $("html").removeClass("modal-open");
-          });
-
-          $('.js-switch-customer-type').on('shown.bs.tab', function (e) {
-            if ($(e.target).data("target") == "#yridical") {
-              showButton($(".choosen-plan__btn-text--order"));
-            } else {
-              showButton($(".choosen-plan__btn-text--pay"));
-            }
-          });
-        }
-
-        $(".plan-choice").each(function () {
-          var cont = $(this),
-            wrapper = cont.parents(".plan-choice-wrapper"),
-            btn = cont.find(".js-choose-plan"),
-            backLink = cont.find('.js-plan-back'),
-            planInput = wrapper.find(".js-ngw-plan");
-
-          btn.on("click", function (e) {
-            e.preventDefault();
-            showResult($(this).data("plan"), $(this).data("paid-plan"), cont);
-            if (isInPopup) plansModal.addClass("choosen");
-            planInput.val($(this).data("plan")).valid();
-          })
-
-          backLink.on("click", function (e) {
-            e.preventDefault();
-            hideResult(cont);
-            if (isInPopup) plansModal.removeClass("choosen");
-            planInput.val("");
-          })
-        })
-
-        // Show success message after payment
-        if (Util.get_query_value("payment-success") != null) {
-          if (plansAlertModal) {
-            $(".plans-alert-modal__message").hide();
-
-            if (Util.get_query_value("invoice_unit") === "plan_renew") {
-
-              if (Util.get_query_value("pay_method") === "invoice") {
-                $("#renew-invoice").show();
-              } else {
-                $("#renew-epayment").show();
-              }
-
-            } else {
-
-              if (Util.get_query_value("pay_method") === "invoice") {
-                $("#changeplan-invoice").show();
-              } else {
-                $("#changeplan-epayment").show();
-              }
-
-            }
-
-            plansAlertModal.modal("show");
-          }
-        }
-        plansAlertModal.on('hide.bs.modal', function (e) {
-          var newUrl = Util.removeURLParameters(document.location.href);
-          if (window.history && history.pushState) {
-            window.history.pushState(null, null, newUrl);
-          } else {
-            window.location.href = newUrl;
-          }
-        });
-      }
-    }
-  })();
-
   // Radiotab module
   var Radiotab = (function () {
     var detachedPanels = {},
@@ -505,172 +273,6 @@ export default function() {
         $("[data-toggle=radiotab]").find(":checked").parents("[data-toggle=radiotab]").click();
       }
     }
-  })();
-
-  // Autocomplete module
-
-  var Autocomplete = (function () {
-    var elements = $(".autocomplete");
-    return {
-      init: function () {
-        elements.each(function () {
-          var el = $(this)[0];
-          new autoComplete({
-            selector: el,
-            minChars: 0,
-            source: function (term, suggest) {
-              term = term.toLowerCase();
-              var choices = [];
-              var matches = [];
-
-              if ($(el).data("array-select")) choices = Util.htmlToArray($($(el).data("array-select")));
-
-              for (var i = 0; i < choices.length; i++)
-                if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-              suggest(matches);
-            },
-            delay: 0,
-            renderItem: function (item, search){
-                search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-                return '<div class="autocomplete-suggestion text-capitalize" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
-            }
-          });
-
-          if ($(el).data("array-select")) {
-            var select = $($(el).data("array-select"));
-            if (select.find("[selected]").length) elements.val(select.find("[selected]").text().toLowerCase());
-
-            $(el).on('focusout', function (e) {
-              var value = $(this).val().toLowerCase();
-              select.find("option")
-                .removeAttr("selected")
-                .each(function () {
-                  if ($(this).text().toLowerCase() == value) {
-                    $(this).prop('selected', true);
-                  }
-                })
-            });
-          }
-        })
-
-        elements.on('keypress keydown keyup', function (e) {
-          if (e.which == 13 || e.keyCode == 13) {
-            e.preventDefault();
-          }
-        });
-      }
-    }
-  })();
-
-  // Slider module
-
-  var Slider = (function () {
-    var sliders = $(".slider");
-
-    function calcPriceValue (value, discount, slider) {
-      var discount = discount ? discount : 0,
-        priceValue = parseFloat(slider.data("price")),
-        totalPriceTarget = $(slider.data("totalprice-target")),
-        totalPriceWithotDiscountTarget = $(slider.data("totalprice-withoutdiscount-target")),
-        total = value * priceValue + value * priceValue * discount,
-        totalWithoutDiscount = value * priceValue;
-
-      totalPriceTarget.html(parseFloat(total).format(0, 3));
-      if (discount != 0)
-        totalPriceWithotDiscountTarget.html(parseFloat(totalWithoutDiscount).format(0, 3)).parent().stop().slideDown(400);
-      else
-        totalPriceWithotDiscountTarget.parent().stop().slideUp(300);
-
-      if (slider.data("totalprice-input"))
-        $(slider.data("totalprice-input")).val(total);
-      if (slider.data("pipdiscount-input"))
-        $(slider.data("pipdiscount-input")).val(discount);
-    }
-
-    var me = {
-      init: function () {
-        sliders.each(function () {
-          var slider = $(this),
-            firstUpdate = true,
-            sliderStart = slider.data("start") ? slider.data("start").toString().split(",").map(function (item) {
-              return parseFloat(item);
-            }) : undefined,
-            sliderRange = slider.data("range") ? slider.data("range").split(",").map(function (item) {
-              return parseFloat(item);
-            }) : undefined,
-            sliderStep = slider.data("step") ? parseFloat(slider.data("step")) : undefined,
-            pipValue = slider.data("pip-values") ? slider.data("pip-values").split(",").map(function (item) {
-              return parseInt(item);
-            }) : undefined,
-            pipDiscount = slider.data("pip-discount") ? slider.data("pip-discount").split(",").map(function (item) {
-              return item ? parseFloat(item) : null;
-            }) : undefined,
-            pipDiscountValue = {};
-
-          if (pipValue && pipDiscount)
-            pipValue.forEach(function (item, index) {
-              pipDiscountValue[item] = pipDiscount[index];
-            });
-
-          noUiSlider.create(slider[0], {
-            start: sliderStart ? sliderStart : 0,
-            range: sliderRange ? {
-              'min': [sliderRange[0]],
-              'max': [sliderRange[1]]
-            } : {
-              'min': [0],
-              'max': [100]
-            },
-            step: sliderStep ? sliderStep : undefined,
-            pips: {
-              mode: pipValue ? "values" : "steps",
-              values: pipValue,
-              density: 9,
-              format: {
-                to: function (value) {
-                  return pipDiscountValue[value] ? value + "<span class='noUi-value-add'>" + pipDiscountValue[value] * 100 + "%</span>" : value;
-                },
-                from: function (value) {
-                  return pipDiscountValue[value] ? value + "<span class='noUi-value-add'>" + pipDiscountValue[value] * 100 + "%</span>" : value;
-                },
-              }
-            },
-            tooltips: [{
-              to: function (value) {
-                return slider.data("tooltip-postfix") ? parseInt(value) + " " + slider.data("tooltip-postfix") : parseInt(value);
-              },
-              from: function (value) {
-                return slider.data("tooltip-postfix") ? parseInt(value) + " " + slider.data("tooltip-postfix") : parseInt(value);
-              },
-            }],
-            format: {
-              to: function (value) {return parseInt(value)},
-              from: function (value) {return parseInt(value)},
-            }
-          });
-
-          slider[0].noUiSlider.on('update', function (values) {
-            var value = values[0];
-            if (slider.data("input") && !firstUpdate)
-              $(slider.data("input")).val(value);
-
-            if (firstUpdate) {
-              firstUpdate = false;
-              slider.find(".noUi-base").append(slider.find(".noUi-pips").detach());
-            }
-
-            if (slider.data("price") && slider.data("totalprice-target"))
-              calcPriceValue(value, pipDiscountValue[value], slider);
-          });
-        })
-      }
-    }
-
-    if (sliders.length)
-      me.init();
-
-    return me;
   })();
 
   // Format
@@ -951,21 +553,6 @@ export default function() {
 
     fixBootstrap();
 
-    // Fixed nav
-    if ($(".nav--fixed").length) {
-      Nav.init();
-    }
-
-    // Athorization and registration panel
-    if ($(".auth-panel").length) {
-      AuthPanel.init();
-      $(".js-authPanel").on("click", function (e) {
-        var target = $(this).attr("href");
-        if (target) AuthPanel.show(target);
-        e.preventDefault();
-      });
-    }
-
     // Forms
     if ($("form").length)
       Forms.init();
@@ -978,10 +565,6 @@ export default function() {
     if ($(".form-control--dynamic").length)
       DynamicFieds.init();
 
-    //Plans
-    if ($(".plan-choice, .plans-modal").length)
-      Plans.init();
-
     //error report
     if ($("#error-report-link").length) {
       $("#error-report-link").prop("href", $("#error-report-link").prop("href") + " " + window.location.href);
@@ -990,11 +573,6 @@ export default function() {
     // Radio tab
     if ($("[data-toggle=radiotab]").length) {
       Radiotab.init();
-    }
-
-    // Autocomplete
-    if ($(".autocomplete").length) {
-      Autocomplete.init();
     }
 
     $("select").change();
