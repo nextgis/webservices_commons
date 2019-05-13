@@ -92,7 +92,7 @@ export default function() {
         try {
           if ($(":-webkit-autofill").length)
             $(":-webkit-autofill").parents(".form-group.is-empty").removeClass("is-empty");
-        } catch {};
+        } catch(e) {};
       }, 100)
     }
 
