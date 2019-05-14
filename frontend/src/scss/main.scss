@@ -135,12 +135,6 @@ a{
     }
 }
 
-a:hover{
-    .material-icons{
-      //  color: $link-hover-color;
-    }
-}
-
 .list-inline{
     margin-bottom: 0;
 }
@@ -452,7 +446,7 @@ a:hover{
 .material-icons{
     &:before{
         font-family: 'Material Icons';
-        display: inline-block;
+        display: block;
     }
     &.exit_to_app:before{
         content:"\E879";
