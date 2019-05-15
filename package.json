@@ -1,0 +1,22 @@
+{
+  "name": "nextgis_common",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Django app with common parts from web services",
+  "main": "frontend/src/js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bourbon": "^4.3.4",
+    "bootstrap": "3.3.7",
+    "bootstrap-material-design": "github:lisovenkonastya/bootstrap-material-design",
+    "dropdown.js": "github:FezVrasta/dropdown.js",
+    "jquery": "^3.4.1",
+    "jquery-validation": "^1.19.0",
+    "material-design-icons-iconfont": "^3.0.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
