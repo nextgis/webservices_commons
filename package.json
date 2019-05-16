@@ -10,6 +10,7 @@
   "dependencies": {
     "bourbon": "^4.3.4",
     "bootstrap": "3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "bootstrap-material-design": "github:lisovenkonastya/bootstrap-material-design",
     "dropdown.js": "github:FezVrasta/dropdown.js",
     "jquery": "^3.4.1",
