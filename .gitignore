@@ -132,3 +132,6 @@ settings_local.py
 # Gulp
 /layout/gulpfile.js
 /layout/node_modules
+
+# frontend
+node_modules
