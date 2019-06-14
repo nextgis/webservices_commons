@@ -1,3 +1,11 @@
+*.py
+
+/locale
+/migrations
+/ngid_auth
+/static
+/templates
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
@@ -67,24 +75,6 @@ target/
 .idea/
 # if you remove the above rule, at least ignore the following:
 
-# User-specific stuff:
-# .idea/workspace.xml
-# .idea/tasks.xml
-# .idea/dictionaries
-
-# Sensitive or high-churn files:
-# .idea/dataSources.ids
-# .idea/dataSources.xml
-# .idea/sqlDataSources.xml
-# .idea/dynamic.xml
-# .idea/uiDesigner.xml
-
-# Gradle:
-# .idea/gradle.xml
-# .idea/libraries
-
-# Mongo Explorer plugin:
-# .idea/mongoSettings.xml
 
 ## File-based project format:
 *.ipr
@@ -120,18 +110,6 @@ pip-selfcheck.json
 .ipynb_checkpoints/
 
 # Test DB
-db.sqlite3
-maindb.sqlite
+*.sqlite3
+*.sqlite
 
-# Local settings
-settings_local.py
-
-# CSS compiling source
-/layout/sass
-
-# Gulp
-/layout/gulpfile.js
-/layout/node_modules
-
-# frontend
-node_modules
