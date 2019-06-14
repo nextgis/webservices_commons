@@ -1,5 +1,13 @@
 $material-design-icons-font-path: "~material-design-icons-iconfont/dist/fonts/";
 
+$primary:    #0070c5;
+$secondary:  #e5eef7;
+$light-secondary: #f0f2f5;
+$success:    #00b77e;
+$accent:    #00b77e;
+$info:       #5bc0de;
+$warning:    #f0ad4e;
+$danger:     #d9534f;
 
 $bg-color: #f5f5f5;
 $bg-color-light: #fbfbfb;
@@ -9,13 +17,11 @@ $light-textColor: rgba(0,0,0,.48);
 $fade-white: rgba(255,255,255,.7);
 $dark-blue: #aec8e0;
 $light-blue2: #c9dced;
-$light-blue: #e5eef7;
+$light-blue: $secondary;
 $light-blue3: #e3ecfb;
 $brand-warm: #f8f8ef;
 $brand-accent: #00b77e;
 $light-border-color: #d2d2d2;
-
-$light-secondary: #f0f2f5;
 
 $font-size-base: 16px;
 
@@ -40,3 +46,8 @@ $navbar-default-brand-hover-bg: #e3f2fd;
 
 $header-height: 52px;
 $header-height-sm: 43px;
+
+$animationDuration: .3s;
+
+$link-color: $primary;
+$link-hover-color: darken($link-color, 15%);
