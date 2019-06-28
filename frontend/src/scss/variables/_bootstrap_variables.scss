@@ -1,3 +1,5 @@
+@import "./_variables";
+
 $bootstrap-sass-asset-helper: true;
 //
 // Variables
@@ -15,7 +17,7 @@ $gray:                   lighten($gray-base, 33.5%); // #555
 $gray-light:             lighten($gray-base, 46.7%); // #777
 $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
-$brand-primary:        $primary; // #337ab7
+$brand-primary:        $primary;
 $brand-success:        $success;
 $brand-info:           $info;
 $brand-warning:        $warning;
