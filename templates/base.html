@@ -29,6 +29,8 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-TileImage" content="{% static 'nextgis_common/img/favicons/mstile-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
+
+    {% block prior_css %}{% endblock %}
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&amp;subset=cyrillic-ext" rel="stylesheet">
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
 
@@ -51,7 +53,7 @@
       <!-- Block for popups -->
       {% block popups %}
       {% endblock %}
-      
+
     <!-- Block for alerts -->
     {% block messages %}
       <div class="messages">
