@@ -62,3 +62,16 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
 def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
     msg = render_mail(template_prefix, email, context, bcc)
     msg.send()
+
+
+def send_custom_mail(subj, body, email, bcc=[], add_default_subj_pref=True):
+    subject = format_email_subject(subj, settings.EMAIL_SUBJECT_PREFIX if add_default_subj_pref else '')
+
+    msg = EmailMultiAlternatives(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        email if isinstance(email, list) else [email],
+        bcc=bcc if isinstance(bcc, list) else [bcc],
+    )
+    msg.send()
