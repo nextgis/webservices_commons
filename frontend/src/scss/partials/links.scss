@@ -70,3 +70,17 @@
    @include bordered-link(darken($brand-success, 15%));
  }
 }
+
+.anchor {
+    display: block;
+    height: $header-height-sm;
+    margin-top: -$header-height-sm;
+    visibility: hidden;
+
+    @media (min-width: $screen-sm-min){
+        height:$header-height;
+        margin-top: -$header-height;
+    }
+}
+
+

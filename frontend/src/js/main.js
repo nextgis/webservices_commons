@@ -515,12 +515,6 @@ export default function() {
       }
     }
     if ($(".scrollto-link").length) me.init();
-
-    if (window.location.hash) {
-      setTimeout(function () {
-        me.scrollTo($(window.location.hash));
-      }, 1);
-    }
     return me;
   })();
 
