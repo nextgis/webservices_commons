@@ -46,7 +46,7 @@ export default function() {
         var equalTo = $($(element).data("equalto"));
         if (equalTo.not(".validate-equalTo-blur").length) {
           equalTo.addClass("validate-equalTo-blur").on("blur.validate-equalTo", function () {
-            $(element).valqualToid();
+            $(element).valid();
           });
         }
         return value === equalTo.val();
