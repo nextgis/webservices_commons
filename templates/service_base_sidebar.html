@@ -46,13 +46,27 @@
   {% endblock %}
 </header>
 <v-content class="main container px-0">
-  <div class="layout-nosidebar">
-    <div class="main__content">
+  <div class="layout-sidebar">
+    <v-navigation-drawer
+      class="layout-sidebar__sidebar app-sidebar"
+      width="200"
+      floating
+      :value="true"
+      permanent
+    >
+      {% block sidebar %} {% endblock %}
+    </v-navigation-drawer>
+    <div class="layout-sidebar__content">
+      <div class="main__content">
       {% block body_content %}{% endblock %}
+      </div>
     </div>
   </div>
 </v-content>
-{% endblock %}
 
-{% block popups %}
+<div class="admin__panel__content__messages">
+    {% block service_top_messages %}
+    {% endblock %}
+</div>
+
 {% endblock %}

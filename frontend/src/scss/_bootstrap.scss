@@ -37,3 +37,11 @@
 // Utility classes
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/_utilities";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/_responsive-utilities";
+
+
+.container{
+  &::after,
+  &::before{
+    display: none;
+  }
+}

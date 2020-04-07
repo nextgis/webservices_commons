@@ -1306,24 +1306,36 @@ form{
 
 /* Footer */
 .footer{
-    position: relative;
-    color:$light-textColor;
-    height:$footer-height;
-    margin-top: -$footer-height;
-    padding-top:15px;
-    font-size: 13px;
-    z-index: 2;
+  display: flex;
+  background-color: #fff;
+  position: relative;
+  color:$light-textColor;
+  height:$footer-height;
+  font-size: 13px;
+  z-index: 2;
 
-    a{
-        color: $light-textColor;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(153, 151, 156,.24);
+  &.container{
+    justify-content: space-between;
+    flex-basis: auto;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-        &:hover{
-            border-bottom:0;
-            color: $brand-primary;
-        }
-    }
+  &--dark{
+    background-color: #2d2d2d;
+    color:#9e9e9e;
+  }
+
+  a{
+      color:#9e9e9e;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(153, 151, 156,.24);
+
+      &:hover{
+          border-bottom:0;
+          color: $brand-primary;
+      }
+  }
 }
 
 .author-link{
@@ -1346,23 +1358,27 @@ form{
     }
 
 
-.auth .footer{
-  .container{
-    max-width: none;
+.auth {
+  .main{
+    min-height: 100%;
   }
 
-  .footer-menu a{
-    color: rgba(255, 255, 255, .64);
-    border-bottom-color: rgba(255, 255, 255, .24);
+  .footer{
+    background-color: transparent;
+    margin-top: -$footer-height;
 
-    &:hover{
-      color: rgb(255, 255, 255)
+    .footer-menu a{
+      color: rgba(255, 255, 255, .64);
+      border-bottom-color: rgba(255, 255, 255, .24);
+
+      &:hover{
+        color: rgb(255, 255, 255)
+      }
     }
   }
 }
 
 /* Admin */
-$adminSidebarWidth: 250px;
 
 .admin{
     .container{
@@ -1380,29 +1396,6 @@ $adminSidebarWidth: 250px;
         }
     }
 }
-
-.admin__sidebar{
-    display: none;
-    width: $adminSidebarWidth;
-    background-color: #06435f;
-    position: fixed;
-    left:0;
-    top:0;
-    height: 100%;
-    z-index: 50;
-    padding-left:20px;
-    padding-right: 20px;
-    @include shadow-4dp();
-}
-    .admin__sidebar__header{
-        height:$header-height;
-        background-color: #fff;
-        line-height: $header-height;
-        padding:0 20px;
-        margin-left: -20px;
-        margin-right: -20px;
-    }
-
     .admin__panel__content{
         width: 100%;
         font-size: $font-size-md;
@@ -1449,43 +1442,6 @@ $adminSidebarWidth: 250px;
                 padding-top: 40px;
             }
         }
-
-/* Admin with sidebar */
-.admin--sidebar{
-    @media (min-width: $screen-sm-min){
-        .admin__sidebar{
-            display: block;
-        }
-        .footer,
-        .admin__panel{
-            padding-left:$adminSidebarWidth;
-        }
-
-        .header{
-            left: $adminSidebarWidth;
-            padding-left:40px;
-        }
-
-        .header__logo{
-            display: none;
-        }
-
-        .admin__panel__content{
-            .container{
-                max-width: none;
-                width: auto;
-            }
-        }
-
-        .messages{
-            left: $adminSidebarWidth;
-        }
-
-        .container{
-            max-width: none;
-        }
-    }
-}
 
 
 .aside-text{

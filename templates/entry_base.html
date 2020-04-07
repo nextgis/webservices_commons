@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body_class %}auth body--wide{% endblock %}
+
+{% block body %}
+  <v-content class="main pa-0">
+    <div class="auth-panel">
+        <div class="auth-panel__content">
+            {% block content %} {% endblock %}
+        </div>
+        <div class="auth-panel__promo">
+            <div class="auth-panel__promo-bg"></div>
+        </div>
+    </div>
+  </v-content>
+{% endblock %}

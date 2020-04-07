@@ -1,17 +1,17 @@
 {% load i18n %}
 {% load external_url %}
 
-<footer class="footer">
-    <div class="container py-0">
-        {% get_current_language as CURRENT_LANGUAGE %}
-        <ul class="footer-menu list-unstyled hide-on-sm pull-right">
-            <li class="footer-menu__item">
-                <a href="{% external_url 'terms' CURRENT_LANGUAGE %}" target="_blank">{% trans 'Terms of Service' %}</a>
-            </li>
-            <li class="footer-menu__item">
-                <a href="{% external_url 'privacy' CURRENT_LANGUAGE %}" target="_blank">{% trans 'Privacy Policy' %}</a>
-            </li>
-        </ul>
-        © {% now "Y" %} <a href="{% external_url 'nextgis_com' CURRENT_LANGUAGE %}" target="_blank">NextGIS</a>
-    </div>
+<footer class="footer footer--dark container py-0">
+  {% get_current_language as CURRENT_LANGUAGE %}
+  <div class="footer__copyright">
+    © {% now "Y" %} <a href="{% external_url 'nextgis_com' CURRENT_LANGUAGE %}" target="_blank">NextGIS</a>
+  </div>
+  <ul class="footer-menu list-unstyled hide-on-sm pull-right">
+      <li class="footer-menu__item">
+       <a href="{% external_url 'terms' CURRENT_LANGUAGE %}" target="_blank">{% trans 'Terms of Service' %}</a>
+      </li>
+      <li class="footer-menu__item">
+          <a href="{% external_url 'privacy' CURRENT_LANGUAGE %}" target="_blank">{% trans 'Privacy Policy' %}</a>
+      </li>
+  </ul>
 </footer>
