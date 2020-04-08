@@ -111,11 +111,6 @@ module.exports = (env, argv) => {
       '@babel/polyfill',
       'whatwg-fetch',
       './src/main.js'
-    ],
-    main: [
-      '@babel/polyfill',
-      'whatwg-fetch',
-      './src/page.js'
     ]
   }
   let entry_ext = JSON.parse(fs.readFileSync(__dirname + '/webpack.config.entry.ext.json', 'utf8'));

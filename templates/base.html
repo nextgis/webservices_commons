@@ -84,10 +84,9 @@
       </v-app>
     </div>
     <!-- Scripts -->
-    {% block mainjs %}
-      <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
     {% include "snippets/scripts.html" %}
+    {% block mainjs %}
+    {% endblock %}
 
     <!-- Extra stuff -->
     {% block extra_body %}{% endblock %}
