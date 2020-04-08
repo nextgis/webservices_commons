@@ -87,7 +87,12 @@ body{
   width: 100%;
 
   &__content{
-    margin-left: 200px;
+    transition: margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 0;
+
+    @media (min-width: $sidebar-breakpoint){
+      margin-left: 200px;
+    }
   }
 
   &__sidebar,
@@ -99,5 +104,13 @@ body{
     z-index: 10;
     padding: 24px;
     border-right: 1px solid #efefef;
+
+    @media (min-width: $sidebar-breakpoint){
+      transform: translateX(0px) !important;
+    }
+
+    .sidebar-menu{
+      margin-left: -24px;
+    }
   }
 }

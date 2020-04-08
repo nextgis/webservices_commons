@@ -35,9 +35,10 @@
       {% endblock %}
   </div>
   <div class="header__logo">
-      <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
-          {% include "snippets/logo.html" %}
-      </a>
+    <v-icon class="header__menu-btn" @click="sidebarMenuShown = true">menu</v-icon>
+    <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
+        {% include "snippets/logo.html" %}
+    </a>
   </div>
   <div class="header__title h1">{% block content_title %}ID{% endblock %}</div>
   {% block header_plan %}
@@ -49,10 +50,8 @@
   <div class="layout-sidebar">
     <v-navigation-drawer
       class="layout-sidebar__sidebar app-sidebar"
-      width="200"
-      floating
-      :value="true"
-      permanent
+      width="200" mobile-break-point="1180"
+      v-model="sidebarMenuShown" floating
     >
       {% block sidebar %} {% endblock %}
     </v-navigation-drawer>

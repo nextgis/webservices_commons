@@ -88,6 +88,25 @@
         vertical-align: middle;
         font-size: 20px;
     }
+
+    &__menu-btn{
+      margin-left: -6px;
+      margin-right: 6px;
+
+      &.theme--light.v-icon {
+        font-size: 24px;
+        color: $dark-blue;
+      }
+
+      @media (min-width: $sidebar-breakpoint) {
+        display: none !important;
+      }
+
+
+      & + .header__logo .logo--mini{
+        margin-right: 2px;
+      }
+    }
 }
 
     .header__right{

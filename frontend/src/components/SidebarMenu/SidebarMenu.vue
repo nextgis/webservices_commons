@@ -32,11 +32,22 @@ export default {
     padding: 0;
     margin: 0;
     font-family: $heading-font-family;
-    font-size: 16px;
+    font-size: 14px;
 
     &__item
-      padding: 0;
-      margin: 0 0 8px;
+      position: relative;
+      padding: 0 0 0 36px;
+      margin: 0 0 12px;
+
+      &.active
+        &::before
+          content: "";
+          position: absolute;
+          left: 0;
+          top: .6em;
+          width: 24px;
+          height: 2px;
+          background-color: $theme.primary;
 
     &__link
       text-decoration: none;
