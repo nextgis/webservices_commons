@@ -20,8 +20,10 @@
                 <i class="material-icons icon-caret hidden-xs"></i>
             </a>
             <ul class="user-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
+                {% if not EXTERNAL_URLS_DISABLED %}
                 <li><a href="{% external_url 'ngid_profile' ''%}">{% trans 'Profile' %}</a></li>
                 <li role="separator" class="divider"></li>
+                {% endif %}
                 <li>
                     <a href="{% block logout_link %}{% endblock %}"> {#{% url 'silent_logout' %}#}
                         <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app"></i>
@@ -54,7 +56,12 @@
       :value="true"
       permanent
     >
-      {% block sidebar %} {% endblock %}
+    {% block sidebar %}
+      <sidebar-menu
+        :items="{{ MENU_JS_STRUCT }}"
+        active-item="{{ MENU_ACTIVE_ITEM_ID }}">
+      </sidebar-menu>
+    {% endblock %}
     </v-navigation-drawer>
     <div class="layout-sidebar__content">
       <div class="main__content">
