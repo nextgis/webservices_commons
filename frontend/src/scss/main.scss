@@ -1312,7 +1312,7 @@ form{
   color:$light-textColor;
   height:$footer-height;
   font-size: 13px;
-  z-index: 2;
+  z-index: 10;
 
   &.container{
     justify-content: space-between;

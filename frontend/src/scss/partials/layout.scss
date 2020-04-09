@@ -97,13 +97,22 @@ body{
 
   &__sidebar,
   &__sidebar.v-navigation-drawer{
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: $header-height-sm;
+    bottom: 0;
     left: auto;
     width: 200px;
-    z-index: 10;
-    padding: 24px;
+    padding: 24px 24px $footer-height;
     border-right: 1px solid #efefef;
+    overflow: auto;
+
+    &.v-navigation-drawer--is-mobile{
+      z-index: 15;
+    }
+
+    @media (min-width: $screen-sm-min){
+      top:$header-height !important;
+    }
 
     @media (min-width: $sidebar-breakpoint){
       transform: translateX(0px) !important;

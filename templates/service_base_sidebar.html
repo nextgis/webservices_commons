@@ -26,7 +26,7 @@
                 {% endif %}
                 <li>
                     <a href="{% block logout_link %}{% endblock %}"> {#{% url 'silent_logout' %}#}
-                        <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app"></i>
+                        <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app pull-right"></i>
                     </a>
                 </li>
             </ul>
@@ -52,7 +52,7 @@
   <div class="layout-sidebar">
     <v-navigation-drawer
       class="layout-sidebar__sidebar app-sidebar"
-      width="200" mobile-break-point="1180"
+      width="200" height="auto" mobile-break-point="1180"
       v-model="sidebarMenuShown" floating
     >
     {% block sidebar %}
