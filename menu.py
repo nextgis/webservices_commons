@@ -12,15 +12,17 @@ class Menu(object):
         
         cur_lang = get_language()
 
-        menu_options = getattr(settings, 'NEXTGISID_MENU', {})
+        menu_options = getattr(settings, 'NEXTGISID_MENU', [])
         self.menu = []
-        for url_name, options in menu_options.items():
+        for menu_item in menu_options:
+            url_name = menu_item.get('url_name')
             view = resolve(reverse(url_name)).func.view_class
             if hasattr(view, 'is_available_for_user') and view.is_available_for_user(user):
+
                 self.menu.append({
                     'id': url_name,
                     'link': reverse(url_name),
-                    'text': self.get_menu_title(options, cur_lang) or url_name,
+                    'text': self.get_menu_title(menu_item, cur_lang) or url_name,
                 })
 
     def get_menu_title(self, options, lang):
