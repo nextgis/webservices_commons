@@ -4,7 +4,7 @@
       :class="{'active': activeItem === item.id }"
       v-for="item in items"
       >
-        <a class="sidebar-menu__link" :href="item.link">{{ item.text }}</a>
+        <a class="sidebar-menu__link" :href="item.link" v-html="item.text"></a>
     </li>
   </ul>
 </template>
