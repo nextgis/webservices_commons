@@ -25,14 +25,14 @@
                 <li role="separator" class="divider"></li>
                 {% endif %}
                 <li>
-                    <a href="{% block logout_link %}{% endblock %}"> {#{% url 'silent_logout' %}#}
+                    <a href="{% block logout_link %}{% url 'silent_logout' %}{% endblock %}">
                         <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app pull-right"></i>
                     </a>
                 </li>
             </ul>
           </div>
       {% else %}
-          <a class="btn btn-action btn-primary" href="{% block login_link %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a> {# {% url 'account_login' %} #}
+          <a class="btn btn-action btn-primary" href="{% block login_link %}{% url 'account_login' %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a>
       {% endif %}
       {% endblock %}
   </div>
