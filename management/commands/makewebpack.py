@@ -48,7 +48,7 @@ class Command(BaseCommand):
 
     
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(Command, self).__init__(*args, **kwargs)
 
         self.sources_dir = os.path.join(CUR_DIR, 'makewebpack')
         self.project_frontend_dir = os.path.join(

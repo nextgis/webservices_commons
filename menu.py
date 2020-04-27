@@ -1,7 +1,9 @@
 import json
 
 from django.conf import settings
-from django.urls import reverse, resolve
+# from django.urls import reverse, resolve
+from django.core.urlresolvers import reverse, resolve
+
 from django.utils.translation import get_language
 
 
@@ -17,8 +19,10 @@ class Menu(object):
         for menu_item in menu_options:
             url_name = menu_item.get('url_name')
             view = resolve(reverse(url_name)).func.view_class
-            if hasattr(view, 'is_available_for_user') and view.is_available_for_user(user):
-
+            
+            if hasattr(view, 'is_available_for_user') and not view.is_available_for_user(user):
+                pass
+            else:
                 self.menu.append({
                     'id': url_name,
                     'link': reverse(url_name),
