@@ -6,7 +6,7 @@
 {% load external_url %}
 
 {% block body %}
-<header class="header container py-0">
+<header class="header container py-0 pr-0">
   <div class="header__right pull-right">
       {% block header_action %}
       {% endblock %}
@@ -14,7 +14,7 @@
       {% block header_action_login %}
       {% if request.user.is_authenticated %}
           <div class="header__user user-dropdown dropdown">
-            <a href="#" class="user-dropdown__link withoutripple dropdown-toggle"  id="user-menu" data-toggle="dropdown">
+            <a href="#" class="user-dropdown__link withoutripple dropdown-toggle mr-2"  id="user-menu" data-toggle="dropdown">
                 {% include "snippets/utilities/user_photo_small.html" %}
                 <span class="hide-on-sm">{{ request.user.username }}</span>
                 <i class="material-icons icon-caret hidden-xs"></i>
