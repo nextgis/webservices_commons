@@ -26,9 +26,11 @@ body{
   .header,
   .footer{
     max-width: none;
+    width: 100%;
 
     &.container{
       max-width: none;
+      width: 100%;
     }
   }
 }
