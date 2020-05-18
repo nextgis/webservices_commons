@@ -20,6 +20,10 @@ class NgidProvider:
         return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/user_info/')
 
     @staticmethod
+    def instance_url():
+        return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/instance_info/')
+
+    @staticmethod
     def consumer_key():
         return settings.NGID_CLIENT_ID
 
