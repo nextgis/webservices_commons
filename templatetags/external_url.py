@@ -24,9 +24,20 @@ external_links = {
 
 }
 
+external_link_lang_default = 'en'
+
 
 @register.simple_tag
 def external_url(url_name, lang):
-    if lang != "":
-        url_name = url_name + "_" + lang
-    return external_links[url_name] if url_name in external_links.keys() else ''
+    if lang:
+        external_link = external_links.get(
+            '%s_%s' % (url_name, lang),
+            external_links.get(
+                '%s_%s' % (url_name, external_link_lang_default),
+                '',
+            )
+        )
+    else:
+        external_link = external_links.get(url_name, '')
+
+    return external_link
