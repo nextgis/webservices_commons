@@ -24,9 +24,18 @@ logger = logging.getLogger('nextgis_common.auth')
 class OAuthClientMixin(object):
 
     def get_oauth_session(self, provider):
+        extra = {
+            'client_id': provider.consumer_key(),
+            'client_secret': provider.consumer_secret(),
+        }
+
         oaut_session = OAuth2Session(
             client_id=provider.consumer_key(),
-            scope=provider.scopes()
+            scope=provider.scopes(),
+            token=self.get_token(),
+            auto_refresh_url=provider.access_token_url(),
+            auto_refresh_kwargs=extra,
+            token_updater=self.save_token
         )
         oaut_session.redirect_uri = self.get_callback_url
         return oaut_session
@@ -42,6 +51,16 @@ class OAuthClientMixin(object):
     @application_state.setter
     def application_state(self, state):
         self.request.session[self.session_key] = state
+
+    @property
+    def token_key(self):
+        return 'request-token-ngid'
+
+    def get_token(self):
+        return self.request.session.get(self.token_key, None)
+
+    def save_token(self, token):
+        self.request.session[self.token_key] = token
 
     @property
     def next_key(self):
@@ -98,6 +117,8 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
         if raw_token is None:
             return self.handle_login_failure(provider, 'Could not retrieve token')
+
+        self.save_token(raw_token)
 
         # Fetch profile info
         info_raw_resp = oaut_session.get(provider.profile_url())
@@ -159,7 +180,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
             user.refresh_from_db()
         except Exception as ex:
-            logger.critical('Error on user %s update: %s', user.nextgis_guid, ex.message)
+            logger.critical('Error on user %s update: %s', user.nextgis_guid, ex)
 
 
     def get_user_id(self, provider, info):
