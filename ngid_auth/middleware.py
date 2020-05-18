@@ -6,7 +6,7 @@ from .views import OAuthClientMixin
 from .ngid_provider import NgidProvider
 
 
-user_premium_plan_detected = django.dispatch.Signal(providing_args=["user"])
+user_plan_detected = django.dispatch.Signal(providing_args=["user", "plan"])
 
 
 class UserPlan(OAuthClientMixin):
@@ -50,8 +50,7 @@ class UserPlan(OAuthClientMixin):
                 if session_up_info.get('plan', '') != ngid_user_plan:
                     session_up_info['plan'] = ngid_user_plan
 
-                    if session_up_info['plan'] == 'premium':
-                        user_premium_plan_detected.send(sender=self.__class__, user=request.user)
+                    user_plan_detected.send(sender=self.__class__, user=request.user, plan=ngid_user_plan)
             except:
                 pass
             finally:
