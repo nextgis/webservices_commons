@@ -9,7 +9,7 @@ class Menu(object):
     """docstring for Menu"""
     def __init__(self, user):
         super(Menu, self).__init__()
-        
+
         cur_lang = get_language()
 
         menu_options = getattr(settings, 'NEXTGISID_MENU', [])
@@ -17,7 +17,9 @@ class Menu(object):
         for menu_item in menu_options:
             url_name = menu_item.get('url_name')
             view = resolve(reverse(url_name)).func.view_class
-            if hasattr(view, 'is_available_for_user') and view.is_available_for_user(user):
+            if hasattr(view, 'is_available_for_user') and not view.is_available_for_user(user):
+                pass
+            else:
 
                 self.menu.append({
                     'id': url_name,
@@ -36,7 +38,7 @@ class Menu(object):
 
     def get_menu_js_struct(self):
         return json.dumps(self.menu)
-    
+
 
 def get_menu(request):
     m = Menu(request.user)

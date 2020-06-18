@@ -38,5 +38,9 @@ export default {
         margin-right: -4px;
       }
     }
+
+    &:not(.v-btn--depressed):not(.v-btn--flat){
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .24)
+    }
   }
 </style>
