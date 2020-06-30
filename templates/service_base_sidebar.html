@@ -20,7 +20,15 @@
               <i class="material-icons icon-caret hidden-xs"></i>
           </a>
           <ul class="user-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
-              <li><a href="{% external_url 'ngid_profile' ''%}">{% trans 'Profile' %}</a></li>
+              <li>
+                <a href="{% external_url 'ngid_profile' ''%}"
+                  {% if PROFILE_IN_NEW_TAB %}
+                    target="_blank"
+                  {% endif %}
+                >
+                  {% trans 'Profile' %}
+                </a>
+              </li>
               <li role="separator" class="divider"></li>
               <li>
                   <a href="{% block logout_link %}{% url 'silent_logout' %}{% endblock %}">
