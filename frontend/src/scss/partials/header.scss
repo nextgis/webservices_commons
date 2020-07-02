@@ -84,11 +84,6 @@
         padding:0;
     }
 
-    .material-icons{
-        vertical-align: middle;
-        font-size: 20px;
-    }
-
     &__menu-btn{
       margin-left: -6px;
       margin-right: 6px;
@@ -96,10 +91,19 @@
       &.theme--light.v-icon {
         font-size: 24px;
         color: $dark-blue;
+        vertical-align: middle;
       }
 
-      @media (min-width: $sidebar-breakpoint) {
-        display: none !important;
+      &--content-sidebar {
+        @media (min-width: $sidebar-breakpoint) {
+          display: none !important;
+        }
+      }
+
+      &--temporary-sidebar {
+        @media (min-width: 959px) { //959px - $grid-breakpoints.md - 1 from vuetify variables
+          display: none !important;
+        }
       }
 
 
@@ -109,66 +113,68 @@
     }
 }
 
-    .header__right{
-        .btn-action{
-            float: right;
+.header__right{
+  margin-right: -8px;
+    .btn-action{
+        float: right;
 
-            & + .btn-action.btn-primary{
-                @include button-variant($brand-primary, $light-blue2, transparent);
-            }
+        & + .btn-action.btn-primary{
+            @include button-variant($brand-primary, $light-blue2, transparent);
+        }
 
-            &.hide-on-sm + .btn-action.btn-primary{
-                @media (max-width: $screen-sm-min){
-                    @include button-variant(#fff, $brand-primary, transparent);
-                }
+        &.hide-on-sm + .btn-action.btn-primary{
+            @media (max-width: $screen-sm-min){
+                @include button-variant(#fff, $brand-primary, transparent);
             }
         }
     }
+}
 
-    .header__logo{
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
-        //padding-left: 10px;
-        padding-right: 11px;
-        margin-right: 10px;
+.header__logo{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    //padding-left: 10px;
+    padding-right: 11px;
+    margin-right: 10px;
+
+    &:after{
+        content:"";
+        position: absolute;
+        right:0;
+        top: 0px;
+        bottom: 0px;
+        width: 1px;
+        background-color: #b4d0ea;
+    }
+
+    @media (min-width: $screen-sm-min){
+        //padding-left: 18px;
+        padding-right: 19px;
+        margin-right: 12px;
 
         &:after{
-            content:"";
-            position: absolute;
-            right:0;
-            top: 0px;
-            bottom: 0px;
-            width: 1px;
-            background-color: #b4d0ea;
-        }
-
-        @media (min-width: $screen-sm-min){
-            //padding-left: 18px;
-            padding-right: 19px;
-            margin-right: 12px;
-
-            &:after{
-                top: 8px;
-                bottom: 8px;
-                width: 2px;
-            }
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
         }
     }
+}
 
-    .header__plan{
-        margin-left: 8px;
+.header__plan{
+    margin-left: 8px;
 
-        @media (min-width: $screen-sm-min){
-            margin-left: 12px;
-        }
+    @media (min-width: $screen-sm-min){
+        margin-left: 12px;
     }
+}
 
-    .header__user{
-        float: right;
-        display: inline-block;
+.header__user{
+    float: right;
+    display: inline-block;
+    margin-left: 12px;
 
-        &::not(:last-child){
-          margin-right:12px;
-        }
+    &::not(:last-child){
+      margin-right:12px;
     }
+}

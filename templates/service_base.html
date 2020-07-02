@@ -8,36 +8,48 @@
 {% block body %}
 <header class="header container py-0">
   <div class="header__right pull-right">
-      {% block header_action %}
-      {% endblock %}
+    {% block header_action %}
+    {% endblock %}
 
-      {% block header_action_login %}
-      {% if request.user.is_authenticated %}
-          <div class="header__user user-dropdown dropdown">
-            <a href="#" class="user-dropdown__link withoutripple dropdown-toggle"  id="user-menu" data-toggle="dropdown">
-                {% include "snippets/utilities/user_photo_small.html" %}
-                <span class="hide-on-sm">{{ request.user.username }}</span>
-                <i class="material-icons icon-caret hidden-xs"></i>
-            </a>
-            <ul class="user-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
-                <li><a href="{% external_url 'ngid_profile' ''%}">{% trans 'Profile' %}</a></li>
-                <li role="separator" class="divider"></li>
-                <li>
-                    <a href="{% block logout_link %}{% url 'silent_logout' %}{% endblock %}">
-                        <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app pull-right"></i>
-                    </a>
-                </li>
-            </ul>
-          </div>
-      {% else %}
-          <a class="btn btn-action btn-primary" href="{% block login_link %}{% url 'account_login' %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a>
-      {% endif %}
-      {% endblock %}
+    {% block header_action_login %}
+    {% if request.user.is_authenticated %}
+        <div class="header__user user-dropdown dropdown">
+          <a href="#" class="user-dropdown__link withoutripple dropdown-toggle"  id="user-menu" data-toggle="dropdown">
+              {% include "snippets/utilities/user_photo_small.html" %}
+              <span class="hide-on-sm">{{ request.user.username }}</span>
+              <i class="material-icons icon-caret hidden-xs"></i>
+          </a>
+          <ul class="user-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
+              <li>
+                <a href="{% external_url 'ngid_profile' ''%}"
+                  {% if PROFILE_IN_NEW_TAB %}
+                    target="_blank"
+                  {% endif %}
+                >
+                  {% trans 'Profile' %}
+                </a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                  <a href="{% block logout_link %}{% url 'silent_logout' %}{% endblock %}">
+                      <span class="vcenter">{% trans 'Sign Out' %}</span>&nbsp;&nbsp;<i class="material-icons exit_to_app pull-right"></i>
+                  </a>
+              </li>
+          </ul>
+        </div>
+    {% else %}
+      <v-btn flat small class="ml-1"
+        href="{% block login_link %}{% url 'account_login' %}{% endblock %}">
+        {% trans 'Sign in' context 'menu_item' %}
+      </v-btn>
+    {% endif %}
+    {% endblock %}
   </div>
   <div class="header__logo">
-      <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
-          {% include "snippets/logo.html" %}
-      </a>
+    <v-icon class="header__menu-btn header__menu-btn--temporary-sidebar" @click="sidebarMenuShown = true">menu</v-icon>
+    <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
+        {% include "snippets/logo.html" %}
+    </a>
   </div>
   <div class="header__title h1">{% block content_title %}ID{% endblock %}</div>
   {% block header_plan %}
@@ -52,7 +64,16 @@
     </div>
   </div>
 </v-content>
+<v-navigation-drawer
+  class="app-sidebar app-sidebar--temporary" temporary fixed
+  width="200" height="auto"
+  v-model="sidebarMenuShown" floating
+>
+{% block sidebar %}
+  <sidebar-menu
+    :items="{{ MENU_JS_STRUCT }}"
+    active-item="{{ MENU_ACTIVE_ITEM_ID }}">
+  </sidebar-menu>
 {% endblock %}
-
-{% block popups %}
+</v-navigation-drawer>
 {% endblock %}
