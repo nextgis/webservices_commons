@@ -31,7 +31,8 @@
     <meta name="theme-color" content="#ffffff">
 
     {% block prior_css %}{% endblock %}
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,600,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="{% static 'css/chunk-vendors.css' %}" type="text/css" rel="stylesheet"/>
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
 
     {% get_current_language as LANGUAGE_CODE %}
@@ -49,7 +50,6 @@
         <!-- <v-content> -->
         {% block body %}
         {% endblock %}
-        <!-- </v-content> -->
         <!-- Block for popups -->
         {% block popups %}
         {% endblock %}

@@ -3,6 +3,7 @@
     <li class="sidebar-menu__item"
       :class="{'active': activeItem === item.id }"
       v-for="item in items"
+      :key = "item.id"
       >
         <a class="sidebar-menu__link" :href="item.link" v-html="item.text"></a>
     </li>
@@ -22,45 +23,49 @@ export default {
 };
 </script>
 
-<style lang="styl" scoped>
-  @require '~vuetify/src/stylus/settings/_colors';
-  @require '~@nextgis_common/scss/custom-vuetify/_theme'
-  @require '~@nextgis_common/scss/custom-vuetify/_variables'
+<style lang="scss" scoped>
 
-  .sidebar-menu
+  .sidebar-menu{
     list-style-type: none;
     padding: 0;
     margin: 0;
     font-family: $heading-font-family;
     font-size: 14px;
 
-    &__item
+    &__item{
       position: relative;
       padding: 0 0 0 36px;
       margin: 0 0 12px;
 
-      &.active
-        &::before
+      &.active{
+        &::before{
           content: "";
           position: absolute;
           left: 0;
           top: .6em;
           width: 24px;
           height: 2px;
-          background-color: $theme.primary;
+          background-color: var(--v-primary-base);
+        }
+      }
+    }
 
-    &__link
+    &__link{
       text-decoration: none;
       border: 0;
-      color: $material-theme.text.primary;
+      color: $text-base;
 
-      &:hover
-        color: $theme.primary;
+      &:hover{
+        color: var(--v-primary-base);
+      }
+    }
+  }
 
   .sidebar-menu__item.active .sidebar-menu__link,
   .sidebar-menu__link:active,
-  .sidebar-menu__link:focus
-    color: $theme.primary;
+  .sidebar-menu__link:focus{
+    color: var(--v-primary-base);
     font-weight: 500;
+  }
 
 </style>

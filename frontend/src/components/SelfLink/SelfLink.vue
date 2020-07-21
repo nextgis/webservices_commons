@@ -4,7 +4,7 @@
     <a class="self-link" :href="`#${href}`">
       <slot></slot>
     </a>
-  </span>  
+  </span>
 </template>
 
 <script>
@@ -26,11 +26,16 @@
 .self-link,
 .self-link:hover,
 .self-link:active,
-.self-link:focus{
+.self-link:focus,
+.v-application .self-link,
+.v-application .self-link:hover,
+.v-application .self-link:active,
+.v-application .self-link:focus{
   position: relative;
   color: inherit;
   text-decoration: none;
   border: 0;
+  color: currentColor;
 }
 
 .self-link:hover{

@@ -1,7 +1,8 @@
 /* Panel */
+@import "~vuetify/src/styles/tools/_elevation.sass";
 
 .panel{
-    @include shadow-2dp();
+    @include elevation(2);
     border-radius: 0;
 }
 
@@ -14,10 +15,10 @@
 
 .panel--big{
    & > .panel-body{
-        @media (min-width: $screen-sm-min){
+        @media (min-width: map-get($grid-breakpoints, 'sm')){
             padding: 40px 40px 44px;
         }
-    } 
+    }
 }
 
 .panel--noshadow{

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load external_url %}
 
-<footer class="footer footer--dark container py-0">
+<footer class="footer footer--dark container container--main py-0">
   {% get_current_language as CURRENT_LANGUAGE %}
   <div class="footer__copyright">
     © {% now "Y" %} <a href="{% external_url 'nextgis_com' CURRENT_LANGUAGE %}" target="_blank">NextGIS</a>

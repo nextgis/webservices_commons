@@ -1,9 +1,7 @@
-$material-design-icons-font-path: "~material-design-icons-iconfont/dist/fonts/";
-
-$heading-font-family: 'Ubuntu', 'Roboto', sans-serif;
+// Colors
 
 $primary:    #0070c5;
-$secondary:  #e5eef7;
+$ng-secondary:  #e5eef7;
 $light-secondary: #f0f2f5;
 $success:    #00b77e;
 $accent:    #00b77e;
@@ -19,41 +17,176 @@ $light-textColor: rgba(0,0,0,.48);
 $fade-white: rgba(255,255,255,.7);
 $dark-blue: #aec8e0;
 $light-blue2: #c9dced;
-$light-blue: $secondary;
+$ng-light-blue: #e5eef7;
 $light-blue3: #e3ecfb;
 $brand-warm: #f8f8ef;
-$brand-accent: #00b77e;
 $light-border-color: #d2d2d2;
+$label-warning-color: #ffee95;
 
 $lighten-opacity: .48;
 
-$font-size-base: 16px;
+//Global
 
-$font-size-h1-sm: 26px;
-$font-size-h1-md: 32px;
+$font-size: (
+  'small': 14px,
+  'base': 16px,
+  'large': 18px
+);
 
-$font-size-h2-sm: 20px;
-$font-size-h2-md: 22px;
+$line-height-base: 1.5;
 
-$font-size-sm: 14px;
-$font-size-md: 16px;
-$font-size-lg: 18px;
+$border-radius-root: 6px;
+$heading-font-family: 'Ubuntu', 'Roboto', sans-serif;
+$body-font-family: 'Roboto', sans-serif;
+$text-letter-spacing: .02px;
+$link-color: $primary;
+$link-hover-color: #00a370;
+
+$border-color: #dedede;
+$border-light: #efefef;
+$text-base: rgba(0,0,0,.87);
+$text-light:  #808A93;
+$text-disabled: #AFB8C0;
 
 
-$footer-height: 30px;
-$nav-height: 45px;
-$auth-min-height: 630px;
+// Grid
+$grid-breakpoints: (
+  'xs': 480px,
+  'sm': 600px,
+  'md': 960px,
+  'lg': 1280px - 16px,
+  'xl': 1920px - 16px
+);
 
-$label-warning-color: #ffee95;
-$navbar-default-brand-hover-bg: #e3f2fd;
+$container-max-widths: (
+  'md': map-get($grid-breakpoints, 'md') * 0.9375,
+  'lg': 1100px,
+  'xl': 1100px
+);
 
+$spacer: 4px;
+$grid-gutter: $spacer*6;
+$container-padding-x: $grid-gutter;
 
-$header-height: 52px;
-$header-height-sm: 52px;
+// Headings
+
+$headings: (
+  'h1': (
+    'size': 2.125rem, //34px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h2': (
+    'size': 1.5rem, //24px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h3': (
+    'size': 1.125rem, //18px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h4': (
+    'size': 1rem,
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h5': (
+    'size': .8125rem,
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': .08px,
+    'font-family': $heading-font-family,
+    'text-transform': uppercase
+  ),
+  'subtitle-1': (
+    'size': 1rem,
+    'weight': normal,
+    'line-height': 1.75rem,
+    'letter-spacing': .009375em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'subtitle-2': (
+    'size': .875rem,
+    'weight': 500,
+    'line-height': 1.375rem,
+    'letter-spacing': .0071428571em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'body-1': (
+    'size': 1rem,
+    'weight': 400,
+    'line-height': $line-height-base,
+    'letter-spacing': 0,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'body-2': (
+    'size': .875rem,
+    'weight': 400,
+    'line-height': 1.25rem,
+    'letter-spacing': 0,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'caption': (
+    'size': .75rem,
+    'weight': 400,
+    'line-height': 1.25rem,
+    'letter-spacing': .0333333333em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'overline': (
+    'size': .75rem,
+    'weight': 500,
+    'line-height': 2rem,
+    'letter-spacing': .1666666667em,
+    'font-family': $body-font-family,
+    'text-transform': uppercase
+  )
+);
+
+// Elevations
+
+$shadow-key-umbra-opacity: rgba(0, 0, 0, 0.12);
+$shadow-key-penumbra-opacity: rgba(0, 0, 0, 0.07);
+$shadow-key-ambient-opacity: rgba(0, 0, 0, 0.06);
+
+// Buttons
+
+$btn-letter-spacing: $text-letter-spacing;
+$btn-text-transform: none;
 
 $animationDuration: .3s;
 
-$link-color: $primary;
-$link-hover-color: darken($link-color, 15%);
 
+// Footer
+
+$footer-height: 30px;
+
+// Auth
+$auth-min-height: 630px;
+
+
+// Header
+$header-height: 52px;
+$header-height-sm: 52px;
+
+
+// Sidebar
 $sidebar-breakpoint: 1180px;

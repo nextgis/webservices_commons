@@ -11,3 +11,7 @@ Vue.component(
 Vue.component(
   'NgPrice', () => import('../components/NgPrice/NgPrice')
 );
+
+Vue.component(
+  'NgTabs', () => import('../components/NgTabs/NgTabs')
+);

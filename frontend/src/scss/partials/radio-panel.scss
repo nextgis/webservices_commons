@@ -29,7 +29,7 @@
 	&:hover{
 		z-index: 2;
 		.radio-panel__bg{
-			border-color: fade-out($brand-primary, .55);
+			border-color: fade-out($primary, .55);
 		}
 	}
 
@@ -39,8 +39,8 @@
 
 	input[type=radio]:checked{
         & ~ .radio-panel__bg{
-        	border-color: fade-out($brand-primary, .55);
-			background-color: fade-out($light-blue, .35);
+        	border-color: fade-out($primary, .55);
+			background-color: fade-out($ng-light-blue, .35);
 			z-index: 2;
         }
 	}

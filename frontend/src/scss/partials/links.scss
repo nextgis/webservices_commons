@@ -1,5 +1,36 @@
+a,
+.v-application a{
+  text-decoration: none;
+  border-bottom: 1px solid;
+  @include bordered-link($link-color);
+
+  &:hover,
+  &:focus,
+  &:active{
+      text-decoration: none;
+      @include bordered-link($link-hover-color);
+  }
+
+  &.v-list-item--link{
+    border-bottom: 0;
+  }
+}
+
+.nolink,
+.v-application .nolink{
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    color: currentColor;
+    text-decoration: none;
+    border-bottom-width: 0;
+  }
+}
+
+
 .fake-link,
-.admin__panel__content .fake-link{
+.v-application .fake-link{
   border-bottom: 1px dashed;
   @include bordered-link($link-color);
   line-height: 1;
@@ -22,18 +53,18 @@
     font-family: "Material Icons";
     display: inline-block;
     font-size: 20px;
-    @extend .material-icons.icon-caret-up:before;
+    content: "\E5C7";
     vertical-align: middle;
     margin-right: -1em;
   }
 
   &.collapsed:after{
-    @extend .material-icons.icon-caret:before;
+    content: "\E5C5";
   }
 }
 
 .secondary-link,
-.admin__panel__content .secondary-link{
+.v-application .secondary-link{
   @include bordered-link($light-textColor);
 
   &:hover,
@@ -46,8 +77,9 @@
 }
 }
 
-.secondary-link--small{
-  font-size: $font-size-base;
+.secondary-link--small,
+.v-application .secondary-link--small{
+  font-size: map-get($font-size, 'base');
 
   .secondary-link__icon{
     font-size: 20px;
@@ -62,12 +94,12 @@
 }
 
 .link--success,
-.admin__panel__content .link--success{
-  @include bordered-link($brand-success);
+.v-application .link--success{
+  @include bordered-link($accent);
 
   &:hover,
   &:active{
-   @include bordered-link(darken($brand-success, 15%));
+   @include bordered-link(darken($accent, 15%));
  }
 }
 
@@ -77,7 +109,7 @@
     margin-top: -$header-height-sm;
     visibility: hidden;
 
-    @media (min-width: $screen-sm-min){
+    @media (min-width: map-get($grid-breakpoints, 'sm')){
         height:$header-height;
         margin-top: -$header-height;
     }

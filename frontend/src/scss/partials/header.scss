@@ -8,7 +8,7 @@
     height:$header-height-sm;
     line-height: $header-height-sm;
     min-height: $header-height-sm;
-    background-color: $light-blue;
+    background-color: $ng-light-blue;
     z-index: 40;
     white-space: nowrap;
     backface-visibility: hidden;
@@ -20,20 +20,27 @@
     width: 100%;
     border-bottom: 1px solid #d3e3f2;
 
-    @media (min-width: $screen-sm-min){
+    @media (min-width: map-get($grid-breakpoints, 'sm')){
         height:$header-height;
         line-height: $header-height;
     }
 
     h1, .h1{
         display: inline-block;
-        font-size: $font-size-md;
+        font-size: map-get($font-size, 'base');
         line-height: $header-height-sm;
         margin:0;
-        color: $brand-primary;
+        color: var(--v-primary-base);
         font-weight: 500;
 
-        @media (min-width: $screen-sm-min){
+        a,
+        a:hover,
+        a:focus,
+        a:active{
+          color: var(--v-primary-base);
+        }
+
+        @media (min-width: map-get($grid-breakpoints, 'sm')){
             line-height: $header-height;
         }
     }
@@ -46,33 +53,6 @@
     .btn{
         padding-left: 14px;
         padding-right: 14px;
-
-        &:not(.btn-raised):not(.btn-link):not(.btn-action):hover,
-        &:not(.btn-raised):not(.btn-link):not(.btn-action):focus,
-        &:not(.btn-raised):not(.btn-link):not(.btn-action):active{
-            background-color: $blue-50;
-        }
-
-        &.btn-action{
-            padding: 0 20px;
-            box-shadow: none;
-            line-height: inherit;
-            border-radius: 0;
-            border:0;
-            font-size: 14px;
-
-            &:not(.btn-raised):not(.btn-link),
-            &:not(.btn-raised):not(.btn-link),
-            &:not(.btn-raised):not(.btn-link){
-                &:hover,
-                &:focus,
-                &:active,
-                &:focus:active{
-                    box-shadow: none;
-                }
-            }
-        }
-
     }
 
 
@@ -101,7 +81,7 @@
       }
 
       &--temporary-sidebar {
-        @media (min-width: 959px) { //959px - $grid-breakpoints.md - 1 from vuetify variables
+        @media (min-width: map-get($grid-breakpoints, 'md')) {
           display: none !important;
         }
       }
@@ -115,19 +95,6 @@
 
 .header__right{
   margin-right: -8px;
-    .btn-action{
-        float: right;
-
-        & + .btn-action.btn-primary{
-            @include button-variant($brand-primary, $light-blue2, transparent);
-        }
-
-        &.hide-on-sm + .btn-action.btn-primary{
-            @media (max-width: $screen-sm-min){
-                @include button-variant(#fff, $brand-primary, transparent);
-            }
-        }
-    }
 }
 
 .header__logo{
@@ -148,7 +115,7 @@
         background-color: #b4d0ea;
     }
 
-    @media (min-width: $screen-sm-min){
+    @media (min-width: map-get($grid-breakpoints, 'sm')){
         //padding-left: 18px;
         padding-right: 19px;
         margin-right: 12px;
@@ -164,7 +131,7 @@
 .header__plan{
     margin-left: 8px;
 
-    @media (min-width: $screen-sm-min){
+    @media (min-width: map-get($grid-breakpoints, 'sm')){
         margin-left: 12px;
     }
 }

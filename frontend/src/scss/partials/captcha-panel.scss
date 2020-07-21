@@ -1,7 +1,7 @@
 /* Captcha panel */
 
 .captcha-panel__btn{
-    @media (min-width: $screen-sm-min){
+    @media (min-width: map-get($grid-breakpoints, 'sm')){
         text-align: right;
 
         .btn{

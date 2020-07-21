@@ -1,8 +1,8 @@
 /* Video */
-
+@import "~vuetify/src/styles/tools/_elevation.sass";
 
 .video{
-	@include shadow-16dp();
+	@include elevation(16);
 	padding: 24px;
 }
 

@@ -33,7 +33,7 @@
 }
 
 @mixin stretch-block-sm(){
-    @media (max-width: $screen-sm-min){
+    @media (max-width: map-get($grid-breakpoints, 'sm')){
         margin-left: -20px;
         margin-right: -20px;
         padding-left: 20px;
@@ -43,7 +43,7 @@
 
 /* Social colors */
 @function facebook-color(){
-    @return #3b5999;    
+    @return #3b5999;
 }
 @function vk-color(){
     @return #4c75a3;

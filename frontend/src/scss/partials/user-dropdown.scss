@@ -2,11 +2,11 @@
 
 .user-dropdown__link{
     display: inline-block;
-    color: $text-color;
+    color: $text-base;
     font-family: $heading-font-family;
 
     .user-photo{
-        @media (min-width: $screen-sm-min){
+        @media (min-width: map-get($grid-breakpoints, 'sm')){
             margin-right: 2px;
         }
     }

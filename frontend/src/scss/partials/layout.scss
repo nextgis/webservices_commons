@@ -1,20 +1,5 @@
 /* Layout */
 
-html{
-  line-height: 1.5;
-  font-size: 14px;
-  height: 100%;
-}
-
-body{
-    height: 100%;
-    color: $textColor;
-    font-weight: 400;
-    letter-spacing: .2px;
-    background-color: $bg-color;
-    font-size: $font-size-base;
-}
-
 .body--vcenter{
   .main{
     align-items: center;
@@ -44,13 +29,13 @@ body{
 
 .body--minwidth{
     &_xs{
-        min-width: $screen-xs-min;
+        min-width: map-get($grid-breakpoints, 'sm');
     }
     &_sm{
-        min-width: $screen-sm-min;
+        min-width: map-get($grid-breakpoints, 'md');
     }
     &_md{
-        min-width: $screen-md-min;
+        min-width: map-get($grid-breakpoints, 'lg');
     }
 }
 
@@ -64,25 +49,36 @@ body{
   background-color: #fff;
   min-height: calc(100vh - #{$header-height-sm} - #{$footer-height});
 
-  @media (min-width: $screen-sm-min){
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
     min-height: calc(100vh - #{$header-height} - #{$footer-height});
   }
 }
 
 .main,
 .main.container{
-  font-size: $font-size-md;
   padding-top: $header-height-sm !important;
   background-color: #fff;
 
-  @media (min-width: $screen-sm-min){
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
       padding-top:$header-height !important;
   }
 
   &__content,
-  &__content.containe{
-    padding: 40px 24px 100px;
+  &__content.container{
+    padding-top: 48px;
+    padding-bottom: 100px;
   }
+}
+
+.container{
+  padding-left: $spacer*4;
+  padding-right: $spacer*4;
+
+  @media (min-width: map-get($grid-breakpoints, 'md')){
+    padding-left: $grid-gutter;
+    padding-right: $grid-gutter;
+  }
+
 }
 
 .layout-sidebar{
@@ -112,8 +108,8 @@ body{
     z-index: 15;
   }
 
-  @media (min-width: $screen-sm-min){
-    top:$header-height !important;
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
+    top: $header-height !important;
   }
 
   &--content-sidebar{

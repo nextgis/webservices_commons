@@ -25,6 +25,13 @@ export default {
 
 <style lang="scss" scoped>
   .ng-button{
+    font-family: $heading-font-family;
+
+    &.v-size--x-large{
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
     &__icon{
       opacity: .8;
 
