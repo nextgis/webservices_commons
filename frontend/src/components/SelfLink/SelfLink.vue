@@ -2,6 +2,7 @@
   <span class="self-link__container">
     <a class="anchor" :id="href"></a>
     <a class="self-link" :href="`#${href}`">
+      <v-icon class="self-link__icon">mdi-link</v-icon>
       <slot></slot>
     </a>
   </span>
@@ -38,23 +39,39 @@
   color: currentColor;
 }
 
-.self-link:hover{
-  &::before{
-    font-family: 'Material Icons';
-    font-weight: 400;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
+.self-link{
+  &__icon,
+  &__icon.v-icon{
+    display: none;
     font-size: 18px;
     color: $light-blue2;
     position: absolute;
     left: -24px;
     top: 50%;
     margin-top: -9px;
-    content: 'link';
   }
+
+  &:hover{
+    .self-link__icon{
+      display: inline-block;
+    }
+  }
+  // &::before{
+  //   font-family: 'Material Icons';
+  //   font-weight: 400;
+  //   font-style: normal;
+  //   line-height: 1;
+  //   letter-spacing: normal;
+  //   text-transform: none;
+  //   display: inline-block;
+  //   font-size: 18px;
+  //   color: $light-blue2;
+  //   position: absolute;
+  //   left: -24px;
+  //   top: 50%;
+  //   margin-top: -9px;
+  //   content: 'link';
+  // }
 }
 
 </style>

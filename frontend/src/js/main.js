@@ -5,6 +5,9 @@ import DropdownJS from 'dropdown.js'
 import svg4everybody from 'svg4everybody'
 import * as Util from './utilities'
 
+
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
+
 export default function() {
   // Detect Ie
   var detectIe = (function () {
