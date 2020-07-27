@@ -9,7 +9,7 @@ from requests_oauthlib import OAuth2Session
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, get_user_model, logout
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import RedirectView, View
 
@@ -207,6 +207,6 @@ class NgidLogoutView(View):
 
     def get(self, request, *args, **kwargs):
         #TODO: logout on my.nextgis.com?
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             logout(request)
         return redirect(settings.LOGIN_REDIRECT_URL)

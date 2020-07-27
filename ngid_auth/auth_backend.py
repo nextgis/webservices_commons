@@ -6,7 +6,7 @@ from .models import AccessToken
 
 class NgidBackend(ModelBackend):
 
-    def authenticate(self, **kwargs):
+    def authenticate(self, request, **kwargs):
         try:
             nguid = kwargs.get('nguid')
             access_token = kwargs.get('access_token')
