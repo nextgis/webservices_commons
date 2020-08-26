@@ -6,7 +6,14 @@
 {% load external_url %}
 
 {% block body %}
-<header class="header container py-0">
+<app-header
+  :service-name = "config.serviceName"
+  :menu-items = "config.topMenuItems"
+  @menu-icon-click = "sidebarMenuShown = true"
+  fluid>
+</app-header>
+
+<header class="header container py-0" style="display: none">
   <div class="header__right pull-right">
     {% block header_action %}
     {% endblock %}
@@ -65,10 +72,11 @@
       v-model="sidebarMenuShown" floating
     >
     {% block sidebar %}
-      <sidebar-menu
+      <app-menu
         :items="{{ MENU_JS_STRUCT }}"
-        active-item="{{ MENU_ACTIVE_ITEM_ID }}">
-      </sidebar-menu>
+        active-item="{{ MENU_ACTIVE_ITEM_ID }}"
+        view="vertical">
+      </app-menu>
     {% endblock %}
     </v-navigation-drawer>
     <div class="layout-sidebar__content">

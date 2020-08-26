@@ -24,14 +24,15 @@
 @import "partials/mixins";
 @import "partials/colors";
 @import "partials/global";
+@import "partials/app";
 @import "partials/layout";
 @import "partials/typography";
 @import "partials/links";
 @import "partials/lists";
-@import "partials/logo";
+//@import "partials/logo";
 @import "partials/table-grid";
-@import "partials/header";
-@import "partials/header-menu";
+//@import "partials/header";
+//@import "partials/header-menu";
 @import "partials/dropdown-menu";
 @import "partials/user-dropdown";
 @import "partials/image-select";
@@ -44,7 +45,7 @@
 @import "partials/buttons";
 @import "partials/section";
 @import "partials/text-content";
-@import "partials/footer";
+//@import "partials/footer";
 
 .facebook-color{
     color: facebook-color();

@@ -9,7 +9,7 @@ $info:       #5bc0de;
 $warning:    #f0ad4e;
 $danger:     #d9534f;
 
-$bg-color: #f5f5f5;
+$bg-color: #F2F4F5;
 $bg-color-light: #fbfbfb;
 $textColor: rgba(0,0,0,.87);
 $off-black: rgba(0,0,0,.87) !default;
@@ -40,7 +40,7 @@ $heading-font-family: 'Ubuntu', 'Roboto', sans-serif;
 $body-font-family: 'Roboto', sans-serif;
 $text-letter-spacing: .02px;
 $link-color: $primary;
-$link-hover-color: #00a370;
+$link-hover-color: $primary;
 
 $border-color: #dedede;
 $border-light: #efefef;
@@ -75,7 +75,7 @@ $headings: (
     'size': 2.125rem, //34px
     'weight': 500,
     'line-height': 1.2,
-    'letter-spacing': 0,
+    'letter-spacing': -.4px,
     'font-family': $heading-font-family,
     'text-transform': false
   ),
