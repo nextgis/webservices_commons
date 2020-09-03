@@ -21,7 +21,7 @@
           <slot name="header-menu">
             <app-menu
               :items="menuItems"
-              :active-item="baseApp.currentPage.id">
+              :active-item="activeMenuItem">
             </app-menu>
           </slot>
         </nav>
@@ -35,16 +35,16 @@
           <template v-if="withAuthorization">
             <slot name="user">
 
-              <template v-if="baseUser.IsAuthenticated">
-                 <!--  TODO user component with current plan-->
-              </template>
+              <!-- <template v-if="userIsAuthenticated">
+                   TODO user component with current plan
+              </template> -->
 
-              <template v-else>
+              <!-- <template v-else> -->
                 <ng-button text class="ml-1" color="primary"
                   href="#">
                   Sign in
                 </ng-button>
-              </template>
+              <!-- </template> -->
 
             </slot>
           </template>
@@ -74,6 +74,9 @@ export default {
     menuItems: {
       type: Array,
       default: []
+    },
+    activeMenuItem: {
+      type: String
     },
     fluid: {
       type: Boolean,

@@ -161,6 +161,7 @@ export default {
   &__container-2{
     display: flex;
     height: 100%;
+    align-items: center;
   }
 
   &__container-1{
