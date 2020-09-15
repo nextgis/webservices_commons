@@ -1,23 +1,28 @@
 <template>
-  <header class="header">
+  <header :class="[
+    'header',
+    {'header--dark': dark}
+  ]">
     <v-container class="header__container-1" pa-0 :fluid="fluid">
       <v-container class="header__container-2" py-0 :fluid="!centered">
         <div class="header__logo">
-          <v-icon class="header__menu-btn header__menu-btn--temporary-sidebar"
+          <v-icon class="header__menu-btn"
             @click="$emit('menu-icon-click')"
-            >
-            menu
+            >mdi-menu
           </v-icon>
-          <a href="/" class="withoutripple">
-            <app-logo></app-logo>
-          </a>
+          <slot name="logo">
+            <a href="/" class="withoutripple">
+              <app-logo :small = "logoView === 'small'"></app-logo>
+            </a>
+          </slot>
         </div>
+        <slot name="title">
+          <div class="header__title h1">
+            <a href="/">{{ serviceName }}</a>
+          </div>
+        </slot>
 
-        <div class="header__title h1">
-          <a href="/">{{ serviceName }}</a>
-        </div>
-
-        <nav class="header-menu hidden-sm-and-down" >
+        <nav class="header-menu" >
           <slot name="header-menu">
             <app-menu
               :items="menuItems"
@@ -63,6 +68,10 @@ import AppMenu from '@nextgis_common/components/AppMenu/AppMenu';
 export default {
   name: 'AppHeader',
   props: {
+    dark: {
+      type: Boolean,
+      default: false
+    },
     withAuthorization: {
       type: Boolean,
       default: true
@@ -85,6 +94,10 @@ export default {
     centered: {
       type: Boolean,
       default: false
+    },
+    logoView: {
+      type: String,
+      default: 'normal' // 'small'
     }
   },
   components: { AppLogo, AppMenu },
@@ -138,7 +151,8 @@ export default {
   h1, .h1{
     display: inline-block;
     font-size: map-get($font-size, 'base');
-    margin:0;
+    margin-bottom:0;
+    margin-top: 0;
     color: var(--v-primary-base);
     font-weight: 500;
 
@@ -178,18 +192,9 @@ export default {
       vertical-align: middle;
     }
 
-    &--content-sidebar {
-      @media (min-width: $sidebar-breakpoint) {
-        display: none !important;
-      }
+    @media (min-width: $mobile-breakpoint) {
+      display: none !important;
     }
-
-    &--temporary-sidebar {
-      @media (min-width: map-get($grid-breakpoints, 'md')) {
-        display: none !important;
-      }
-    }
-
 
     & + .header__logo .logo--mini{
       margin-right: 2px;
@@ -201,15 +206,15 @@ export default {
   margin-right: -8px;
 }
 
-.header__logo{
+.header__title{
   position: relative;
-  padding-right: 16px;
-  margin-right: 14px;
+  padding-left: 14px;
+  margin-left: 14px;
 
-  &:after{
+  &:before{
     content:"";
     position: absolute;
-    right:0;
+    left:0;
     top: 0px;
     bottom: 0px;
     width: 2px;
@@ -239,5 +244,36 @@ export default {
   margin-left: 38px;
   vertical-align: top;
   align-self: stretch;
+
+  @media (max-width: $mobile-breakpoint){
+    display: none;
+  }
+}
+
+.header--dark{
+  .header__container-1{
+    background-color: $ng-primary-dark;
+    border-bottom-color: $ng-primary-dark;
+  }
+
+  a, h1, .h1,
+  h1 a , .h1 a{
+    &,
+    &:hover,
+    &:focus,
+    &:active{
+      color: rgba(255,255,255,.92);
+    }
+  }
+
+  &::v-deep .logo-pic,
+  &::v-deep .logo-pic:hover{
+    .logo-pic__item--light{
+      fill: rgba(255,255,255,.92);
+    }
+    .logo-pic__item--dark{
+    fill: $dark-blue;;
+    }
+  }
 }
 </style>
