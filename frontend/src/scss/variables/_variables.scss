@@ -26,6 +26,16 @@ $label-warning-color: #ffee95;
 
 $lighten-opacity: .48;
 
+
+$material-light: (
+  'text': (
+    'secondary': #808A93,
+  ),
+  'icons': (
+    'active': #B3B9BE
+  ),
+);
+
 //Global
 
 $font-size: (
