@@ -559,11 +559,6 @@ export default function() {
     if ($(".form-control--dynamic").length)
       DynamicFieds.init();
 
-    //error report
-    if ($("#error-report-link").length) {
-      $("#error-report-link").prop("href", $("#error-report-link").prop("href") + " " + window.location.href);
-    }
-
     // Radio tab
     if ($("[data-toggle=radiotab]").length) {
       Radiotab.init();
