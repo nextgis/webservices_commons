@@ -1,10 +1,12 @@
+import logging
+
 import django.dispatch
 
 from django.utils import timezone
+from django.contrib.auth import login, logout, authenticate
 
-from .views import OAuthClientMixin
-from .ngid_provider import NgidProvider
-
+from .mixins import OAuthClientMixin
+from .provider import get_oauth_provider
 
 user_plan_detected = django.dispatch.Signal(providing_args=["user", "plan"])
 
@@ -41,8 +43,9 @@ class UserPlan(OAuthClientMixin):
 
         if session_up_info.get('last_check_date', 0) < request.user.last_login.timestamp():
             try:
-                oauth_session = self.get_oauth_session(NgidProvider)
-                ngid_up_info = oauth_session.get(NgidProvider.instance_url()).json()
+                oauth_provider = get_oauth_provider()
+                oauth_session = self.get_oauth_session(oauth_provider)
+                ngid_up_info = oauth_session.get(oauth_provider.instance_url()).json()
                 ngid_user_plan = ngid_up_info.get('plan_id')
 
                 session_up_info['last_check_date'] = timezone.now().timestamp()
@@ -55,3 +58,27 @@ class UserPlan(OAuthClientMixin):
                 pass
             finally:
                 request.session['user_plan']= session_up_info
+
+
+class OAuth2ResourceServerAuthenticationMiddleware(OAuthClientMixin):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if not request.user.is_authenticated:
+            if request.META.get("HTTP_AUTHORIZATION", "").startswith("Bearer"):
+                
+                http_auth = request.META.get("HTTP_AUTHORIZATION")
+                access_token = http_auth[len("Bearer"):].strip()
+
+                oauth_token_info = {
+                    'access_token': access_token
+                }
+                user = authenticate(request, oauth_token_info=oauth_token_info)
+                    
+                if user is not None:
+                    login(request, user)
+        
+        response = self.get_response(request)
+        
+        return response
