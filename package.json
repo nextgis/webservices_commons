@@ -15,7 +15,8 @@
     "dropdown.js": "github:FezVrasta/dropdown.js",
     "jquery": "^3.4.1",
     "jquery-validation": "^1.19.0",
-    "material-design-icons-iconfont": "^3.0.3"
+    "material-design-icons-iconfont": "^3.0.3",
+    "vue2-animate": "^2.1.3"
   },
   "keywords": [],
   "author": "",
