@@ -16,10 +16,13 @@ from .mixins import OAuthClientMixin
 from .provider import get_oauth_provider
 
 
+logger = logging.getLogger('nextgis_common.ngid_auth.backands')
+
+
 UserModel = get_user_model()
 
 
-signal_userinfo_got = Signal(providing_args=["user", "userinfo"])
+signal_userinfo_got = Signal(providing_args=['user', 'userinfo', 'roles'])
 
 
 class NgidBackend(ModelBackend):
@@ -49,8 +52,6 @@ class OAuthBackend(OAuthClientMixin, ModelBackend):
         # except AccessToken.MultipleObjectsReturned:
         #     result = False
         else:
-            logging.warning(timezone.now())
-            logging.warning(access.expires_at)
             need_to_refresh = timezone.now() > access.expires_at
             if need_to_refresh:
                 if access.refresh_token:
@@ -76,17 +77,23 @@ class OAuthBackend(OAuthClientMixin, ModelBackend):
     def authenticate(self, request, oauth_token_info=None):    
         self.request = request
 
+        logger.debug('Try authenticate with oauth_token_info: %s' % oauth_token_info)
+
         if not oauth_token_info:
             return
 
         if 'refresh_token' not in oauth_token_info:
-            oauth_token_info = self.introspect(oauth_token_info['access_token'])
-        if not oauth_token_info:
-            return
+            access_token = oauth_token_info['access_token']
+            oauth_token_info = self.introspect(access_token)
+            
+            if not oauth_token_info:
+                logger.warning('Introspection FAIL for %s' % access_token)
+                return
 
         user = self.update_or_create_user(oauth_token_info)
 
         if user is None:
+            logger.warning('Cann\'t update or create user for %s' % oauth_token_info)
             return
 
         defaults = {
@@ -101,6 +108,8 @@ class OAuthBackend(OAuthClientMixin, ModelBackend):
             user_id=user.nextgis_guid,
             access_token=oauth_token_info['access_token'],
         )
+        
+        logger.debug('User %s authenticated' % user)
 
         return user
 
@@ -139,7 +148,8 @@ class OAuthBackend(OAuthClientMixin, ModelBackend):
             defaults=defaults,
         )
 
-        signal_userinfo_got.send(sender=self.__class__, user=user, userinfo=userinfo)
+        roles = self.try_get_roles(userinfo)
+        signal_userinfo_got.send(sender=self.__class__, user=user, userinfo=userinfo, roles=roles)
 
         return user
 
@@ -160,11 +170,23 @@ class OAuthBackend(OAuthClientMixin, ModelBackend):
 
     def clean_user_data(self, userinfo):
         return {
-            "username": userinfo.get('username'),
-            "first_name": userinfo.get('first_name'),
-            "last_name": userinfo.get('last_name'),
-            "email": userinfo.get('email'),
+            'username': userinfo.get('username'),
+            'first_name': userinfo.get('first_name'),
+            'last_name': userinfo.get('last_name'),
+            'email': userinfo.get('email'),
         }
+
+    def try_get_roles(self, userinfo):
+        # It's just for RTI proj, but can be extended
+        provider = get_oauth_provider()
+
+        return userinfo.get(
+            'resource_access', {}
+        ).get(
+            provider.consumer_key, {}
+        ).get(
+            'roles', []
+        )
 
 
 class OAuthOpenIdBackend(OAuthBackend):
@@ -173,11 +195,12 @@ class OAuthOpenIdBackend(OAuthBackend):
         return userinfo.get('sub')
 
     def clean_user_data(self, userinfo):
+        username = userinfo.get('preferred_username')
         return {
-            "username": userinfo.get('preferred_username'),
-            "first_name": userinfo.get('given_name'),
-            "last_name": userinfo.get('family_name'),
-            "email": userinfo.get('email'),
+            'username': username,
+            'first_name': userinfo.get('given_name', username),
+            'last_name': userinfo.get('family_name', username),
+            'email': userinfo.get('email', ''),
         }
 
     def introspect(self, access_token):
