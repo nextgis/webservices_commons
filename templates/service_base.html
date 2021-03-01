@@ -6,7 +6,18 @@
 {% load external_url %}
 
 {% block body %}
-<header class="header container py-0">
+
+<!-- vue-header -->
+<app-header
+  :service-name = "config.serviceName"
+  :menu-items = "config.topMenuItems"
+  @menu-icon-click = "sidebarMenuShown = true"
+  fluid>
+</app-header>
+<!-- /vue-header -->
+
+{% comment %}
+<header class="header container py-0" style="display: none">
   <div class="header__right pull-right">
     {% block header_action %}
     {% endblock %}
@@ -57,23 +68,25 @@
   {% block header_menu %}
   {% endblock %}
 </header>
-<v-content class="main container px-0">
+{% endcomment %}
+<v-main class="main container px-0">
   <div class="layout-nosidebar">
     <div class="main__content">
       {% block body_content %}{% endblock %}
     </div>
   </div>
-</v-content>
+</v-main>
 <v-navigation-drawer
   class="app-sidebar app-sidebar--temporary" temporary fixed
   width="200" height="auto"
   v-model="sidebarMenuShown" floating
 >
 {% block sidebar %}
-  <sidebar-menu
+  <app-menu
     :items="{{ MENU_JS_STRUCT }}"
-    active-item="{{ MENU_ACTIVE_ITEM_ID }}">
-  </sidebar-menu>
+    active-item="{{ MENU_ACTIVE_ITEM_ID }}"
+    view="vertical">
+  </app-menu>
 {% endblock %}
 </v-navigation-drawer>
 {% endblock %}

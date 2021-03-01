@@ -13,15 +13,15 @@
 		height: $square-list-item-width;
 		line-height: $square-list-item-width;
 		white-space: nowrap;
-		font-size: 18px; //$font-size-lg;
-		font-family: "Lato"; //$headings-font-family;
+		font-size: map-get($font-size, 'large');
+		font-family: $heading-font-family;
 		font-weight: bold;
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: 0;
 		text-align: center;
 	}
-	
+
 	.square-list__item{
 		display: inline-block;
 		vertical-align: top;
@@ -33,12 +33,12 @@
 
 		&:nth-child(1){
 			.square-list__panel{
-				color: #00b77e; //@brand-success
+				color: var(--v-primary-accent)
 			}
 		}
 		&:nth-child(2){
 			.square-list__panel{
-				color: #0070c5; //@brand-primary
+				color: var(--v-primary-base)
 			}
 		}
 		&:nth-child(3){

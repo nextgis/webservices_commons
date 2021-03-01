@@ -24,7 +24,7 @@
     }
 
     &:after{
-        content:"\E3C9"; // @extend edit-icon
+        content:"\E3C9";
         color: #999;
         background-color: rgba(0, 0, 0, 0.06);
         right:0;
@@ -52,5 +52,5 @@
 
 .image-select--warm,
 .image-select--warm[readonly]{
-    background-color: #f8f8ef; //$brand-warm
+    background-color: #f8f8ef;
 }

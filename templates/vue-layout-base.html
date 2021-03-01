@@ -1,0 +1,107 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load new_tags %}
+
+<!DOCTYPE html>
+<!--[if lte IE 9]>     <html class="lte-ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
+  <head>
+    <title>{% block head_title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block extra_meta %}{% endblock %}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'nextgis_common/img/favicons/apple-touch-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'nextgis_common/img/favicons/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static 'nextgis_common/img/favicons/android-chrome-192x192.png' %}" sizes="192x192">
+    <link rel="icon" type="image/png" href="{% static 'nextgis_common/img/favicons/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{% static 'nextgis_common/img/favicons/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="manifest" href="{% static 'nextgis_common/img/favicons/manifest.json' %}">
+    <link rel="mask-icon" href="{% static 'nextgis_common/img/favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="{% static 'nextgis_common/img/favicons/mstile-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    {% block prior_css %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,600,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="{% static 'css/chunk-vendors.css' %}" type="text/css" rel="stylesheet"/>
+    <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
+
+    {% get_current_language as LANGUAGE_CODE %}
+    <script>
+        var locale = "{{ LANGUAGE_CODE }}";
+
+        {% if request.user.is_authenticated %}
+          var user_is_authenticated = true;
+        {% else %}
+          var user_is_authenticated = false;
+        {% endif%}
+
+        var root_url = "{% url 'root' %}";
+        var ngid_login_url = "#";
+
+        var topMenuItems=JSON.parse("{{ MENU_JS_STRUCT }}".replace(/&quot;/g,'"').replace(/&amp;/g,'&'));
+        var currentPage = {
+          id: "{{ MENU_ACTIVE_ITEM_ID }}",
+          url: {
+            'en': '{{ request.LANG_URLS|get_item:'en' }}',
+            'ru': '{{ request.LANG_URLS|get_item:'ru' }}'
+          }
+        };
+    </script>
+
+    {% block script_variables %} {% endblock %}
+    {% block extra_head %}{% endblock %}
+  </head>
+
+  <body>
+    <div id="app">
+      <v-app v-cloak>
+        <!-- <v-content> -->
+      {% block body %}
+      {% endblock %}
+      <!-- Block for popups -->
+      {% block popups %}
+      {% endblock %}
+
+      <!-- Block for alerts -->
+      {% block messages %}
+        <div class="messages">
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+              <div class="alert alert-danger fade in" data-form="auth-form">
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+              <div class="alert alert-warning fade in" data-form="auth-form">
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
+              {% else %}
+              <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
+              {% endif %}
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  {{ message | safe }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block form_messages %} {% endblock %}
+        </div>
+      {% endblock %}
+      </v-app>
+    </div>
+    <!-- Scripts -->
+    {% include "snippets/scripts.html" %}
+
+    <!-- Extra stuff -->
+    {% block extra_body %}{% endblock %}
+    {% block counters %}{% endblock %}
+  </body>
+</html>

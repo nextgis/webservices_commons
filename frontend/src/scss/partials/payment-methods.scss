@@ -10,7 +10,7 @@
 }
 
 .payment-methods__text--cardonly{
-	@media (max-width: $screen-sm-min){
+	@media (max-width: map-get($grid-breakpoints, 'sm')){
 		text-align: center;
 	}
 }
@@ -19,7 +19,7 @@
 	margin-right: 24px;
 	margin-top: -8px;
 
-	@media (max-width: $screen-sm-min){
+	@media (max-width: map-get($grid-breakpoints, 'sm')){
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
@@ -44,7 +44,7 @@
 		z-index: 2;
 	}
 
-	@media (max-width: $screen-sm-min){
+	@media (max-width: map-get($grid-breakpoints, 'sm')){
 		max-width: none;
 		margin-top: -1px;
 

@@ -1,35 +1,8 @@
 /* Layout */
 
-html{
-  line-height: 1.5;
-  font-size: 14px;
-  height: 100%;
-}
-
-body{
-    height: 100%;
-    color: $textColor;
-    font-weight: 400;
-    letter-spacing: .2px;
-    background-color: $bg-color;
-    font-size: $font-size-base;
-}
-
 .body--vcenter{
   .main{
     align-items: center;
-  }
-}
-
-.body--wide{
-  .main,
-  .header,
-  .footer{
-    max-width: none;
-
-    &.container{
-      max-width: none;
-    }
   }
 }
 
@@ -42,19 +15,19 @@ body{
 
 .body--minwidth{
     &_xs{
-        min-width: $screen-xs-min;
+        min-width: map-get($grid-breakpoints, 'sm');
     }
     &_sm{
-        min-width: $screen-sm-min;
+        min-width: map-get($grid-breakpoints, 'md');
     }
     &_md{
-        min-width: $screen-md-min;
+        min-width: map-get($grid-breakpoints, 'lg');
     }
 }
 
 .body--grey{
   .main, .main.container{
-    background-color: #f9f9f9;
+    background-color: $bg-color;
   }
 }
 
@@ -62,35 +35,66 @@ body{
   background-color: #fff;
   min-height: calc(100vh - #{$header-height-sm} - #{$footer-height});
 
-  @media (min-width: $screen-sm-min){
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
     min-height: calc(100vh - #{$header-height} - #{$footer-height});
   }
 }
 
 .main,
 .main.container{
-  font-size: $font-size-md;
   padding-top: $header-height-sm !important;
   background-color: #fff;
 
-  @media (min-width: $screen-sm-min){
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
       padding-top:$header-height !important;
   }
 
   &__content,
-  &__content.containe{
-    padding: 40px 24px 100px;
+  &__content.container{
+    padding-top: 48px;
+    padding-bottom: 100px;
+  }
+
+  &__container{
+    background-color: #fff;
+    height: 100%;
   }
 }
 
-.layout-sidebar{
+.container{
+  padding-left: $grid-gutter;
+  padding-right: $grid-gutter;
+
+  @media (min-width: map-get($grid-breakpoints, 'md')){
+    // padding-left: $spacer*5;
+    // padding-right: $spacer*5;
+  }
+}
+
+.ng-container{
+  &--narrow{
+    max-width: $container-narrow-width;
+  }
+}
+
+.ng-layout{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ng-layout-nosidebar{
+  width: 100%;
+}
+
+.ng-layout-sidebar{
   width: 100%;
 
   &__content{
     transition: margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     margin-left: 0;
 
-    @media (min-width: $sidebar-breakpoint){
+    @media (min-width: $mobile-breakpoint){
       margin-left: 200px;
     }
   }
@@ -98,29 +102,33 @@ body{
 
 .app-sidebar.v-navigation-drawer{
   position: fixed;
-  top: $header-height-sm;
+  top: $header-height-sm !important;
   bottom: 0;
   left: auto;
   width: 200px;
-  padding: 24px 24px $footer-height;
   border-right: 1px solid #efefef;
-  overflow: auto;
+
+  .v-navigation-drawer__content{
+    padding: 24px 24px $footer-height;
+    overflow: auto;
+  }
 
   &.v-navigation-drawer--is-mobile{
     z-index: 15;
   }
 
-  @media (min-width: $screen-sm-min){
-    top:$header-height !important;
+  @media (min-width: map-get($grid-breakpoints, 'sm')){
+    top: $header-height !important;
   }
 
-  &--content-sidebar{
-    @media (min-width: $sidebar-breakpoint){
+  &.app-sidebar--content{
+    @media (min-width: $mobile-breakpoint){
       transform: translateX(0px) !important;
+      visibility: visible;
     }
   }
 
-  .sidebar-menu{
+  .app-menu{
     margin-left: -24px;
   }
 }

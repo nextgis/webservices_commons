@@ -5,9 +5,8 @@ import DropdownJS from 'dropdown.js'
 import svg4everybody from 'svg4everybody'
 import * as Util from './utilities'
 
-//Main styles
-import "@nextgis_common/scss/main.scss";
-import '@nextgis_common/scss/vuetify.styl'
+
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 export default function() {
   // Detect Ie

@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load i18n %}
+{% load new_tags %}
 
 <!DOCTYPE html>
 <!--[if lte IE 9]>     <html class="lte-ie9"> <![endif]-->
@@ -31,12 +32,31 @@
     <meta name="theme-color" content="#ffffff">
 
     {% block prior_css %}{% endblock %}
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,600,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <link href="{% static 'css/chunk-vendors.css' %}" type="text/css" rel="stylesheet"/>
     <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
 
     {% get_current_language as LANGUAGE_CODE %}
     <script>
         var locale = "{{ LANGUAGE_CODE }}";
+
+        {% if request.user.is_authenticated %}
+          var user_is_authenticated = true;
+        {% else %}
+          var user_is_authenticated = false;
+        {% endif%}
+
+        var root_url = "{% url 'root' %}";
+        var ngid_login_url = "#";
+
+        var topMenuItems=JSON.parse("{{ MENU_JS_STRUCT }}".replace(/&quot;/g,'"').replace(/&amp;/g,'&'));
+        var currentPage = {
+          id: "{{ MENU_ACTIVE_ITEM_ID }}",
+          url: {
+            'en': '{{ request.LANG_URLS|get_item:'en' }}',
+            'ru': '{{ request.LANG_URLS|get_item:'ru' }}'
+          }
+        };
     </script>
 
     {% block script_variables %} {% endblock %}
@@ -49,7 +69,6 @@
         <!-- <v-content> -->
         {% block body %}
         {% endblock %}
-        <!-- </v-content> -->
         <!-- Block for popups -->
         {% block popups %}
         {% endblock %}
@@ -79,7 +98,7 @@
         <!-- Footer -->
 
         {% block footer %}
-          {% include "snippets/footer.html" %}
+          <app-footer :view="config.footerView || 'small'" dark :menu-items="config.bottomMenuItems" fluid centered></app-footer>
         {% endblock %}
       </v-app>
     </div>
