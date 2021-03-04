@@ -39,7 +39,7 @@
         </div>
     {% else %}
       <v-btn flat small class="ml-1"
-        href="{% block login_link %}{% url 'account_login' %}{% endblock %}">
+        href="{% block login_link %}{% url 'ngid_login' %}{% endblock %}">
         {% trans 'Sign in' context 'menu_item' %}
       </v-btn>
     {% endif %}
