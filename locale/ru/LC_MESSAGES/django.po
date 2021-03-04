@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-07 07:43+0000\n"
+"POT-Creation-Date: 2021-03-04 14:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,28 +125,27 @@ msgstr "Ошибка на сервере при просмотре страни�
 msgid "Go back"
 msgstr "Вернуться назад"
 
-#: nextgisid_site/nextgis_common/templates/service_base.html:26
+#: nextgisid_site/nextgis_common/templates/service_base.html:23
+#: nextgisid_site/nextgis_common/templates/service_base_sidebar.html:24
 msgid "Profile"
 msgstr "Профиль"
 
 #: nextgisid_site/nextgis_common/templates/service_base.html:27
-msgid "Web GIS Settings"
-msgstr "Настройки Веб ГИС"
-
-#: nextgisid_site/nextgis_common/templates/service_base.html:31
+#: nextgisid_site/nextgis_common/templates/service_base_sidebar.html:29
 msgid "Sign Out"
 msgstr "Выйти"
 
-#: nextgisid_site/nextgis_common/templates/service_base.html:37
+#: nextgisid_site/nextgis_common/templates/service_base.html:33
+#: nextgisid_site/nextgis_common/templates/service_base_sidebar.html:35
 msgctxt "menu_item"
 msgid "Sign in"
 msgstr "Войти"
 
-#: nextgisid_site/nextgis_common/templates/snippets/footer.html:9
+#: nextgisid_site/nextgis_common/templates/snippets/footer.html:11
 msgid "Terms of Service"
 msgstr "Пользовательское соглашение"
 
-#: nextgisid_site/nextgis_common/templates/snippets/footer.html:12
+#: nextgisid_site/nextgis_common/templates/snippets/footer.html:14
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
@@ -239,3 +238,6 @@ msgstr ""
 #: nextgisid_site/nextgis_common/templates/snippets/translate_js.html:16
 msgid "Please enter a valid value"
 msgstr "Введите верное значение"
+
+#~ msgid "Web GIS Settings"
+#~ msgstr "Настройки Веб ГИС"
