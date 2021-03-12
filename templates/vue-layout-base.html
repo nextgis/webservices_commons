@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load gravatar %}
+{% load external_url %}
 {% load i18n %}
 
 <!DOCTYPE html>
@@ -40,13 +42,21 @@
         var locale = "{{ LANGUAGE_CODE }}";
 
         {% if request.user.is_authenticated %}
-          var user_is_authenticated = true;
+          var userInfo = {
+            isAuthenticated: true,
+            username: '{{ request.user.username }}',
+            userpicUrl: '{% gravatar_url request.user.email 30 %}'.replace(/&amp;/g, "&")
+          }
         {% else %}
-          var user_is_authenticated = false;
+          var userInfo = {
+            is_authenticated: false
+          }
         {% endif%}
 
         var root_url = "{% url 'root' %}";
-        var ngid_login_url = "#";
+        var login_url = "{% block login_link %}{% url 'account_login' %}{% endblock %}";
+        var logout_url = "{% block logout_link %}{% url 'silent_logout' %}{% endblock %}";
+        var ngid_profile_url = "{% external_url 'ngid_profile' ''%}";
 
         var topMenuItems=JSON.parse("{{ MENU_JS_STRUCT }}".replace(/&quot;/g,'"').replace(/&amp;/g,'&'));
         var currentPage = {
