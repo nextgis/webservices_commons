@@ -4,9 +4,12 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import make_aware
 
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError as er:
+    from six import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class AccessToken(models.Model):
