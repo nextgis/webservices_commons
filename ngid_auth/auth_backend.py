@@ -233,3 +233,12 @@ class OAuthNGIdBackend(OAuthBackend):
 
     def clean_user_guid(self, userinfo):
         return userinfo.get('nextgis_guid')
+
+    def clean_user_data(self, userinfo):
+        return {
+            'username': userinfo.get('username'),
+            'first_name': userinfo.get('first_name'),
+            'last_name': userinfo.get('last_name'),
+            'email': userinfo.get('email'),
+            'locale': userinfo.get('locale'),
+        }
