@@ -12,24 +12,37 @@
   </v-dialog>
 </template>
 
+<i18n>
+  {
+    "en": {
+      "cancel": "Cancel"
+    },
+    "ru": {
+      "cancel": "Отмена"
+    }
+  }
+</i18n>
+
 <script>
   export default {
     name: 'ConfirmationDialog',
     props: {
       btnTrueText: {
         type: String,
-        default: 'Ok'
+        default: 'OK'
       },
       btnFalseText: {
         type: String,
-        default: 'Cancel'
+        default() {
+          return this.$t('cancel');
+        }
       }
     },
     data() {
       return {
         defaultWidth: 400
       }
-    },
+    }
   }
 </script>
 
