@@ -61,7 +61,12 @@
         var logout_url = "{% block logout_link %}{% url 'silent_logout' %}{% endblock %}";
         var ngid_profile_url = "{% external_url 'ngid_profile' ''%}";
 
-        var topMenuItems=JSON.parse("{{ MENU_JS_STRUCT }}".replace(/&quot;/g,'"').replace(/&amp;/g,'&'));
+        var topMenuItems=JSON.parse("{{ MENU_JS_STRUCT }}"
+          .replace(/&quot;/g,'"')
+          .replace(/&amp;/g,'&')
+          .replace(/&lt;/g,'<')
+          .replace(/&gt;/g,'>')
+        );
         var currentPage = {
           id: "{{ MENU_ACTIVE_ITEM_ID }}",
           //url: copy from data
