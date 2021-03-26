@@ -1,12 +1,10 @@
-{% extends "error/error_base.html" %}
+{% extends "vue-layout-base.html" %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans '400 Bad Request' %}{% endblock %}
 {% block content_title %}{% trans '400' %}{% endblock %}
 
-{% block error_content %}
-    <div class="huge-text error-block__number">400</div>
-    <h1 class="h2 error-block__title">{% trans 'Bad request' %}</h1>
-    <div class="error-block__descr">{% trans "Think it's a mistake?" %} <a id="error-report-link" href="mailto:info@nextgis.com?subject={% trans 'Denial of access to' %} nextgis.com&body={% trans 'There is no access to the page' %} ">{% trans 'Let us know' %}</a>.</div>
+{% block body %}
+    <error-page code="400"></error-page>
 {% endblock %}
