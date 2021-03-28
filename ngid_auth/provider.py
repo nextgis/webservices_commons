@@ -3,10 +3,10 @@ from django.utils.module_loading import import_string
 
 
 def get_oauth_provider():
-	provider_class = import_string(
-		getattr(settings, 'OAUTH_PROVIDER', 'nextgis_common.ngid_auth.provider.OAuthProvider')
-	)
-	return provider_class()
+    provider_class = import_string(
+        getattr(settings, 'OAUTH_PROVIDER', 'nextgis_common.ngid_auth.provider.OAuthProvider')
+    )
+    return provider_class()
 
 
 
@@ -41,22 +41,26 @@ class OAuthProvider:
         return settings.OAUTH_CLIENT_SECRET
 
     @staticmethod
+    def get_logout_url():
+        return getattr(settings, 'OAUTH_LOGOUT_URL', None)
+
+    @staticmethod
     def get_scopes():
         return getattr(settings, 'OAUTH_SCOPES', None)
 
 
     def __init__(self):
-    	self.authorization_url = self.get_authorization_url()
-    	self.access_token_url = self.get_access_token_url()
-    	self.profile_url = self.get_profile_url()
-    	self.introspection_url = self.get_introspection_url()
+        self.authorization_url = self.get_authorization_url()
+        self.access_token_url = self.get_access_token_url()
+        self.profile_url = self.get_profile_url()
+        self.introspection_url = self.get_introspection_url()
+        self.logout_url = self.get_logout_url()
+        self.consumer_key = self.get_consumer_key()
+        self.consumer_secret = self.get_consumer_secret()
 
-    	self.consumer_key = self.get_consumer_key()
-    	self.consumer_secret = self.get_consumer_secret()
+        self.scopes = self.get_scopes()
 
-    	self.scopes = self.get_scopes()
-
-    	self.user_id = 'sub'
+        self.user_id = 'sub'
 
 
     def manage_userinfo(self, info):

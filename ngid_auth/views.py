@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 import logging
+import urllib.parse
 
 from django.db import transaction
 from requests_oauthlib import OAuth2Session
@@ -98,6 +99,20 @@ class NgidLogoutView(View):
 
     def get(self, request, *args, **kwargs):
         #TODO: logout on my.nextgis.com?
+        provider = get_oauth_provider()
+
+        is_it_redirect_from_auth_server_logout = request.session.get('from_auth_server_asked', False) # request.GET.get('from_auth_server')
+
+        if provider.logout_url and is_it_redirect_from_auth_server_logout is False:
+            callback_path = '%s' % (str(reverse_lazy(self.view_name)), )
+            request.session['from_auth_server_asked'] = True
+            return redirect(
+                '%s?%s' % (provider.logout_url, urllib.parse.urlencode({'redirect_uri': request.build_absolute_uri(callback_path)}))
+            )
+        else:
+            request.session['from_auth_server_asked'] = False
+
         if request.user.is_authenticated:
             logout(request)
+
         return redirect(settings.LOGIN_REDIRECT_URL)
