@@ -1713,7 +1713,7 @@ form{
         font-weight: bold;
         color: #176FC1;
         line-height: 1;
-        margin-top: -24px;
+        margin-top: 0px;
         letter-spacing: 2px;
 
         @media (min-width: $screen-sm-min){
@@ -1732,7 +1732,7 @@ form{
     }
 
     .error-block__btn{
-        margin-top: 50px;
+        margin-top: 32px;
     }
 
 /* Instancce form */

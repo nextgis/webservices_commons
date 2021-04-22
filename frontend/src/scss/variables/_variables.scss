@@ -57,3 +57,125 @@ $link-color: $primary;
 $link-hover-color: darken($link-color, 15%);
 
 $sidebar-breakpoint: 1180px;
+
+$grid-breakpoints: (
+  'xs': 0px,
+  'sm': 600px,
+  'md': 960px,
+  'lg': 1280px - 16px,
+  'xl': 1920px - 16px
+);
+
+$container-max-widths: (
+  'md': map-get($grid-breakpoints, 'md') * 0.9375,
+  'lg': 1100px,
+  'xl': 1600px
+);
+
+$border-color: #dedede;
+$border-light: #efefef;
+$text-base: rgba(0,0,0,.87);
+$text-light:  #808A93;
+$text-disabled: #AFB8C0;
+$border-radius-root: 6px;
+
+$heading-font-family: 'Ubuntu', 'Roboto', sans-serif;
+$body-font-family: 'Roboto', sans-serif;
+$font-size: (
+  'small': 14px,
+  'base': 16px,
+  'large': 18px
+);
+
+$line-height-base: 1.5;
+
+$headings: (
+  'h1': (
+    'size': 2.125rem, //34px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': -.4px,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h2': (
+    'size': 1.5rem, //24px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': -.12px,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h3': (
+    'size': 1.125rem, //18px
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h4': (
+    'size': 1rem,
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': 0,
+    'font-family': $heading-font-family,
+    'text-transform': false
+  ),
+  'h5': (
+    'size': .8125rem,
+    'weight': 500,
+    'line-height': 1.2,
+    'letter-spacing': .08px,
+    'font-family': $heading-font-family,
+    'text-transform': uppercase
+  ),
+  'subtitle-1': (
+    'size': 1rem,
+    'weight': normal,
+    'line-height': 1.75rem,
+    'letter-spacing': .009375em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'subtitle-2': (
+    'size': .875rem,
+    'weight': 500,
+    'line-height': 1.375rem,
+    'letter-spacing': .0071428571em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'body-1': (
+    'size': 1rem,
+    'weight': 400,
+    'line-height': $line-height-base,
+    'letter-spacing': 0,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'body-2': (
+    'size': .875rem,
+    'weight': 400,
+    'line-height': 1.25rem,
+    'letter-spacing': 0,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'caption': (
+    'size': .75rem,
+    'weight': 400,
+    'line-height': 1.25rem,
+    'letter-spacing': .0333333333em,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'overline': (
+    'size': .75rem,
+    'weight': 500,
+    'line-height': 2rem,
+    'letter-spacing': .1666666667em,
+    'font-family': $body-font-family,
+    'text-transform': uppercase
+  )
+);
