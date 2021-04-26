@@ -47,5 +47,5 @@ def get_menu(request):
 
     return {
         'MENU_JS_STRUCT': m.get_menu_js_struct(),
-        'MENU_ACTIVE_ITEM_ID': request.resolver_match.url_name,
+        'MENU_ACTIVE_ITEM_ID': request.resolver_match.url_name if request.resolver_match else None,
     }
