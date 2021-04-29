@@ -9,6 +9,7 @@
         :service-name = "config.serviceName"
         :menu-items = "config.topMenuItems"
         :with-authorization = "config.withAuthorization"
+        :active-menu-item = "baseApp.currentPage.id"
         @menu-icon-click = "sidebarMenuShown = true"
         :fluid = "fluid">
       </app-header>
@@ -36,7 +37,7 @@
       <slot name="sidebar">
         <app-menu
           :items="config.topMenuItems"
-          :active-item="baseApp.currentPage.id"
+          :active-item="baseApp.currentPage ? baseApp.currentPage.id: null"
           view="vertical">
         </app-menu>
       </slot>

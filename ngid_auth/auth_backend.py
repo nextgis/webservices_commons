@@ -1,7 +1,25 @@
 from __future__ import unicode_literals
 
+import datetime
+import jwt
+import logging
+import requests
+
+from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.dispatch import Signal
+from django.utils import timezone
+from django.utils.timezone import make_aware
+
 from .models import AccessToken
+from .mixins import OAuthClientMixin
+from .provider import get_oauth_provider
+
+
+UserModel = get_user_model()
+
+
+signal_userinfo_got = Signal(providing_args=["user", "userinfo"])
 
 
 class NgidBackend(ModelBackend):

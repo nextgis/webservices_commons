@@ -1,8 +1,15 @@
 from __future__ import unicode_literals
 
+import datetime
+
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+from django.utils.timezone import make_aware
+
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError as er:
+    from six import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible
@@ -21,3 +28,17 @@ class AccessToken(models.Model):
         index_together = [
             ("user", "access_token"),
         ]
+
+    def get_requests_token_info(self):
+        return {
+            'access_token': self.access_token,
+            'refresh_token': self.refresh_token,
+            'expires_at': self.expires_at.timestamp(),
+        }
+
+    def update_with_requests_token_info(self, requests_token_info):
+        self.access_token = requests_token_info.get('access_token')
+        self.refresh_token = requests_token_info.get('refresh_token')
+        self.expires_at = make_aware(datetime.datetime.fromtimestamp(requests_token_info.get('expires_at')))
+
+        self.save()

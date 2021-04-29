@@ -6,8 +6,9 @@
   ]">
     <slot name="header">
       <app-header
-        :service-name = "config.serviceName"
-        :menu-items = "config.topMenuItems"
+        :service-name = "_config.serviceName"
+        :menu-items = "_config.topMenuItems"
+        :active-menu-item = "currentPage"
         @menu-icon-click = "sidebarMenuShown = true"
         :fluid = "fluid">
       </app-header>
@@ -20,13 +21,13 @@
         <div class="ng-layout-sidebar">
           <v-navigation-drawer
             class="ng-layout-sidebar__sidebar app-sidebar app-sidebar--content"
-            width="200" height="auto" mobile-break-point="1180"
+            width="200" height="auto"
             v-model="sidebarMenuShown" floating
           > <!-- TODO move to AppSidebar.vue -->
             <slot name="sidebar">
               <app-menu
-                :items="config.topMenuItems"
-                :active-item="baseApp.currentPage.id"
+                :items="_config.topMenuItems"
+                :active-item="currentPage"
                 view="vertical">
               </app-menu>
             </slot>
@@ -44,8 +45,8 @@
 
     <slot name="footer">
       <app-footer dark :fluid="fluid" centered
-        :view="config.footerView || 'small'"
-        :menu-items="config.bottomMenuItems">
+        :view="_config.footerView || 'small'"
+        :menu-items="_config.bottomMenuItems">
       </app-footer>
     </slot>
   </v-app>
@@ -78,6 +79,10 @@ export default {
     contentCentered:{
       type: Boolean,
       default: false
+    },
+    config: {
+      type: Object,
+      default: null
     }
   },
 
@@ -88,8 +93,11 @@ export default {
   },
   computed:{
     ...mapState(['baseApp']),
-    config(){
-      return this.baseApp.config;
+    _config(){
+      return this.config || this.baseApp.config;
+    },
+    currentPage(){
+      return this.baseApp ? this.baseApp.currentPage.id : null
     }
   }
 };
@@ -109,7 +117,7 @@ export default {
       transition: margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       margin-left: 0;
 
-      @media (min-width: $sidebar-breakpoint){
+      @media (min-width: $mobile-breakpoint){
         margin-left: 200px;
       }
     }

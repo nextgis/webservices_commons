@@ -18,12 +18,23 @@ $fade-white: rgba(255,255,255,.7);
 $dark-blue: #aec8e0;
 $light-blue2: #c9dced;
 $ng-light-blue: #e5eef7;
+$ng-primary-dark: #05387A;
 $light-blue3: #e3ecfb;
 $brand-warm: #f8f8ef;
 $light-border-color: #d2d2d2;
 $label-warning-color: #ffee95;
 
 $lighten-opacity: .48;
+
+
+$material-light: (
+  'text': (
+    'secondary': #808A93,
+  ),
+  'icons': (
+    'active': #B3B9BE
+  ),
+);
 
 //Global
 
@@ -64,6 +75,8 @@ $container-max-widths: (
   'xl': 1100px
 );
 
+$container-narrow-width: 800px;
+
 $spacer: 4px;
 $grid-gutter: $spacer*6;
 $container-padding-x: $grid-gutter;
@@ -83,7 +96,7 @@ $headings: (
     'size': 1.5rem, //24px
     'weight': 500,
     'line-height': 1.2,
-    'letter-spacing': 0,
+    'letter-spacing': -.12px,
     'font-family': $heading-font-family,
     'text-transform': false
   ),
@@ -174,6 +187,8 @@ $btn-text-transform: none;
 
 $animationDuration: .3s;
 
+// Input
+$input-font-size: 14px;
 
 // Footer
 
@@ -189,4 +204,8 @@ $header-height-sm: 52px;
 
 
 // Sidebar
-$sidebar-breakpoint: 1180px;
+$mobile-breakpoint: 1180px;
+
+// Lists
+$list-item-dense-title-font-size: 14px;
+$list-item-dense-title-font-weight: 400;

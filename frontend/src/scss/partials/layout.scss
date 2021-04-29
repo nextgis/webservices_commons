@@ -71,6 +71,12 @@
   }
 }
 
+.ng-container{
+  &--narrow{
+    max-width: $container-narrow-width;
+  }
+}
+
 .ng-layout{
   flex: 1 1 auto;
   display: flex;
@@ -88,7 +94,7 @@
     transition: margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     margin-left: 0;
 
-    @media (min-width: $sidebar-breakpoint){
+    @media (min-width: $mobile-breakpoint){
       margin-left: 200px;
     }
   }
@@ -116,7 +122,7 @@
   }
 
   &.app-sidebar--content{
-    @media (min-width: $sidebar-breakpoint){
+    @media (min-width: $mobile-breakpoint){
       transform: translateX(0px) !important;
       visibility: visible;
     }
