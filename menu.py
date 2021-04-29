@@ -42,8 +42,12 @@ class Menu(object):
 
 def get_menu(request):
     m = Menu(request.user)
-
+    resolver_match = request.resolver_match
+    menu_active_item_id = ''
+    if resolver_match:
+        menu_active_item_id = request.resolver_match.url_name
+     
     return {
         'MENU_JS_STRUCT': m.get_menu_js_struct(),
-        'MENU_ACTIVE_ITEM_ID': request.resolver_match.url_name,
+        'MENU_ACTIVE_ITEM_ID': menu_active_item_id,
     }

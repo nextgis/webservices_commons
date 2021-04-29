@@ -7,7 +7,6 @@
 
 {% block body %}
     <!-- Cabinet aside -->
-    {% include "snippets/left_menu.html" %}
     <section class="application-layout admin__panel container pt-0">
         <!-- Cabinet header -->
         <header class="header navbar container pa-0">
@@ -31,7 +30,7 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a class="btn btn-action btn-primary" href="{% block login_link %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a> {# {% url 'account_login' %} #}
+                    <a class="btn btn-action btn-primary" href="{% block login_link %}{% endblock %}">{% trans 'Sign in' context 'menu_item' %}</a> {# {% url 'ngid_login' %} #}
                 {% endif %}
                 {% endblock %}
             </div>
