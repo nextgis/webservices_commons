@@ -46,7 +46,9 @@
     {% endblock %}
   </div>
   <div class="header__logo">
-    <v-icon class="header__menu-btn header__menu-btn--temporary-sidebar" @click="sidebarMenuShown = true">menu</v-icon>
+    {% block header_menu_icon %}
+      <v-icon class="header__menu-btn header__menu-btn--temporary-sidebar" @click="sidebarMenuShown = true">menu</v-icon>
+    {% endblock%}
     <a href="{% block logo_link %}{% url 'root' %}{% endblock %}" class="withoutripple">
         {% include "snippets/logo.html" %}
     </a>
