@@ -2,13 +2,22 @@ import logging
 
 import django.dispatch
 
-from django.utils import timezone
+from django.conf import settings
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import (
+    BACKEND_SESSION_KEY,
+    load_backend,
+)
+from django.utils import timezone
+from django.utils.deprecation import MiddlewareMixin
 
 from .mixins import OAuthClientMixin
 from .provider import get_oauth_provider
 
 user_plan_detected = django.dispatch.Signal(providing_args=["user", "plan"])
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserPlan(OAuthClientMixin):
@@ -21,7 +30,7 @@ class UserPlan(OAuthClientMixin):
         # the view (and later middleware) are called.
 
         is_user_auth_before_response_gen = request.user.is_authenticated
-        
+
         if is_user_auth_before_response_gen:
             self.get_plan(request)
 
@@ -40,7 +49,6 @@ class UserPlan(OAuthClientMixin):
 
         self.request = request
 
-
         if session_up_info.get('last_check_date', 0) < request.user.last_login.timestamp():
             try:
                 oauth_provider = get_oauth_provider()
@@ -54,31 +62,32 @@ class UserPlan(OAuthClientMixin):
                     session_up_info['plan'] = ngid_user_plan
 
                     user_plan_detected.send(sender=self.__class__, user=request.user, plan=ngid_user_plan)
-            except:
+            except Exception:
                 pass
             finally:
-                request.session['user_plan']= session_up_info
+                request.session['user_plan'] = session_up_info
 
 
-class OAuth2ResourceServerAuthenticationMiddleware(OAuthClientMixin):
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
+class HttpAuthorizationUserMiddleware(MiddlewareMixin):
+    def process_request(self, request):
         if not request.user.is_authenticated:
-            if request.META.get("HTTP_AUTHORIZATION", "").startswith("Bearer"):
-                
-                http_auth = request.META.get("HTTP_AUTHORIZATION")
-                access_token = http_auth[len("Bearer"):].strip()
+            user = authenticate(request)
 
-                oauth_token_info = {
-                    'access_token': access_token
-                }
-                user = authenticate(request, oauth_token_info=oauth_token_info)
-                    
-                if user is not None:
-                    login(request, user)
-        
-        response = self.get_response(request)
-        
-        return response
+            if user is not None:
+                login(request, user)
+
+
+class NgPostAuthenticationMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        if request.user.is_authenticated:
+            try:
+                backend_path = request.session[BACKEND_SESSION_KEY]
+            except KeyError:
+                pass
+            else:
+                if backend_path in settings.AUTHENTICATION_BACKENDS:
+                    backend = load_backend(backend_path)
+
+                    if hasattr(backend, 'check_user_auth_validity'):
+                        if not backend.check_user_auth_validity(request):
+                            logout(request)
