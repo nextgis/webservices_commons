@@ -18,7 +18,6 @@ from nextgis_common.ngid_auth.provider import get_oauth_provider
 from nextgis_common.ngid_auth.ngid_provider import NgidProvider
 from nextgis_common.utils import activate_user_locale
 
-from .models import AccessToken
 from .mixins import OAuthClientMixin
 
 
