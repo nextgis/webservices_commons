@@ -2,7 +2,7 @@ import json
 
 from django.conf import settings
 # from django.urls import reverse, resolve
-from django.core.urlresolvers import reverse, resolve
+from django.urls import reverse, resolve
 
 from django.utils.translation import get_language
 
