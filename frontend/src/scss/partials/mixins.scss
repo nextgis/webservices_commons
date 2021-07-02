@@ -1,0 +1,82 @@
+/* Mixins */
+
+@mixin uppercase-text() {
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+@mixin bold-text() {
+    @include uppercase-text();
+    font-weight: bold;
+}
+
+@mixin slideInDown() {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  backface-visibility: hidden;
+}
+
+@mixin bordered-link($color) {
+    color: $color;
+    border-color: fade-out($color, .7);
+}
+
+@mixin stretch-block(){
+    margin-left: -40px;
+    margin-right: -40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+@mixin stretch-block-sm(){
+    @media (max-width: $screen-sm-min){
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+/* Social colors */
+@function facebook-color(){
+    @return #3b5999;    
+}
+@function vk-color(){
+    @return #4c75a3;
+}
+@function twitter-color(){
+    @return #55acee;
+}
+@function google-color(){
+    @return #DC4E41;
+}
+
+/* Forms */
+
+@mixin form-group-variant($input-color, $focused-input-color, $text-color){
+
+    .form-control{
+        color: $text-color;
+        background-image: linear-gradient($focused-input-color, $focused-input-color), linear-gradient($input-color, $input-color);
+    }
+
+    label.control-label,
+    .help-block {
+        color: $input-color;
+    }
+
+    &.is-focused {
+        label.control-label,
+        .help-block{
+            color: $focused-input-color;
+        }
+
+        .form-control {
+            background-image: linear-gradient($input-color, $input-color), linear-gradient($focused-input-color, $focused-input-color);
+        }
+    }
+}

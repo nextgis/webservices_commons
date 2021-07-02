@@ -60,11 +60,6 @@ AUTHENTICATION_BACKENDS = (
 )
 ```
 
-Set vars:
-```
-NGID_CLIENT_ID = 'you app id from my.nextgis.com'
-NGID_CLIENT_SECRET = 'you app id from my.nextgis.com'
-```
 
 
 ### Append urls to urls.py

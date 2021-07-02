@@ -11,7 +11,7 @@ class Menu(object):
     """docstring for Menu"""
     def __init__(self, user):
         super(Menu, self).__init__()
-        
+
         cur_lang = get_language()
 
         menu_options = getattr(settings, 'NEXTGISID_MENU', [])
@@ -40,11 +40,15 @@ class Menu(object):
 
     def get_menu_js_struct(self):
         return json.dumps(self.menu)
-    
+
 
 def get_menu(request):
     m = Menu(request.user)
-
+    resolver_match = request.resolver_match
+    menu_active_item_id = ''
+    if resolver_match:
+        menu_active_item_id = request.resolver_match.url_name
+     
     return {
         'MENU_JS_STRUCT': m.get_menu_js_struct(),
         'MENU_ACTIVE_ITEM_ID': request.resolver_match.url_name if request.resolver_match else None,
