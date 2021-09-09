@@ -35,6 +35,23 @@ class SimpleTelegramBot:
         except requests.RequestException as e:
             logger.error("SimpleTelegramBot exception: %s" % e)
 
+    def send_photo_with_message(self, chat_id, photo_url, message, parse_mode='HTML'):
+        url = self.command_url('sendPhoto')
+        data = {
+            'chat_id': chat_id,
+            'photo': photo_url,
+            'caption': message,
+            'parse_mode': parse_mode
+        }
+        try:
+            resp = requests.post(url, data=data)
+
+            if not resp.ok:
+                logger.error("SimpleTelegramBot warning: %s" % resp.text)
+
+        except requests.RequestException as e:
+            logger.error("SimpleTelegramBot exception: %s" % e)
+
 
 def construct_message(html_msg, add_header=True):
     message = ''
@@ -60,7 +77,7 @@ def construct_message(html_msg, add_header=True):
     return message
 
 
-def send_message(html_msg):
+def send_message(html_msg, photo_url=None):
     if settings.TELEGRAM_TOKEN is None:
         return
     if settings.TELEGRAM_CHAT_ID is None:
@@ -69,10 +86,17 @@ def send_message(html_msg):
     bot = SimpleTelegramBot(settings.TELEGRAM_TOKEN)
 
     if getattr(settings, 'TELEGRAM_PRINT_ONLY', False):
-        print(construct_message(html_msg))
+        logger.info(construct_message(html_msg))
         return
 
-    bot.send_message(
-        settings.TELEGRAM_CHAT_ID,
-        construct_message(html_msg)
-    )
+    if photo_url is None:
+        bot.send_message(
+            settings.TELEGRAM_CHAT_ID,
+            construct_message(html_msg)
+        )
+    else:
+        bot.send_photo_with_message(
+            settings.TELEGRAM_CHAT_ID,
+            photo_url,
+            construct_message(html_msg)
+        )
