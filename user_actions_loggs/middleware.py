@@ -45,7 +45,7 @@ class UserActionsLogging():
                 'oauth_subject': getattr(request.user, 'oauth_subject', None)
             }
         
-        logger.info(json.dumps(data))
+            logger.info(json.dumps(data))
 
 
         # Code to be executed for each request/response after
