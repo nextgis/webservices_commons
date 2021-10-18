@@ -5,17 +5,17 @@ external_links = {
     'nextgis_online': 'http://online.nextgis.com',
     'my_nextgis': 'https://my.nextgis.com',
 
-    'nextgis_com_en': 'http://nextgis.com',
-    'nextgis_com_ru': 'http://nextgis.ru',
+    'nextgis_com_en': 'https://nextgis.com',
+    'nextgis_com_ru': 'https://nextgis.ru',
 
-    'terms_ru': 'http://nextgis.ru/terms/',
-    'terms_en': 'http://nextgis.com/terms/',
+    'terms_ru': 'https://nextgis.ru/terms/',
+    'terms_en': 'https://nextgis.com/terms/',
 
-    'privacy_ru': 'http://nextgis.ru/privacy',
-    'privacy_en': 'http://nextgis.com/privacy',
+    'privacy_ru': 'https://nextgis.ru/privacy',
+    'privacy_en': 'https://nextgis.com/privacy',
 
-    'docs_ru': 'http://docs.nextgis.ru',
-    'docs_en': 'http://docs.nextgis.com',
+    'docs_ru': 'https://docs.nextgis.ru',
+    'docs_en': 'https://docs.nextgis.com',
 
     # temporary?
     'ngid_profile': 'https://my.nextgis.com/profile',
