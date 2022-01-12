@@ -42,39 +42,29 @@
 
     {% get_current_language as LANGUAGE_CODE %}
     <script>
-        var locale = "{{ LANGUAGE_CODE }}";
+      var locale = "{{ LANGUAGE_CODE }}";
+      var currentPage = {
+        id: "{{ MENU_ACTIVE_ITEM_ID }}",
+      };
 
-        {% if request.user.is_authenticated %}
-          var userInfo = {
-            isAuthenticated: true,
-            username: '{{ request.user.username }}',
-            userpicUrl: '{% gravatar_url request.user.email 30 %}'.replace(/&amp;/g, "&")
-          }
-        {% else %}
-          var userInfo = {
-            is_authenticated: false
-          }
-        {% endif%}
-
-        var root_url = "{% url 'root' %}";
-        var login_url = "{% block login_link %}{% url 'ngid_login' %}{% endblock %}";
-        var signup_url = "";
-        var logout_url = "{% block logout_link %}{% url 'ngid_logout' %}{% endblock %}";
-        var ngid_profile_url = "{% external_url 'ngid_profile' ''%}";
-        
-        var currentPage = {
-          id: "{{ MENU_ACTIVE_ITEM_ID }}",
-          //url: copy from data
-        };
+      {% if request.user.is_authenticated %}
+        var userInfo = {
+          isAuthenticated: true,
+          username: '{{ request.user.username }}',
+          userpicUrl: '{% gravatar_url request.user.email 30 %}'.replace(/&amp;/g, "&")
+        }
+      {% else %}
+        var userInfo = {
+          is_authenticated: false
+        }
+      {% endif%}
     </script>
     {% block script_variables %} {% endblock %}
     {% block extra_head %}{% endblock %}
   </head>
 
   <body>
-    <div id="app">
-      <!-- <v-app v-cloak> -->
-        <!-- <v-content> -->
+    <div id="app" v-cloak>
       {% block body %}
       {% endblock %}
       <!-- Block for popups -->
@@ -103,10 +93,11 @@
           {% block form_messages %} {% endblock %}
         </div>
       {% endblock %}
-      <!-- </v-app> -->
     </div>
     <!-- Scripts -->
-    {% include "snippets/scripts.html" %}
+    {% block scripts %}
+      {% include "snippets/scripts.html" %}
+    {% endblock %}  
 
     <!-- Extra stuff -->
     {% block extra_body %}{% endblock %}

@@ -1,0 +1,16 @@
+{% if messages %}
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger fade in" data-form="auth-form">
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+    <div class="alert alert-warning fade in" data-form="auth-form">
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
+    {% else %}
+    <div class="alert alert-info fade in {% if message.extra_tags != 'persistent' %} alert--timeout {% endif %}" data-form="auth-form">
+    {% endif %}
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ message | safe }}
+    </div>
+  {% endfor %}
+{% endif %}
