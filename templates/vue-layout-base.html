@@ -34,8 +34,10 @@
 
     {% block prior_css %}{% endblock %}
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,600,700&amp;subset=cyrillic-ext" rel="stylesheet">
-    <link href="{% static 'css/chunk-vendors.css' %}" type="text/css" rel="stylesheet"/>
-    <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
+    {% block css %}
+      <link href="{% static 'css/chunk-vendors.css' %}" type="text/css" rel="stylesheet"/>
+      <link href="{% static 'css/app.css' %}" type="text/css" rel="stylesheet"/>
+    {% endblock %}
     <style>
       [v-cloak] { display:none; }
     </style>
