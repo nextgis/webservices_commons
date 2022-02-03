@@ -83,7 +83,9 @@
       </v-app>
     </div>
     <!-- Scripts -->
-    {% include "snippets/scripts.html" %}
+    {% block scripts %}
+      {% include "snippets/scripts.html" %}
+    {% endblock %}  
 
     <!-- Extra stuff -->
     {% block extra_body %}{% endblock %}
