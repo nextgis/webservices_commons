@@ -20,7 +20,9 @@
   {% if request.user.is_authenticated %}
     var userInfo = {
       isAuthenticated: true,
-      username: '{{ request.user.username }}',
+      username: '{{ request.user.username | default_if_none:'' | escapejs }}',
+      first_name: "{{ request.user.first_name | default_if_none:'' | escapejs }}",
+      last_name: "{{ request.user.last_name | default_if_none:'' | escapejs }}",
       userpicUrl: '{% gravatar_url request.user.email 30 %}'.replace(/&amp;/g, "&")
     }
   {% else %}
