@@ -60,6 +60,15 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
 
 
 def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
+
+    # TMP FIX FOR QMS
+    import os
+    test_email = os.getenv('TEST_TARGET_EMAIL', '')
+    if test_email:
+        email = test_email
+    # END OF TMP FIX FOR QMS
+
+
     msg = render_mail(template_prefix, email, context, bcc)
     msg.send()
 
