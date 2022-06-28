@@ -49,6 +49,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
     @transaction.atomic
     def get(self, request, *args, **kwargs):
+        import json
         provider = get_oauth_provider()
 
         # Fetch access token
@@ -67,7 +68,9 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             return self.handle_login_failure(provider, 'Could not retrieve token')
 
         user = authenticate(request, oauth_token_info=raw_token)
-        
+        # json_user = json.dumps(user, default=lambda x: x.__dict__)
+        # logger = logging.getLogger('qms_requests')
+        # logger.info(f'user: {json_user}')
         if user is not None:
             login(self.request, user)
             activate_user_locale(self.request, user.locale)
