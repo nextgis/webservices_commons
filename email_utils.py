@@ -18,7 +18,7 @@ def format_email_subject(subject, prefix=None):
     return prefix + force_text(subject)
 
 
-def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
+def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True, reply_to=()):
     """
     Renders an e-mail to `email`.  `template_prefix` identifies the
     e-mail that is to be sent, e.g. "account/email/email_confirmation"
@@ -44,7 +44,8 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
                                      bodies['txt'],
                                      settings.DEFAULT_FROM_EMAIL,
                                      email if isinstance(email, list) else [email],
-                                     bcc=bcc if isinstance(bcc, list) else [bcc]
+                                     bcc=bcc if isinstance(bcc, list) else [bcc],
+                                     reply_to=reply_to
                                      )
         if 'html' in bodies:
             msg.attach_alternative(bodies['html'], 'text/html')
@@ -53,18 +54,19 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
                            bodies['html'],
                            settings.DEFAULT_FROM_EMAIL,
                            email if isinstance(email, list) else [email],
-                           bcc=bcc if isinstance(bcc, list) else [bcc]
+                           bcc=bcc if isinstance(bcc, list) else [bcc],
+                           reply_to=reply_to
                            )
         msg.content_subtype = 'html'  # Main content is now text/html
     return msg
 
 
-def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
-    msg = render_mail(template_prefix, email, context, bcc)
+def send_templated_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True, reply_to=()):
+    msg = render_mail(template_prefix, email, context, bcc=bcc, reply_to=reply_to)
     msg.send()
 
 
-def send_custom_mail(subj, body, email, bcc=[], add_default_subj_pref=True):
+def send_custom_mail(subj, body, email, bcc=[], add_default_subj_pref=True, reply_to=()):
     subject = format_email_subject(subj, settings.EMAIL_SUBJECT_PREFIX if add_default_subj_pref else '')
 
     msg = EmailMultiAlternatives(
@@ -73,5 +75,6 @@ def send_custom_mail(subj, body, email, bcc=[], add_default_subj_pref=True):
         settings.DEFAULT_FROM_EMAIL,
         email if isinstance(email, list) else [email],
         bcc=bcc if isinstance(bcc, list) else [bcc],
+        reply_to=reply_to,
     )
     msg.send()
