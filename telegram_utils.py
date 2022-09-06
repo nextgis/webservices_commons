@@ -61,6 +61,9 @@ def construct_message(html_msg, add_header=True):
 
 
 def send_message(html_msg):
+    if not hasattr(settings, 'TELEGRAM_TOKEN') or not hasattr(settings, 'TELEGRAM_CHAT_ID'):
+        return
+
     if settings.TELEGRAM_TOKEN is None:
         return
     if settings.TELEGRAM_CHAT_ID is None:
