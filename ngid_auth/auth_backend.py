@@ -12,6 +12,7 @@ from django.dispatch import Signal
 from .models import AccessToken
 from .mixins import OAuthClientMixin
 from .provider import get_oauth_provider
+import traceback
 
 
 SESSION_OAUTH_TOKEN_ID = '_auth_user_oauth_token_id'
@@ -142,22 +143,25 @@ class OAuthBearerBackend(OAuthBaseBackend):
         if http_access_token is None:
             return
 
-        logger.debug(self.make_log_msg('Token: %s' % http_access_token))
+        # logger.debug(self.make_log_msg('Token: %s' % http_access_token))
 
         access = AccessToken.objects.find(http_access_token)
 
-        logger.debug(self.make_log_msg('access: %s' % access))
 
+        is_good_token = True
+        is_expired = False
+        str_token_search = 'token was not found :( '
         if access:
-            if not access.is_external:
-                logger.warning(self.make_log_msg('Access token is internal!'))
-                return
-
+            str_token_search = f'token was found! id: {access.id} '
             if access.is_expired:
-                logger.warning(self.make_log_msg('Access token is expired!'))
-                return
-
+                is_good_token = False
+                is_expired = True
         else:
+            is_good_token = False
+
+        logger.debug(f'{str_token_search}, is_expired: {is_expired}, is_good_token: {is_good_token}')
+
+        if not is_good_token:
             oauth_token_info = self.introspect(http_access_token)
 
             if oauth_token_info is None:
@@ -176,6 +180,10 @@ class OAuthBearerBackend(OAuthBaseBackend):
                 None,
                 oauth_token_info.get('expires_at'),
             )
+        else:
+            if not access.is_external:
+                logger.warning(self.make_log_msg('Access token is internal!'))
+                return
 
         request.session[SESSION_OAUTH_TOKEN_ID] = access.id
 
