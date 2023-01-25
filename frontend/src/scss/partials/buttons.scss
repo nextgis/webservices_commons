@@ -49,27 +49,27 @@
     &.btn-action{
 
         &.btn-primary{
-            @extend .btn-raised.btn-primary;
+            @extend .btn-raised, .btn-primary;
         }
 
         &.btn-success{
-            @extend .btn-raised.btn-success;
+            @extend .btn-raised, .btn-success;
         }
 
         &.btn-info{
-            @extend .btn-raised.btn-info;
+            @extend .btn-raised, .btn-info;
         }
 
         &.btn-warning{
-            @extend .btn-raised.btn-warning;
+            @extend .btn-raised, .btn-warning;
         }
 
         &.btn-danger{
-            @extend .btn-raised.btn-danger;
+            @extend .btn-raised, .btn-danger;
         }
 
         &.btn-default{
-            @extend .btn-raised.btn-default;
+            @extend .btn-raised, .btn-default;
         }
 
         vertical-align: top;
@@ -363,7 +363,7 @@
     & + h2,
     & + .h2,
     & + h3,
-    & + .h3,{
+    & + .h3{
         margin-top:0;
     }
 }

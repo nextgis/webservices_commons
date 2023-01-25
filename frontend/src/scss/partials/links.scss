@@ -22,13 +22,13 @@
     font-family: "Material Icons";
     display: inline-block;
     font-size: 20px;
-    @extend .material-icons.icon-caret-up:before;
+    @extend .material-icons, .icon-caret-up, :before;
     vertical-align: middle;
     margin-right: -1em;
   }
 
   &.collapsed:after{
-    @extend .material-icons.icon-caret:before;
+    @extend .material-icons, .icon-caret, :before;
   }
 }
 
