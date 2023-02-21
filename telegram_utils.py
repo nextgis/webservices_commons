@@ -31,9 +31,16 @@ class SimpleTelegramBot:
             'parse_mode': parse_mode
         }
         try:
-            requests.post(url, data=data)
+            ret_val = requests.post(url, data=data)
+            r_json = ret_val.json()
+            result = r_json.get('result')
+            if result:
+                message_id = result.get('message_id')
+                if message_id:
+                    return message_id
         except requests.RequestException as e:
             logger.error("SimpleTelegramBot exception: %s" % e)
+        return None
 
     def send_photo_with_message(self, chat_id, photo_url, message, parse_mode='HTML'):
         url = self.command_url('sendPhoto')
@@ -90,13 +97,15 @@ def send_message(html_msg, photo_url=None):
         return
 
     if photo_url is None:
-        bot.send_message(
+        msg_id = bot.send_message(
             settings.TELEGRAM_CHAT_ID,
             construct_message(html_msg)
         )
+        return msg_id
     else:
         bot.send_photo_with_message(
             settings.TELEGRAM_CHAT_ID,
             photo_url,
             construct_message(html_msg)
         )
+    return None
