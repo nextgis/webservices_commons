@@ -23,13 +23,15 @@ class SimpleTelegramBot:
     def command_url(self, command):
         return self.bot_url + '/' + command
 
-    def send_message(self, chat_id, message, parse_mode='HTML'):
+    def send_message(self, chat_id, message, parse_mode='HTML', reply_to_message_id=None):
         url = self.command_url('sendMessage')
         data = {
             'chat_id': chat_id,
             'text': message,
             'parse_mode': parse_mode
         }
+        if reply_to_message_id:
+            data['reply_to_message_id'] = reply_to_message_id
         try:
             ret_val = requests.post(url, data=data)
             r_json = ret_val.json()
