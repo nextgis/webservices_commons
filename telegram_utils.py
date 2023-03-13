@@ -36,6 +36,7 @@ class SimpleTelegramBot:
             json_data = json.dumps(data)
             logger.info(f'posting to telegram: {url}, json_data: {json_data}')
             ret_val = requests.post(url, data=data)
+            logger.info(f'result: {ret_val.status_code}')
             r_json = ret_val.json()
             result = r_json.get('result')
             if result:
