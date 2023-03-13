@@ -3,7 +3,7 @@ from __future__ import print_function
 import socket
 import logging
 import requests
-
+import json
 from django.conf import settings
 
 logger = logging.getLogger('nextgis_common.telegram')
@@ -33,6 +33,8 @@ class SimpleTelegramBot:
         if reply_to_message_id:
             data['reply_to_message_id'] = reply_to_message_id
         try:
+            json_data = json.dumps(data)
+            logger.info(f'posting to telegram: {url}, json_data: {json_data}')
             ret_val = requests.post(url, data=data)
             r_json = ret_val.json()
             result = r_json.get('result')
