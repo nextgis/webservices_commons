@@ -91,7 +91,7 @@ def construct_message(html_msg, add_header=True):
     return message
 
 
-def send_message(html_msg, photo_url=None, order=None):
+def send_message(html_msg, photo_url=None, reply_to_message_id=None):
     if settings.TELEGRAM_TOKEN is None:
         return
     if settings.TELEGRAM_CHAT_ID is None:
@@ -103,9 +103,6 @@ def send_message(html_msg, photo_url=None, order=None):
         logger.info(construct_message(html_msg))
         return
 
-    reply_to_message_id = None
-    if order:
-        reply_to_message_id = order.telegram_msg_id
     if photo_url is None:
         msg_id = bot.send_message(
             settings.TELEGRAM_CHAT_ID,
