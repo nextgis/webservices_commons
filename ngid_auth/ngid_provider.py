@@ -10,21 +10,30 @@ class NgidProvider(OAuthProvider):
     id = 'ngid_provider'
     name = 'NextGIS ID Provider'
 
+    @classmethod
+    def ngid_host(cls):
+        val = getattr(settings, 'NGID_HOST', '')
+        return val
+
     @staticmethod
     def get_authorization_url():
-        return getattr(settings, 'NGID_AUTH_URL', 'https://my.nextgis.com/oauth2/authorize/')
+        ngid_host = NgidProvider.ngid_host()
+        return getattr(settings, 'NGID_AUTH_URL', f'{ngid_host}/oauth2/authorize/')
 
     @staticmethod
     def get_access_token_url():
-        return getattr(settings, 'NGID_TOKEN_URL', 'https://my.nextgis.com/oauth2/token/')
+        ngid_host = NgidProvider.ngid_host()
+        return getattr(settings, 'NGID_TOKEN_URL', f'{ngid_host}/oauth2/token/')
 
     @staticmethod
     def get_profile_url():
-        return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/user_info/')
+        ngid_host = NgidProvider.ngid_host()
+        return getattr(settings, 'NGID_PROFILE_URL', f'{ngid_host}/api/v1/user_info/')
 
     @staticmethod
     def get_instance_url():
-        return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/instance_info/')
+        ngid_host = NgidProvider.ngid_host()
+        return getattr(settings, 'NGID_INSTANCE_URL', f'{ngid_host}/api/v1/instance_info/')
 
     @staticmethod
     def get_consumer_key():
