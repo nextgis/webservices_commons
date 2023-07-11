@@ -15,6 +15,12 @@ class Command(BaseCommand):
         parser.add_argument('--do_delete', type=int)
 
     def handle(self, *args, **options):
+        #
+        #
+        # TODO: remove. Сейчас в ngid уже используется другой скрипт (run_cleanup.py). Текущий скрипт нужно будет
+        # убрать из всех проектов, как только полностью перейдём с ftp на ngdrive
+        #
+        #
         folder = options['folder']
         do_delete = options['do_delete']
         while True:
