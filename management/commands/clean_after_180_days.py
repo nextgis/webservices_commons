@@ -25,50 +25,6 @@ class Command(BaseCommand):
         do_delete = options['do_delete']
         while True:
             try:
-
-                import requests
-                import logging
-
-                logging.basicConfig(level=logging.DEBUG)
-
-                headers = {'Authorization': 'Token 9dfb2bd2-f001-429d-86ad-995cf2294261'}
-
-                # Upload files
-                url = 'https://toolbox.nextgis.com/api/upload/'
-                files = {}
-
-                s = requests.Session()
-                # adapter = requests.adapters.HTTPAdapter(pool_connections=1)
-                # s.mount("http://", adapter)
-
-                file = open('/home/sk/Desktop/toolbox/kml2geodata/00-input.kmz', 'rb')
-                response = requests.post(url, data=file, headers=headers, verify=False)
-                files['kmlfile'] = response.text
-
-                # Create request
-                json_request = {'operation': 'kml2geodata', 'inputs': {}}
-                json_request['inputs']['kmlfile'] = files['kmlfile']
-                json_request['inputs']['ngdriveid'] = '-'
-                json_request['inputs']['fields'] = 'Высота,Скорость,Азимут,Точность,Создано'
-                json_request['inputs']['is_checking_files_presence'] = False
-                json_request['inputs']['is_ignoring_extended_data'] = False
-                json_request['inputs']['keep_z'] = False
-                # Execute
-                url = 'https://toolbox.nextgis.com/api/json/execute/'
-                response = requests.post(url, json=json_request, headers=headers, verify=False)
-                jj = response.json()
-                task_id = jj.get('task_id')
-
-                # Check state
-                url = 'https://toolbox.nextgis.com/api/json/status/{task_id}/'.format(task_id=task_id)
-                response = requests.get(url, headers=headers, verify=False)
-                print(response.json())
-
-
-                exit()
-
-
-                # folder = settings.SENDFILE_ROOT
                 print(f'clean_after_180_days: examining folder {folder}')
 
                 now = time.time()
