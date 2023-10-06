@@ -55,13 +55,21 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             # Fetch access token
             oaut_session = self.get_oauth_session(provider)
 
+            absolute_uri = request.build_absolute_uri(request.get_full_path())
+            logger.info(f'/login/callback/ : fetching token: provider.access_token_url: {provider.access_token_url}, '
+                        f'client_id: {provider.consumer_key}, '
+                        f'client_secret: {provider.consumer_secret}, '
+                        f'state: {self.application_state}, '
+                        f'scope: {provider.scopes}, '
+                        f'authorization_response: {absolute_uri}'
+            )
             raw_token = oaut_session.fetch_token(
                 provider.access_token_url,
                 client_id=provider.consumer_key,
                 client_secret=provider.consumer_secret,
                 state=self.application_state,
                 scope=provider.scopes,
-                authorization_response=request.build_absolute_uri(request.get_full_path()),
+                authorization_response=absolute_uri,
             )
 
             if raw_token is None:
