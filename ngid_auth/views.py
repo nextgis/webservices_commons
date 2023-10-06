@@ -49,30 +49,35 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
     @transaction.atomic
     def get(self, request, *args, **kwargs):
-        provider = get_oauth_provider()
+        try:
+            provider = get_oauth_provider()
 
-        # Fetch access token
-        oaut_session = self.get_oauth_session(provider)
+            # Fetch access token
+            oaut_session = self.get_oauth_session(provider)
 
-        raw_token = oaut_session.fetch_token(
-            provider.access_token_url,
-            client_id=provider.consumer_key,
-            client_secret=provider.consumer_secret,
-            state=self.application_state,
-            scope=provider.scopes,
-            authorization_response=request.build_absolute_uri(request.get_full_path()),
-        )
+            raw_token = oaut_session.fetch_token(
+                provider.access_token_url,
+                client_id=provider.consumer_key,
+                client_secret=provider.consumer_secret,
+                state=self.application_state,
+                scope=provider.scopes,
+                authorization_response=request.build_absolute_uri(request.get_full_path()),
+            )
 
-        if raw_token is None:
-            return self.handle_login_failure(provider, 'Could not retrieve token')
+            if raw_token is None:
+                return self.handle_login_failure(provider, 'Could not retrieve token')
 
-        user = authenticate(request, oauth_token_info=raw_token)
+            user = authenticate(request, oauth_token_info=raw_token)
+
+            if user is not None:
+                login(self.request, user)
+                activate_user_locale(self.request, user.locale)
+
+            rr = self.get_login_redirect()
+        except Exception as e:
+            logger.exception(e)
         
-        if user is not None:
-            login(self.request, user)
-            activate_user_locale(self.request, user.locale)
-        
-        return redirect(self.get_login_redirect())
+        return redirect(rr)
 
     def _get_redirect_url(self):
         return self.request.build_absolute_uri(
