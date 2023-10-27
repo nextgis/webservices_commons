@@ -33,6 +33,8 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         
         oaut_session = self.get_oauth_session(provider)
         authorization_url, state = oaut_session.authorization_url(provider.authorization_url)
+        # print(f'authorization_url: {authorization_url}, state: {state}')
+        logger.info(f'authorization_url: {authorization_url}, state: {state}')
         self.application_state = state  # save state key for check
         if 'next' in self.request.GET:  # save 'next' url
             self.application_next_url = self.request.GET['next']
