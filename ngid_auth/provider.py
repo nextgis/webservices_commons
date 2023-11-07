@@ -2,11 +2,11 @@ from django.conf import settings
 from django.utils.module_loading import import_string
 
 
-def get_oauth_provider():
+def get_oauth_provider(credentials=None):
     provider_class = import_string(
         getattr(settings, 'OAUTH_PROVIDER', 'nextgis_common.ngid_auth.provider.OAuthProvider')
     )
-    return provider_class()
+    return provider_class(credentials=credentials)
 
 
 
@@ -49,14 +49,18 @@ class OAuthProvider:
         return getattr(settings, 'OAUTH_SCOPES', None)
 
 
-    def __init__(self):
+    def __init__(self, credentials=None):
         self.authorization_url = self.get_authorization_url()
         self.access_token_url = self.get_access_token_url()
         self.profile_url = self.get_profile_url()
         self.introspection_url = self.get_introspection_url()
         self.logout_url = self.get_logout_url()
-        self.consumer_key = self.get_consumer_key()
-        self.consumer_secret = self.get_consumer_secret()
+        if credentials:
+            self.consumer_key = credentials.get('OAUTH_CLIENT_ID')
+            self.consumer_secret = credentials.get('OAUTH_CLIENT_SECRET')
+        else:
+            self.consumer_key = self.get_consumer_key()
+            self.consumer_secret = self.get_consumer_secret()
 
         self.scopes = self.get_scopes()
 
