@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
+import os
 
 
 class OAuthClientMixin(object):
@@ -10,6 +11,9 @@ class OAuthClientMixin(object):
             'client_id': provider.consumer_key,
             'client_secret': provider.consumer_secret,
         }
+        verify = os.getenv('SSL_VERIFY', False)
+        if not verify:
+            verify = False
 
         oaut_session = OAuth2Session(
             client_id=provider.consumer_key,
@@ -18,6 +22,7 @@ class OAuthClientMixin(object):
             auto_refresh_url=provider.access_token_url,
             auto_refresh_kwargs=extra,
         )
+        oaut_session.verify = verify
 
         oaut_session.redirect_uri = self._get_redirect_url()
 
