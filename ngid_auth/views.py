@@ -1,27 +1,32 @@
 from __future__ import unicode_literals
 
-from datetime import datetime
 import logging
 import urllib.parse
 
 from django.db import transaction
-from requests_oauthlib import OAuth2Session
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, get_user_model, logout
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import RedirectView, View
 
 from nextgis_common.ngid_auth.provider import get_oauth_provider
-from nextgis_common.ngid_auth.ngid_provider import NgidProvider
 from nextgis_common.utils import activate_user_locale
 
 from .mixins import OAuthClientMixin
 
 
 logger = logging.getLogger('nextgis_common.auth')
+
+
+def get_oauth_creds2():
+    rr = {
+            'OAUTH_CLIENT_ID': settings.OAUTH_CLIENT_ID2,
+            'OAUTH_CLIENT_SECRET': settings.OAUTH_CLIENT_SECRET2
+        }
+    return rr
 
 
 class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
@@ -45,16 +50,10 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         return authorization_url
 
     def _get_redirect_url(self):
-        # from nextgis_common.ngid_auth.urls import get_url_pattern
         try:
             rl = reverse_lazy(NgidOAuth2CallbackView.view_name)
             if self._credentials:
                 rl = reverse_lazy(NgidOAuth2CallbackView.view_name2)
-            # rl = reverse(NgidOAuth2CallbackView.view_name)
-            # rl = '/login/callback'
-            # if self._credentials:
-            #     rl = '/login2/callback'
-            # rl = get_url_pattern(rl, regexp=False)
 
             sstr = str(rl)
             rr_url = self.request.build_absolute_uri(sstr)
@@ -71,17 +70,11 @@ class NgidOAuth2LoginView2(NgidOAuth2LoginView):
     permanent = False
 
     def __init__(self, credentials=None):
-        self._credentials = {
-            'OAUTH_CLIENT_ID': settings.OAUTH_CLIENT_ID2,
-            'OAUTH_CLIENT_SECRET': settings.OAUTH_CLIENT_SECRET2
-        }
+        self._credentials = get_oauth_creds2()
         super().__init__(self._credentials)
 
     def get(self, request, *args, **kwargs):
-        self._credentials = {
-            'OAUTH_CLIENT_ID': settings.OAUTH_CLIENT_ID2,
-            'OAUTH_CLIENT_SECRET': settings.OAUTH_CLIENT_SECRET2
-        }
+        self._credentials = get_oauth_creds2()
         return super().get(request, *args, **kwargs)
 
 
@@ -140,23 +133,14 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
         
         return rrr
 
-    # def _get_redirect_url(self):
-    #     return self.request.build_absolute_uri(
-    #         str(reverse_lazy(NgidOAuth2CallbackView.view_name))
-    #     )
-
     def _get_redirect_url(self):
-        # from nextgis_common.ngid_auth.urls import get_url_pattern
         try:
             rl = reverse_lazy(NgidOAuth2CallbackView.view_name)
-            # rl = reverse(NgidOAuth2CallbackView.view_name, kwargs={'ttype': 'login2'})
-            # rl = '/login/callback'
-            # if self._credentials:
-            #     rl = '/login2/callback'
-            # rl = get_url_pattern(rl, regexp=False)
-
+            if self._credentials:
+                rl = reverse_lazy(NgidOAuth2CallbackView2.view_name2)
             sstr = str(rl)
             rr_url = self.request.build_absolute_uri(sstr)
+            logger.info(f'_got redirect url: {rr_url} ({sstr})')
         except Exception as e:
             logger.exception(e)
         return rr_url
@@ -179,10 +163,7 @@ class NgidOAuth2CallbackView2(NgidOAuth2CallbackView):
 
     @transaction.atomic
     def get(self, request, *args, **kwargs):
-        self._credentials = {
-            'OAUTH_CLIENT_ID': settings.OAUTH_CLIENT_ID2,
-            'OAUTH_CLIENT_SECRET': settings.OAUTH_CLIENT_SECRET2
-        }
+        self._credentials = get_oauth_creds2()
         return self.do_get(request, args, kwargs)
 
 class NgidLogoutView(View):
