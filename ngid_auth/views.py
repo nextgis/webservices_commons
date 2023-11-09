@@ -90,7 +90,9 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             oaut_session = self.get_oauth_session(provider)
 
             absolute_uri = request.build_absolute_uri(request.get_full_path())
-            absolute_uri = absolute_uri.replace('http', 'https')
+            # TODO: refactor: quick fix
+            if 'https' not in absolute_uri:
+                absolute_uri = absolute_uri.replace('http', 'https')
             dd_url = '/login/callback/'
             if self._credentials:
                 dd_url = '/login2/callback/'
