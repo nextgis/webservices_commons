@@ -16,7 +16,7 @@ from nextgis_common.ngid_auth.provider import get_oauth_provider
 from nextgis_common.utils import activate_user_locale
 
 from .mixins import OAuthClientMixin
-
+from .models import OAuthState
 
 logger = logging.getLogger('nextgis_common.auth')
 
@@ -30,9 +30,11 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         provider = get_oauth_provider(self._credentials)
-        
+
         oaut_session = self.get_oauth_session(provider)
         authorization_url, state = oaut_session.authorization_url(provider.authorization_url)
+        st = OAuthState(value=state, client_id=self._client_id)
+        st.save()
         # print(f'authorization_url: {authorization_url}, state: {state}')
         logger.info(f'authorization_url: {authorization_url}, state: {state}')
         self.application_state = state  # save state key for check
@@ -51,15 +53,20 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         return rr_url
 
     def get(self, request, *args, **kwargs):
+        self._client_id = request.GET.get('client_id')
+        if not self._client_id:
+            self._client_id = settings.OAUTH_CLIENT_ID
         return super().get(request, *args, **kwargs)
 
 
 class NgidOAuth2CallbackView(OAuthClientMixin, View):
     view_name = 'ngid_callback'
 
-    def do_get(self, request, args, kwargs):
+    @transaction.atomic
+    def get(self, request, *args, **kwargs):
         try:
-            provider = get_oauth_provider(self._credentials)
+            provider = get_oauth_provider()
+            state = request.GET.get('state')
 
             # Fetch access token
             oaut_session = self.get_oauth_session(provider)
@@ -73,7 +80,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             logger.info(f'{dd_url} : fetching token: provider.access_token_url: {provider.access_token_url}, '
                         f'client_id: {provider.consumer_key}, '
                         f'client_secret: {provider.consumer_secret}, '
-                        f'state: {self.application_state}, '
+                        f'state: {state}, '
                         f'scope: {provider.scopes}, '
                         f'authorization_response: {absolute_uri}'
             )
@@ -81,7 +88,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                 provider.access_token_url,
                 client_id=provider.consumer_key,
                 client_secret=provider.consumer_secret,
-                state=self.application_state,
+                state=state,
                 scope=provider.scopes,
                 authorization_response=absolute_uri,
             )
@@ -99,12 +106,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             rrr = redirect(rr)
         except Exception as e:
             logger.exception(e)
-        return rrr
-
-    @transaction.atomic
-    def get(self, request, *args, **kwargs):
-        rrr = self.do_get(request, args, kwargs)
-        
         return rrr
 
     def _get_redirect_url(self):

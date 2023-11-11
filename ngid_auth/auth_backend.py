@@ -217,6 +217,7 @@ class OAuthBackend(OAuthBaseBackend):
         if user is None:
             logger.debug(self.make_log_msg('Cann\'t update or create user for %s' % oauth_token_info))
             return
+        state = request.GET.get('state')
 
         access = AccessToken.objects.save_token(
             user,
