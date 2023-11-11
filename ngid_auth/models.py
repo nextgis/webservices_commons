@@ -68,6 +68,12 @@ class AccessTokenManager(models.Manager):
             pass
 
 
+class OAuthState(models.Model):
+    value = models.TextField(primary_key=True)
+    client_id = models.TextField(blank=True, null=True, default=None, db_index=True)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
 @python_2_unicode_compatible
 class AccessToken(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, to_field='nextgis_guid', related_name='client_access_token')
@@ -77,6 +83,8 @@ class AccessToken(models.Model):
     access_token = models.TextField(blank=True, null=True, default=None)
     refresh_token = models.TextField(blank=True, null=True, default=None)
     expires_at = models.DateTimeField(blank=True, null=True)
+    state = models.ForeignKey(OAuthState, null=True, blank=True, on_delete=models.CASCADE,
+                             to_field='value', related_name='oauth_state')
 
     objects = AccessTokenManager()
 

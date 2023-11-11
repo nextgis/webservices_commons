@@ -21,14 +21,6 @@ from .mixins import OAuthClientMixin
 logger = logging.getLogger('nextgis_common.auth')
 
 
-def get_oauth_creds2():
-    rr = {
-            'OAUTH_CLIENT_ID': settings.OAUTH_CLIENT_ID2,
-            'OAUTH_CLIENT_SECRET': settings.OAUTH_CLIENT_SECRET2
-        }
-    return rr
-
-
 class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
     view_name = 'ngid_login'
     permanent = False
@@ -52,9 +44,6 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
     def _get_redirect_url(self):
         try:
             rl = reverse_lazy(NgidOAuth2CallbackView.view_name)
-            if self._credentials:
-                rl = reverse_lazy(NgidOAuth2CallbackView.view_name2)
-
             sstr = str(rl)
             rr_url = self.request.build_absolute_uri(sstr)
         except Exception as e:
@@ -65,22 +54,8 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         return super().get(request, *args, **kwargs)
 
 
-class NgidOAuth2LoginView2(NgidOAuth2LoginView):
-    view_name2 = 'ngid_login2'
-    permanent = False
-
-    def __init__(self, credentials=None):
-        self._credentials = get_oauth_creds2()
-        super().__init__(self._credentials)
-
-    def get(self, request, *args, **kwargs):
-        self._credentials = get_oauth_creds2()
-        return super().get(request, *args, **kwargs)
-
-
 class NgidOAuth2CallbackView(OAuthClientMixin, View):
     view_name = 'ngid_callback'
-    view_name2 = 'ngid_callback2'
 
     def do_get(self, request, args, kwargs):
         try:
@@ -94,8 +69,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
             if 'https' not in absolute_uri:
                 absolute_uri = absolute_uri.replace('http', 'https')
             dd_url = '/login/callback/'
-            if self._credentials:
-                dd_url = '/login2/callback/'
 
             logger.info(f'{dd_url} : fetching token: provider.access_token_url: {provider.access_token_url}, '
                         f'client_id: {provider.consumer_key}, '
@@ -130,7 +103,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
 
     @transaction.atomic
     def get(self, request, *args, **kwargs):
-        self._credentials = None
         rrr = self.do_get(request, args, kwargs)
         
         return rrr
@@ -138,8 +110,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
     def _get_redirect_url(self):
         try:
             rl = reverse_lazy(NgidOAuth2CallbackView.view_name)
-            if self._credentials:
-                rl = reverse_lazy(NgidOAuth2CallbackView2.view_name2)
             sstr = str(rl)
             rr_url = self.request.build_absolute_uri(sstr)
             logger.info(f'_got redirect url: {rr_url} ({sstr})')
@@ -159,14 +129,6 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
         messages.error(self.request, 'Authenication Failed')
         return redirect(self.get_error_redirect(provider, reason))
 
-
-class NgidOAuth2CallbackView2(NgidOAuth2CallbackView):
-    view_name2 = 'ngid_callback2'
-
-    @transaction.atomic
-    def get(self, request, *args, **kwargs):
-        self._credentials = get_oauth_creds2()
-        return self.do_get(request, args, kwargs)
 
 class NgidLogoutView(View):
     view_name = 'ngid_logout'
