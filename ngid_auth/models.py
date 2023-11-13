@@ -86,7 +86,7 @@ class AccessToken(models.Model):
     modified = models.DateTimeField(auto_now=True)
     access_token = models.TextField(blank=True, null=True, default=None)
     refresh_token = models.TextField(blank=True, null=True, default=None)
-    expires_at = models.DateTimeField(blank=True, null=True)
+    expires_at = models.DateTimeField(blank=True, null=True, db_index=True)
     state = models.ForeignKey(OAuthState, null=True, blank=True, on_delete=models.CASCADE,
                              to_field='value', related_name='oauth_state')
 
