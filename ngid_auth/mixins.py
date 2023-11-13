@@ -6,7 +6,9 @@ import os
 
 
 class OAuthClientMixin(object):
-    def get_oauth_session(self, provider, token=None, scope=None):
+
+    @classmethod
+    def do_get_oauth_session(cls, provider, token=None, scope=None):
         extra = {
             'client_id': provider.consumer_key,
             'client_secret': provider.consumer_secret,
@@ -23,10 +25,13 @@ class OAuthClientMixin(object):
             auto_refresh_kwargs=extra,
         )
         oaut_session.verify = verify
-
-        oaut_session.redirect_uri = self._get_redirect_url()
-
+        oaut_session.redirect_uri = None
         return oaut_session
+
+    def get_oauth_session(self, provider, token=None, scope=None):
+        s = self.do_get_oauth_session(provider, token, scope)
+        s.redirect_uri = self._get_redirect_url()
+        return s
 
     def get_oauth_session_for_client(self, provider):
         client = BackendApplicationClient(client_id=provider.consumer_key)
