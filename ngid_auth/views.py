@@ -31,7 +31,7 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
 
         oaut_session = self.get_oauth_session(provider)
         authorization_url, state = oaut_session.authorization_url(provider.authorization_url)
-        st = OAuthState(value=state, client_id=self._client_id)
+        st = OAuthState(value=state, client_id=self._creds.get('CLIENT_ID'))
         st.save()
         # print(f'authorization_url: {authorization_url}, state: {state}')
         logger.info(f'authorization_url: {authorization_url}, state: {state}')
