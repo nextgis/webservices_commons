@@ -169,12 +169,13 @@ class OAuthBearerBackend(OAuthBaseBackend):
             if user is None:
                 logger.warning(self.make_log_msg('Cann\'t update or create user for %s' % oauth_token_info))
                 return
-
+            state = request.GET.get('state')
             access = AccessToken.objects.save_token(
                 user,
                 oauth_token_info.get('access_token'),
                 None,
                 oauth_token_info.get('expires_at'),
+                state=state
             )
 
         request.session[SESSION_OAUTH_TOKEN_ID] = access.id
@@ -224,6 +225,7 @@ class OAuthBackend(OAuthBaseBackend):
             oauth_token_info.get('access_token'),
             oauth_token_info.get('refresh_token'),
             oauth_token_info.get('expires_at'),
+            state=state
         )
 
         request.session[SESSION_OAUTH_TOKEN_ID] = access.id

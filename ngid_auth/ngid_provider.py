@@ -52,11 +52,11 @@ class NgidProvider(OAuthProvider):
         return 'nextgis_guid'
 
 
-    def __init__(self, credentials=None):
-        super(NgidProvider, self).__init__(credentials)
+    def __init__(self, creds=None):
+        super(NgidProvider, self).__init__(creds)
 
         self.user_id = self.get_user_id()
-        self._credentials = credentials
+        self._creds = creds
 
 
     def manage_userinfo(self, info):

@@ -15,6 +15,7 @@ from django.views.generic import RedirectView, View
 from nextgis_common.ngid_auth.provider import get_oauth_provider
 from nextgis_common.utils import activate_user_locale
 
+from .creds import Creds
 from .mixins import OAuthClientMixin
 from .models import OAuthState
 
@@ -25,11 +26,8 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
     view_name = 'ngid_login'
     permanent = False
 
-    def __init__(self, credentials=None):
-        self._credentials = credentials
-
     def get_redirect_url(self, **kwargs):
-        provider = get_oauth_provider(self._credentials)
+        provider = get_oauth_provider(self._creds)
 
         oaut_session = self.get_oauth_session(provider)
         authorization_url, state = oaut_session.authorization_url(provider.authorization_url)
@@ -53,9 +51,10 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         return rr_url
 
     def get(self, request, *args, **kwargs):
-        self._client_id = request.GET.get('client_id')
-        if not self._client_id:
-            self._client_id = settings.OAUTH_CLIENT_ID
+        client_id = request.GET.get('client_id')
+        self._creds = Creds.get_default()
+        if client_id:
+            self._creds = Creds.search(client_id=client_id)
         return super().get(request, *args, **kwargs)
 
 
@@ -84,10 +83,18 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                         f'scope: {provider.scopes}, '
                         f'authorization_response: {absolute_uri}'
             )
+            client_id = provider.consumer_key
+            client_secret = provider.consumer_secret
+            st = OAuthState.objects.filter(value=state).first()
+            if st:
+                client_id = st.client_id
+                crr = Creds.search(client_id=client_id)
+                client_secret = crr.get('CLIENT_SECRET')
+
             raw_token = oaut_session.fetch_token(
                 provider.access_token_url,
-                client_id=provider.consumer_key,
-                client_secret=provider.consumer_secret,
+                client_id=client_id,
+                client_secret=client_secret,
                 state=state,
                 scope=provider.scopes,
                 authorization_response=absolute_uri,

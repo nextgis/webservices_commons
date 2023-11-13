@@ -42,7 +42,8 @@ class AccessTokenManager(models.Manager):
 
         token.save()
 
-    def save_token(self, user, access_token, refresh_token, expires_at_utc):
+    def save_token(self, user, access_token, refresh_token, expires_at_utc, state=None):
+
         access_token_id = self.get_access_token_id(access_token)
 
         token = self.model(user=user, access_token_id=access_token_id)
@@ -54,7 +55,10 @@ class AccessTokenManager(models.Manager):
             datetime.datetime.fromtimestamp(expires_at_utc),
             timezone=utc,
         )
-
+        if state:
+            oo = OAuthState.objects.filter(value=state).first()
+            if oo:
+                token.state = oo
         token.save()
 
         return token
