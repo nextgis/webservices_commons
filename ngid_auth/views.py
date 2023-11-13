@@ -65,13 +65,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
     def get(self, request, *args, **kwargs):
         try:
             state = request.GET.get('state')
-            creds = Creds.get_default()
-            st = OAuthState.objects.filter(value=state).first()
-            if st:
-                client_id = st.client_id
-                crr = Creds.search(client_id=client_id)
-                if crr:
-                    creds = crr
+            creds = Creds.get_by_state(state)
             provider = get_oauth_provider(creds)
 
             # Fetch access token
@@ -104,10 +98,10 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                 return self.handle_login_failure(provider, 'Could not retrieve token')
 
             user = authenticate(request, oauth_token_info=raw_token)
-
-            if user is not None:
-                login(self.request, user)
-                activate_user_locale(self.request, user.locale)
+            if Creds.is_default(state):
+                if user is not None:
+                    login(self.request, user)
+                    activate_user_locale(self.request, user.locale)
 
             rr = self.get_login_redirect()
             rrr = redirect(rr)

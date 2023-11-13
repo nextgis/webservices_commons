@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.dispatch import Signal
 
+from .creds import Creds
 from .models import AccessToken
 from .mixins import OAuthClientMixin
 from .provider import get_oauth_provider
@@ -219,7 +220,6 @@ class OAuthBackend(OAuthBaseBackend):
             logger.debug(self.make_log_msg('Cann\'t update or create user for %s' % oauth_token_info))
             return
         state = request.GET.get('state')
-
         access = AccessToken.objects.save_token(
             user,
             oauth_token_info.get('access_token'),
@@ -227,10 +227,11 @@ class OAuthBackend(OAuthBaseBackend):
             oauth_token_info.get('expires_at'),
             state=state
         )
-
-        request.session[SESSION_OAUTH_TOKEN_ID] = access.id
-
-        logger.debug(self.make_log_msg('User "%s" authenticated with token info: %s' % (user, oauth_token_info)))
+        is_default = Creds.is_default(state)
+        if is_default:
+            request.session[SESSION_OAUTH_TOKEN_ID] = access.id
+        mm = f'User "{user}" authenticated with token info (is default app:{is_default}): {oauth_token_info}'
+        logger.debug(self.make_log_msg(mm))
 
         return user
 
