@@ -64,8 +64,15 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
     @transaction.atomic
     def get(self, request, *args, **kwargs):
         try:
-            provider = get_oauth_provider()
             state = request.GET.get('state')
+            creds = Creds.get_default()
+            st = OAuthState.objects.filter(value=state).first()
+            if st:
+                client_id = st.client_id
+                crr = Creds.search(client_id=client_id)
+                if crr:
+                    creds = crr
+            provider = get_oauth_provider(creds)
 
             # Fetch access token
             oaut_session = self.get_oauth_session(provider)
@@ -83,18 +90,11 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                         f'scope: {provider.scopes}, '
                         f'authorization_response: {absolute_uri}'
             )
-            client_id = provider.consumer_key
-            client_secret = provider.consumer_secret
-            st = OAuthState.objects.filter(value=state).first()
-            if st:
-                client_id = st.client_id
-                crr = Creds.search(client_id=client_id)
-                client_secret = crr.get('CLIENT_SECRET')
 
             raw_token = oaut_session.fetch_token(
                 provider.access_token_url,
-                client_id=client_id,
-                client_secret=client_secret,
+                client_id=provider.consumer_key,
+                client_secret=provider.consumer_secret,
                 state=state,
                 scope=provider.scopes,
                 authorization_response=absolute_uri,
