@@ -135,3 +135,30 @@ class AccessToken(models.Model):
     @property
     def is_external(self):
         return self.refresh_token is None
+
+    @classmethod
+    def get_one_actual(cls, client_id):
+        curr_timezone = timezone.get_current_timezone()
+        ts_now = datetime.now(tz=curr_timezone)
+
+        token = AccessToken.objects\
+            .filter(state__client_id=client_id)\
+            .filter(expires_at__lt=ts_now)\
+            .order_by('-expires_at')\
+            .first()
+
+        return token
+
+    @classmethod
+    def get_many_expiring(cls, exclude_client):
+        curr_timezone = timezone.get_current_timezone()
+        ts_now = datetime.datetime.now(tz=curr_timezone)
+        ts_refresh_after = ts_now - datetime.timedelta(seconds=settings.NGW_REFRESH_TOKENS_BEFORE_SECONDS)
+
+        tokens = AccessToken.objects \
+            .filter(expires_at__range=(ts_refresh_after, ts_now)) \
+            .exclude(state__client_id=exclude_client) \
+            .order_by('-expires_at')
+
+        return tokens
+
