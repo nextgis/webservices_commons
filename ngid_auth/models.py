@@ -139,7 +139,7 @@ class AccessToken(models.Model):
     @classmethod
     def get_one_actual(cls, client_id):
         curr_timezone = timezone.get_current_timezone()
-        ts_now = datetime.now(tz=curr_timezone)
+        ts_now = datetime.datetime.now(tz=curr_timezone)
 
         token = AccessToken.objects\
             .filter(state__client_id=client_id)\
