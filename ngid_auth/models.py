@@ -137,13 +137,14 @@ class AccessToken(models.Model):
         return self.refresh_token is None
 
     @classmethod
-    def get_one_actual(cls, client_id):
+    def get_one_actual(cls, client_id, user_id):
         curr_timezone = timezone.get_current_timezone()
         ts_now = datetime.datetime.now(tz=curr_timezone)
 
         token = AccessToken.objects\
             .filter(state__client_id=client_id)\
-            .filter(expires_at__lt=ts_now)\
+            .filter(user_id=user_id)\
+            .filter(expires_at__gt=ts_now)\
             .order_by('-expires_at')\
             .first()
 
