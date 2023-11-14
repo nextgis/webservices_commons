@@ -143,10 +143,12 @@ class AccessToken(models.Model):
 
         token = AccessToken.objects\
             .filter(state__client_id=client_id)\
-            .filter(user_id=user_id)\
+            .filter(user__pk=user_id)\
             .filter(expires_at__gt=ts_now)\
             .order_by('-expires_at')\
             .first()
+
+        # token = AccessToken.objects.filter(state__client_id=client_id).filter(user__pk=user_id).order_by('-expires_at').first()
 
         return token
 
