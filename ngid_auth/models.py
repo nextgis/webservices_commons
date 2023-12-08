@@ -10,10 +10,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.timezone import make_aware, utc
 
-try:
-    from django.utils.encoding import python_2_unicode_compatible
-except ImportError as er:
-    from six import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 
 MAX_TOKEN_LENGTH = 254
 
