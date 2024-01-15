@@ -273,8 +273,8 @@ class OAuthBackend(OAuthBaseBackend):
             except Exception:
                 logger.exception(self.make_log_msg('Try refresh token FAILD with id %s ' % (access_id, )))
                 return False
-        else:
-            logger.debug(self.make_log_msg('Use current token with id %s' % (access_id, )))
+        # else:
+        #     logger.debug(self.make_log_msg('Use current token with id %s' % (access_id, )))
 
         return True
 
