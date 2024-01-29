@@ -23,17 +23,33 @@ class SimpleTelegramBot:
     def command_url(self, command):
         return self.bot_url + '/' + command
 
-    def send_message(self, chat_id, message, parse_mode='HTML'):
+    def send_message(self, chat_id, message, parse_mode='HTML', reply_to_message_id=None):
         url = self.command_url('sendMessage')
         data = {
             'chat_id': chat_id,
             'text': message,
             'parse_mode': parse_mode
         }
+        if reply_to_message_id:
+            data['reply_to_message_id'] = reply_to_message_id
         try:
-            requests.post(url, data=data)
+            ret_val = requests.post(url, data=data)
+
+            r_json = ret_val.json()
+            result = r_json.get('result')
+
+            print(f'telegram result:')
+            print(r_json)
+
+            if result:
+                message_id = result.get('message_id')
+                logger.info(f'message_id: {message_id}')
+                if message_id:
+                    return message_id
         except requests.RequestException as e:
             logger.error("SimpleTelegramBot exception: %s" % e)
+
+        return None
 
 
 def construct_message(html_msg, add_header=True, add_separators=True):
@@ -65,7 +81,7 @@ def construct_message(html_msg, add_header=True, add_separators=True):
     return message
 
 
-def send_message(html_msg, add_header=True, add_separators=False):
+def send_message(html_msg, add_header=True, add_separators=False, reply_to_message_id=None):
     if not hasattr(settings, 'TELEGRAM_TOKEN') or not hasattr(settings, 'TELEGRAM_CHAT_ID'):
         return
 
@@ -80,7 +96,10 @@ def send_message(html_msg, add_header=True, add_separators=False):
         print(construct_message(html_msg))
         return
 
-    bot.send_message(
+    msg_id = bot.send_message(
         settings.TELEGRAM_CHAT_ID,
-        construct_message(html_msg, add_header, add_separators)
+        construct_message(html_msg, add_header, add_separators),
+        reply_to_message_id=reply_to_message_id
     )
+
+    return msg_id
