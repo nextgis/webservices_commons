@@ -36,7 +36,7 @@ class SimpleTelegramBot:
             logger.error("SimpleTelegramBot exception: %s" % e)
 
 
-def construct_message(html_msg, add_header=True):
+def construct_message(html_msg, add_header=True, add_separators=True):
     message = ''
     separator = '-' * 36
 
@@ -48,19 +48,24 @@ def construct_message(html_msg, add_header=True):
             header += ' (dev)' if settings.DEBUG else ''
 
         message += '<b>%s</b>\n%s\n' % (header, separator)
+        if add_separators:
+            message += separator
 
     if isinstance(html_msg, list):
         html_msg_parts = html_msg
     else:
         html_msg_parts = [html_msg]
 
-    separator_with_new_lines = '\n%s\n' % separator
-    message += separator_with_new_lines.join(html_msg_parts)
+    if add_separators:
+        separator_with_new_lines = '\n%s\n' % separator
+        message += separator_with_new_lines.join(html_msg_parts)
+    else:
+        message += ' '.join(html_msg_parts)
 
     return message
 
 
-def send_message(html_msg):
+def send_message(html_msg, add_header=True, add_separators=False):
     if not hasattr(settings, 'TELEGRAM_TOKEN') or not hasattr(settings, 'TELEGRAM_CHAT_ID'):
         return
 
@@ -77,5 +82,5 @@ def send_message(html_msg):
 
     bot.send_message(
         settings.TELEGRAM_CHAT_ID,
-        construct_message(html_msg)
+        construct_message(html_msg, add_header, add_separators)
     )
