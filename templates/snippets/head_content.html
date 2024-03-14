@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load gravatar %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
@@ -10,7 +11,6 @@
   [v-cloak] { display:none; }
 </style>
 
-{% get_current_language as LANGUAGE_CODE %}
 <script>
   var locale = "{{ LANGUAGE_CODE }}";
   var currentPage = {
