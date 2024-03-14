@@ -13,7 +13,7 @@ from django.shortcuts import redirect
 from django.views.generic import RedirectView, View
 
 from nextgis_common.ngid_auth.provider import get_oauth_provider
-from nextgis_common.utils import activate_user_locale
+from nextgis_common.utils import activate_user_locale, sanitize_url
 
 from .creds import Creds
 from .mixins import OAuthClientMixin
@@ -37,7 +37,7 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         logger.info(f'authorization_url: {authorization_url}, state: {state}')
         self.application_state = state  # save state key for check
         if 'next' in self.request.GET:  # save 'next' url
-            self.application_next_url = self.request.GET['next']
+            self.application_next_url = sanitize_url(self.request.GET['next'])
         logger.info(f'REDIRECT_URL: {authorization_url}')
         return authorization_url
 
@@ -104,7 +104,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                     activate_user_locale(self.request, user.locale)
 
             rr = self.get_login_redirect()
-            rrr = redirect(rr)
+            rrr = redirect(rr) #
         except Exception as e:
             logger.exception(e)
         return rrr
@@ -129,7 +129,7 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
         """Message user and redirect on error"""
         logger.error('Authenication Failure: {0}'.format(reason))
         messages.error(self.request, 'Authenication Failed')
-        return redirect(self.get_error_redirect(provider, reason))
+        return redirect(self.get_error_redirect(provider, reason)) #
 
 
 class NgidLogoutView(View):
@@ -153,4 +153,4 @@ class NgidLogoutView(View):
         if request.user.is_authenticated:
             logout(request)
 
-        return redirect(settings.LOGIN_REDIRECT_URL)
+        return redirect(settings.LOGIN_REDIRECT_URL) #
