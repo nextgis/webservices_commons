@@ -13,6 +13,7 @@ def sanitize_url(url):
     parsed = urlparse(url)
     if parsed.netloc:
         if parsed.netloc not in allowed_hosts:
+            print('suspicious domain detected')
             return '/'
     return url
 
