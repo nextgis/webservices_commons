@@ -14,13 +14,13 @@ class UserActionsLogging():
         # One-time configuration and initialization.
 
     def __call__(self, request):
-        # Code to be executed for each request before
-        # the view (and later middleware) are called.
-
+        #
+        # WARNING: this is deprecated logging. See class RequestsLogging
+        #
         response = self.get_response(request)
         
         data = {
-            '@timestamp': timezone.now().utcnow().isoformat(),
+            'timestamp': timezone.now().utcnow().isoformat(),
             'request': {
                 'method': request.method,
                 'path': request.path,
