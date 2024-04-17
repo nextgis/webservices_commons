@@ -42,12 +42,15 @@ class NgidBackend(ModelBackend):
 
 class OAuthBaseBackend(OAuthClientMixin, ModelBackend):
     LOGGER_MSG_PREFIX = None
+    USER_BIND_TYPE = 'nextgis_guid'
+    FIELD_PREFERRED_USERNAME = 'preferred_username'
 
     def introspect(self, access_token):
         oauth_provider = get_oauth_provider()
 
         introspection_data = requests.post(
             oauth_provider.introspection_url,
+            # data={'token': access_token},
             params={'token': access_token},
             auth=requests.auth.HTTPBasicAuth(oauth_provider.consumer_key, oauth_provider.consumer_secret)
         )
@@ -73,10 +76,19 @@ class OAuthBaseBackend(OAuthClientMixin, ModelBackend):
 
         defaults = self.clean_user_data(userinfo)
 
-        user, created = UserModel._default_manager.update_or_create(
-            nextgis_guid=user_guid,
-            defaults=defaults,
-        )
+        try:
+            if self.USER_BIND_TYPE == 'nextgis_guid':
+                user, created = UserModel._default_manager.update_or_create(
+                    nextgis_guid=user_guid,
+                    defaults=defaults,
+                )
+            else:
+                user, created = UserModel._default_manager.update_or_create(
+                    username=user_guid,
+                    defaults=defaults,
+                )
+        except Exception as e:
+            logger.exception(e)
 
         roles = self.try_get_roles(userinfo)
         signal_userinfo_got.send(sender=self.__class__, user=user, userinfo=userinfo, roles=roles)
@@ -319,7 +331,8 @@ class OAuthOpenIdBackend(OAuthBackend):
         return userinfo.get('sub')
 
     def clean_user_data(self, userinfo):
-        username = userinfo.get('preferred_username')
+        field = self.FIELD_PREFERRED_USERNAME
+        username = userinfo.get(field)
         return {
             'username': username,
             'first_name': userinfo.get('given_name', username),

@@ -144,9 +144,9 @@ class NgidLogoutView(View):
         if provider.logout_url and is_it_redirect_from_auth_server_logout is False:
             callback_path = '%s' % (str(reverse_lazy(self.view_name)), )
             request.session['from_auth_server_asked'] = True
-            return redirect(
-                '%s?%s' % (provider.logout_url, urllib.parse.urlencode({'redirect_uri': request.build_absolute_uri(callback_path)}))
-            )
+            absolute_uri = request.build_absolute_uri(callback_path)
+            redirect_to = '%s?%s' % (provider.logout_url, urllib.parse.urlencode({'redirect_uri': absolute_uri}))
+            return redirect(redirect_to)
         else:
             request.session['from_auth_server_asked'] = False
 
