@@ -145,7 +145,14 @@ class NgidLogoutView(View):
             callback_path = '%s' % (str(reverse_lazy(self.view_name)), )
             request.session['from_auth_server_asked'] = True
             absolute_uri = request.build_absolute_uri(callback_path)
-            redirect_to = '%s?%s' % (provider.logout_url, urllib.parse.urlencode({'redirect_uri': absolute_uri}))
+            params = {}
+            if settings.AUTH_CONFIG_KEY == 'blitz':
+                absolute_uri = request.build_absolute_uri('/')
+                params['post_logout_redirect_uri'] = absolute_uri
+                params['client_id'] = settings.OAUTH_CLIENT_ID
+            else:
+                params['redirect_uri'] = absolute_uri
+            redirect_to = '%s?%s' % (provider.logout_url, urllib.parse.urlencode(params))
             return redirect(redirect_to)
         else:
             request.session['from_auth_server_asked'] = False
