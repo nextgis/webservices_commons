@@ -147,7 +147,7 @@ class NgidLogoutView(View):
             absolute_uri = request.build_absolute_uri(callback_path)
             params = {}
             if settings.AUTH_CONFIG_KEY == 'blitz':
-                absolute_uri = request.build_absolute_uri('/')
+                # absolute_uri = request.build_absolute_uri('/')
                 params['post_logout_redirect_uri'] = absolute_uri
                 params['client_id'] = settings.OAUTH_CLIENT_ID
             else:
