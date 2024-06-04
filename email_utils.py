@@ -18,13 +18,14 @@ def format_email_subject(subject, prefix=None):
     return prefix + ' ' + force_text(subject)
 
 
-def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True):
+def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True, subject=None):
     """
     Renders an e-mail to `email`.  `template_prefix` identifies the
     e-mail that is to be sent, e.g. "account/email/email_confirmation"
     """
-    subject = render_to_string('{0}_subject.txt'.format(template_prefix),
-                               context)
+    if not subject:
+        subject_filename = '{0}_subject.txt'.format(template_prefix)
+        subject = render_to_string(subject_filename, context)
     # remove superfluous line breaks
     subject = " ".join(subject.splitlines()).strip()
     subject = format_email_subject(subject, settings.EMAIL_SUBJECT_PREFIX if add_default_subj_pref else '')
