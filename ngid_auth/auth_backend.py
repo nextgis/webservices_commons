@@ -170,11 +170,11 @@ class OAuthBearerBackend(OAuthBaseBackend):
                 return
 
         else:
-            logger.debug('access token was not found')
+            logger.info(f'access token was not found')
             oauth_token_info = self.introspect(http_access_token)
 
             if oauth_token_info is None:
-                logger.warning(self.make_log_msg('Introspection failed!'))
+                logger.warning(self.make_log_msg(f'Introspection failed! {request.method} token: {http_access_token}'))
                 return
 
             user = self.update_or_create_user(oauth_token_info)
