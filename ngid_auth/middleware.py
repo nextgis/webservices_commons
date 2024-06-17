@@ -71,6 +71,12 @@ class UserPlan(OAuthClientMixin):
 class HttpAuthorizationUserMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if not request.user.is_authenticated:
+            pp = request.path
+            for pattern in settings.AUTHENTICATION_BACKENDS_SKIP_PATTERNS:
+                if pattern in pp:
+                    print(':-) skipping auth')
+                    return
+
             user = authenticate(request)
 
             if user is not None:
