@@ -74,7 +74,6 @@ class HttpAuthorizationUserMiddleware(MiddlewareMixin):
             pp = request.path
             for pattern in settings.AUTHENTICATION_BACKENDS_SKIP_PATTERNS:
                 if pattern in pp:
-                    print(':-) skipping auth')
                     return
 
             user = authenticate(request)
