@@ -8,14 +8,14 @@ from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 
 def format_email_subject(subject, prefix=None):
     if prefix is None:
         site = get_current_site()
         prefix = "[{name}] ".format(name=site.name)
-    return prefix + ' ' + force_text(subject)
+    return prefix + ' ' + force_str(subject)
 
 
 def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=True, subject=None):

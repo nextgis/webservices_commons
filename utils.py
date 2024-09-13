@@ -2,9 +2,11 @@ from django.utils import translation
 from django.conf import settings
 from urllib.parse import urlparse
 
+LANGUAGE_SESSION_KEY = '_language'
+
 def activate_user_locale(request, user_locale):
     translation.activate(user_locale)
-    request.session[translation.LANGUAGE_SESSION_KEY] = user_locale
+    request.session[LANGUAGE_SESSION_KEY] = user_locale
     #response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user_locale)
 
 
