@@ -23,7 +23,7 @@ logger = logging.getLogger('nextgis_common.ngid_auth.backands')
 UserModel = get_user_model()
 
 
-signal_userinfo_got = Signal(providing_args=['user', 'userinfo', 'roles'])
+signal_userinfo_got = Signal()
 
 
 class NgidBackend(ModelBackend):

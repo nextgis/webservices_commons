@@ -14,8 +14,6 @@ from django.utils.deprecation import MiddlewareMixin
 from .mixins import OAuthClientMixin
 from .provider import get_oauth_provider
 
-user_plan_detected = django.dispatch.Signal(providing_args=["user", "plan"])
-
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +59,6 @@ class UserPlan(OAuthClientMixin):
                 if session_up_info.get('plan', '') != ngid_user_plan:
                     session_up_info['plan'] = ngid_user_plan
 
-                    user_plan_detected.send(sender=self.__class__, user=request.user, plan=ngid_user_plan)
             except Exception:
                 pass
             finally:
