@@ -78,6 +78,7 @@ class OAuthBaseBackend(OAuthClientMixin, ModelBackend):
 
         try:
             if self.USER_BIND_TYPE == 'nextgis_guid':
+                logger.info(f'USER_BIND_TYPE is nextgis_guid, nextgis_guid: {user_guid}')
                 user, created = UserModel._default_manager.update_or_create(
                     nextgis_guid=user_guid,
                     defaults=defaults,
