@@ -100,7 +100,7 @@ class NgidLogoutView(View):
     view_name = 'ngid_logout'
 
     def get(self, request, *args, **kwargs):
-        #TODO: logout on my.nextgis.com?
+        #TODO: logout on my?
         provider = get_oauth_provider()
 
         is_it_redirect_from_auth_server_logout = request.session.get('from_auth_server_asked', False) # request.GET.get('from_auth_server')

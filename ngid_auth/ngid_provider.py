@@ -2,7 +2,7 @@ from django.conf import settings
 
 from .provider import OAuthProvider
 from .scopes import NextGisIdScopes
-
+su = 'https://my.nextgis.com'
 
 class NgidProvider(OAuthProvider):
     """Configuration for OAuth provider"""
@@ -12,19 +12,19 @@ class NgidProvider(OAuthProvider):
 
     @staticmethod
     def get_authorization_url():
-        return getattr(settings, 'NGID_AUTH_URL', 'https://my.nextgis.com/oauth2/authorize/')
+        return getattr(settings, 'NGID_AUTH_URL', f'{su}/oauth2/authorize/')
 
     @staticmethod
     def get_access_token_url():
-        return getattr(settings, 'NGID_TOKEN_URL', 'https://my.nextgis.com/oauth2/token/')
+        return getattr(settings, 'NGID_TOKEN_URL', f'{su}/oauth2/token/')
 
     @staticmethod
     def get_profile_url():
-        return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/user_info/')
+        return getattr(settings, 'NGID_PROFILE_URL', f'{su}/api/v1/user_info/')
 
     @staticmethod
     def get_instance_url():
-        return getattr(settings, 'NGID_PROFILE_URL', 'https://my.nextgis.com/api/v1/instance_info/')
+        return getattr(settings, 'NGID_PROFILE_URL', f'{su}/api/v1/instance_info/')
 
     @staticmethod
     def get_consumer_key():
