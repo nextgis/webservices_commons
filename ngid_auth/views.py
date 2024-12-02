@@ -93,17 +93,21 @@ class NgidOAuth2CallbackView(OAuthClientMixin, View):
                 scope=provider.scopes,
                 authorization_response=absolute_uri,
             )
-
+            logger.info(f'raw_token: {raw_token}')
             if raw_token is None:
                 return self.handle_login_failure(provider, 'Could not retrieve token')
 
             user = authenticate(request, oauth_token_info=raw_token)
+            logger.info('authenticated user')
             if Creds.is_default(state):
+                logger.info(f'creds default')
                 if user is not None:
+                    logger.info('do login')
                     login(self.request, user)
                     activate_user_locale(self.request, user.locale)
 
             rr = self.get_login_redirect()
+            logger.info(f'got login redirect {rr}')
             rrr = redirect(rr) #
         except Exception as e:
             logger.exception(e)
