@@ -17,7 +17,7 @@ from django.views.generic import RedirectView, View
 from nextgis_common.ngid_auth.provider import get_oauth_provider
 from nextgis_common.ngid_auth.ngid_provider import NgidProvider
 from nextgis_common.utils import activate_user_locale, sanitize_url
-
+from allauth.account.models import EmailAddress
 from .mixins import OAuthClientMixin
 
 
@@ -36,6 +36,20 @@ class NgidOAuth2LoginView(OAuthClientMixin, RedirectView):
         self.application_state = state  # save state key for check
         if 'next' in self.request.GET:  # save 'next' url
             self.application_next_url = sanitize_url(self.request.GET['next'])
+
+
+        logger.info(f'NgidOAuth2LoginView: old url: {authorization_url}')
+
+        email_verified = False
+        addr = EmailAddress.objects.filter(user=self.request.user).first()
+        if addr:
+            email_verified = addr.verified
+            logger.info(f'NgidOAuth2LoginView: email_verified: {email_verified} for user {self.request.user.email}')
+            if not email_verified:
+                authorization_url = 'https://my.nextgis.com/webgis/'
+                return authorization_url
+
+
         return authorization_url
 
     def _get_redirect_url(self):
