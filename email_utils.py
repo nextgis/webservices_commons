@@ -23,6 +23,8 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
     Renders an e-mail to `email`.  `template_prefix` identifies the
     e-mail that is to be sent, e.g. "account/email/email_confirmation"
     """
+    from emailing.message_manager import MessageManager
+
     if not subject:
         subject_filename = '{0}_subject.txt'.format(template_prefix)
         subject = render_to_string(subject_filename, context)
@@ -43,7 +45,7 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
     if 'txt' in bodies:
         msg = EmailMultiAlternatives(subject,
                                      bodies['txt'],
-                                     settings.DEFAULT_FROM_EMAIL,
+                                     MessageManager.get_prop('FROM'),
                                      email if isinstance(email, list) else [email],
                                      bcc=bcc if isinstance(bcc, list) else [bcc]
                                      )
@@ -52,7 +54,7 @@ def render_mail(template_prefix, email, context, bcc=[], add_default_subj_pref=T
     else:
         msg = EmailMessage(subject,
                            bodies['html'],
-                           settings.DEFAULT_FROM_EMAIL,
+                           MessageManager.get_prop('FROM'),
                            email if isinstance(email, list) else [email],
                            bcc=bcc if isinstance(bcc, list) else [bcc]
                            )
@@ -75,12 +77,14 @@ def send_templated_mail(template_prefix, email, context, bcc=[], add_default_sub
 
 
 def send_custom_mail(subj, body, email, bcc=[], add_default_subj_pref=True):
+    from emailing.message_manager import MessageManager
+
     subject = format_email_subject(subj, settings.EMAIL_SUBJECT_PREFIX if add_default_subj_pref else '')
 
     msg = EmailMultiAlternatives(
         subject,
         body,
-        settings.DEFAULT_FROM_EMAIL,
+        MessageManager.get_prop('FROM'),
         email if isinstance(email, list) else [email],
         bcc=bcc if isinstance(bcc, list) else [bcc],
     )
